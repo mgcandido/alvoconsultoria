@@ -1,0 +1,37 @@
+{
+  "name": "reforma-tributaria-2026",
+  "version": "1.0.0",
+  "description": "Portal de Consultoria Tributária - Reforma Tributária Brasileira 2026",
+  "scripts": {
+    "ng": "ng",
+    "start": "ng serve",
+    "build": "ng build",
+    "build:gh-pages": "ng build --configuration production --base-href /Reforma-Tributaria-2026/",
+    "build:production": "ng build --configuration production",
+    "watch": "ng build --watch --configuration development",
+    "test": "ng test",
+    "deploy": "npm run build:gh-pages && npx angular-cli-ghpages --dir=dist/reforma-tributaria-2026/browser"
+  },
+  "private": true,
+  "dependencies": {
+    "@angular/animations": "^21.0.0",
+    "@angular/common": "^21.0.0",
+    "@angular/compiler": "^21.0.0",
+    "@angular/core": "^21.0.0",
+    "@angular/forms": "^21.0.0",
+    "@angular/platform-browser": "^21.0.0",
+    "@angular/platform-browser-dynamic": "^21.0.0",
+    "@angular/router": "^21.0.0",
+    "marked": "^11.0.0",
+    "rxjs": "~7.8.0",
+    "tslib": "^2.8.0",
+    "zone.js": "~0.15.0"
+  },
+  "devDependencies": {
+    "@angular-devkit/build-angular": "^21.0.0",
+    "@angular/cli": "^21.0.0",
+    "@angular/compiler-cli": "^21.0.0",
+    "@types/node": "^22.0.0",
+    "typescript": "~5.9.0"
+  }
+}
