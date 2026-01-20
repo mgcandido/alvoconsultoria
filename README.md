@@ -105,4 +105,4 @@ Para mais informações sobre terminologia e referências legais, consulte:
 ---
 
 **Versão**: 1.0  
-**Última atualização**: 2024
+**Última atualização**: 2026
