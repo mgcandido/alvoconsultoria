@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculadora Tributária | Reforma Tributária 2026</title>
+  <meta name="description" content="Compare a carga tributária antes e depois da Reforma Tributária 2026.">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Source+Sans+3:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/pages.css">
+</head>
+<body>
+  <header class="header">
+    <div class="header__container">
+      <a href="index.html" class="header__logo">
+        <div class="header__logo-icon"><i class="ph-fill ph-scales"></i></div>
+        <div class="header__logo-text">
+          <span class="header__logo-title">Reforma Tributária</span>
+          <span class="header__logo-subtitle">2026</span>
+        </div>
+      </a>
+      <nav class="header__nav">
+        <a href="index.html" class="header__nav-link"><i class="ph ph-house"></i>Início</a>
+        <a href="artigos.html" class="header__nav-link"><i class="ph ph-article"></i>Artigos</a>
+        <a href="tabelas.html" class="header__nav-link"><i class="ph ph-table"></i>Tabelas</a>
+        <a href="glossario.html" class="header__nav-link"><i class="ph ph-book-open"></i>Glossário</a>
+        <a href="cronograma.html" class="header__nav-link"><i class="ph ph-calendar"></i>Cronograma</a>
+        <a href="calculadora.html" class="header__nav-link header__nav-link--cta active"><i class="ph ph-calculator"></i>Calculadora</a>
+      </nav>
+      <button class="header__menu-btn" onclick="toggleSidebar()"><i class="ph ph-list"></i></button>
+    </div>
+  </header>
+
+  <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar__header">
+      <span class="sidebar__title">Menu</span>
+      <button class="sidebar__close" onclick="toggleSidebar()"><i class="ph ph-x"></i></button>
+    </div>
+    <nav class="sidebar__nav">
+      <div class="sidebar__section">
+        <h3 class="sidebar__section-title">Navegação</h3>
+        <ul class="sidebar__list">
+          <li><a href="index.html" class="sidebar__link"><i class="ph ph-house"></i><span>Início</span></a></li>
+          <li><a href="artigos.html" class="sidebar__link"><i class="ph ph-article"></i><span>Artigos</span></a></li>
+          <li><a href="tabelas.html" class="sidebar__link"><i class="ph ph-table"></i><span>Tabelas</span></a></li>
+          <li><a href="calculadora.html" class="sidebar__link active"><i class="ph ph-calculator"></i><span>Calculadora</span></a></li>
+        </ul>
+      </div>
+    </nav>
+  </aside>
+
+  <main class="main-content">
+    <div class="container" style="max-width: 1200px;">
+      <header class="page-header">
+        <h1>Calculadora Tributária</h1>
+        <p>Compare a carga tributária antes e depois da Reforma Tributária 2026. Insira os valores e veja o impacto em tempo real.</p>
+      </header>
+
+      <div class="calc-layout">
+        <!-- Input Section -->
+        <section class="calc-input">
+          <h2 class="calc-section-title"><i class="ph ph-pencil-simple"></i>Dados da Operação</h2>
+
+          <div class="form-group">
+            <label>Valor da Operação (R$)</label>
+            <input type="number" id="valorOperacao" value="1000" oninput="calcular()">
+          </div>
+
+          <div class="form-group">
+            <label>Tipo de Operação</label>
+            <select id="tipoOperacao" onchange="calcular()">
+              <option value="mercadoria">Venda de Mercadoria</option>
+              <option value="servico">Prestação de Serviço</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Regime Atual (PIS/COFINS)</label>
+            <select id="regimeAtual" onchange="calcular()">
+              <option value="cumulativo">Cumulativo</option>
+              <option value="nao-cumulativo" selected>Não-Cumulativo</option>
+            </select>
+          </div>
+
+          <div class="form-group" id="icmsField">
+            <label>Alíquota ICMS (%)</label>
+            <input type="number" id="aliquotaICMS" value="18" oninput="calcular()">
+          </div>
+
+          <div class="form-group" id="issField" style="display: none;">
+            <label>Alíquota ISS (%)</label>
+            <input type="number" id="aliquotaISS" value="5" oninput="calcular()">
+          </div>
+
+          <div class="form-group">
+            <label>Classificação Tributária (CBS/IBS)</label>
+            <select id="classificacaoNova" onchange="calcular()">
+              <option value="tributado">Tributado Integral (27%)</option>
+              <option value="reduzido60">Reduzido 60% (10,8%)</option>
+              <option value="reduzido30">Reduzido 30% (18,9%)</option>
+              <option value="zero">Alíquota Zero (0%)</option>
+              <option value="isento">Isento (0%)</option>
+            </select>
+          </div>
+
+          <div class="form-group" id="creditosField">
+            <label>Créditos de Entrada (R$)</label>
+            <input type="number" id="creditosEntrada" value="0" oninput="calcular()">
+            <small>Valor dos créditos CBS+IBS de aquisições</small>
+          </div>
+        </section>
+
+        <!-- Results Section -->
+        <section class="calc-results">
+          <h2 class="calc-section-title"><i class="ph ph-chart-bar"></i>Comparativo de Carga Tributária</h2>
+
+          <!-- Antes -->
+          <div class="result-card result-card--before">
+            <h3><i class="ph ph-clock-counter-clockwise"></i>ANTES da Reforma</h3>
+            <div class="result-card__items">
+              <div class="result-item">
+                <span>PIS (<span id="aliquotaPIS">1.65</span>%)</span>
+                <span>R$ <span id="valorPIS">0</span></span>
+              </div>
+              <div class="result-item">
+                <span>COFINS (<span id="aliquotaCOFINS">7.6</span>%)</span>
+                <span>R$ <span id="valorCOFINS">0</span></span>
+              </div>
+              <div class="result-item" id="icmsRow">
+                <span>ICMS (<span id="aliquotaICMSDisplay">18</span>%)</span>
+                <span>R$ <span id="valorICMS">0</span></span>
+              </div>
+              <div class="result-item" id="issRow" style="display: none;">
+                <span>ISS (<span id="aliquotaISSDisplay">5</span>%)</span>
+                <span>R$ <span id="valorISS">0</span></span>
+              </div>
+            </div>
+            <div class="result-card__total">
+              <span>Total Tributos</span>
+              <span class="total-value">R$ <span id="totalAntes">0</span></span>
+            </div>
+            <div class="result-card__percent">Carga: <span id="cargaAntes">0</span>%</div>
+          </div>
+
+          <!-- Depois -->
+          <div class="result-card result-card--after">
+            <h3><i class="ph ph-rocket"></i>DEPOIS da Reforma</h3>
+            <div class="result-card__items">
+              <div class="result-item">
+                <span>CBS (<span id="aliquotaCBSEfetiva">12</span>%)</span>
+                <span>R$ <span id="valorCBS">0</span></span>
+              </div>
+              <div class="result-item">
+                <span>IBS (<span id="aliquotaIBSEfetiva">15</span>%)</span>
+                <span>R$ <span id="valorIBS">0</span></span>
+              </div>
+              <div class="result-item result-item--credit" id="creditosRow" style="display: none;">
+                <span>Créditos (-)</span>
+                <span>R$ <span id="creditosDisplay">0</span></span>
+              </div>
+            </div>
+            <div class="result-card__total">
+              <span>Total Tributos</span>
+              <span class="total-value">R$ <span id="totalDepois">0</span></span>
+            </div>
+            <div class="result-card__percent">Carga: <span id="cargaDepois">0</span>%</div>
+          </div>
+
+          <!-- Comparison -->
+          <div class="comparison-card positive" id="comparisonCard">
+            <div class="comparison-card__header">
+              <i class="ph ph-trend-down" id="compIcon"></i>
+              <span id="compLabel">Economia</span>
+            </div>
+            <div class="comparison-card__value" id="compValue">R$ 0,00</div>
+            <div class="comparison-card__percent" id="compPercent">0% menor</div>
+          </div>
+        </section>
+      </div>
+
+      <div class="disclaimer">
+        <i class="ph ph-warning"></i>
+        <p><strong>Atenção:</strong> Esta calculadora apresenta uma simulação simplificada. Os valores reais podem variar conforme o setor, regime tributário específico, benefícios fiscais e outros fatores. Consulte sempre um profissional especializado.</p>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer__container">
+      <div class="footer__bottom">
+        <p class="footer__copyright">© 2026 Consultoria Tributária.</p>
+        <p class="footer__disclaimer"><i class="ph ph-warning"></i>Conteúdo para fins educacionais.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      calcular();
+    });
+  </script>
+</body>
+</html>
