@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Artigo | Reforma Tributária 2026</title>
+  <meta name="description" content="Leia este artigo técnico sobre a Reforma Tributária.">
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Source+Sans+3:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  
+  <!-- Phosphor Icons -->
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  
+  <!-- Styles -->
+  <link rel="stylesheet" href="css/styles.css">
+  <style>
+    .article-header {
+      text-align: center;
+      margin-bottom: var(--space-2xl);
+    }
+    .article-header h1 {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 4vw, 3rem);
+      margin-bottom: var(--space-md);
+    }
+    .article-meta {
+      display: flex;
+      justify-content: center;
+      gap: var(--space-lg);
+      color: var(--text-muted);
+      font-size: 0.875rem;
+      margin-bottom: var(--space-xl);
+    }
+    .article-body {
+      max-width: 800px;
+      margin: 0 auto;
+      font-size: 1.125rem;
+      line-height: 1.8;
+      color: var(--text-secondary);
+    }
+    .article-body p {
+      margin-bottom: var(--space-md);
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="header__container">
+      <a href="index.html" class="header__logo">
+        <div class="header__logo-icon">
+          <i class="ph-fill ph-scales"></i>
+        </div>
+        <div class="header__logo-text">
+          <span class="header__logo-title">Reforma Tributária</span>
+          <span class="header__logo-subtitle">2026</span>
+        </div>
+      </a>
+
+      <nav class="header__nav">
+        <a href="index.html" class="header__nav-link"><i class="ph ph-house"></i>Início</a>
+        <a href="artigos.html" class="header__nav-link active"><i class="ph ph-article"></i>Artigos</a>
+        <a href="tabelas.html" class="header__nav-link"><i class="ph ph-table"></i>Tabelas</a>
+        <a href="glossario.html" class="header__nav-link"><i class="ph ph-book-open"></i>Glossário</a>
+        <a href="cronograma.html" class="header__nav-link"><i class="ph ph-calendar"></i>Cronograma</a>
+        <a href="calculadora.html" class="header__nav-link header__nav-link--cta"><i class="ph ph-calculator"></i>Calculadora</a>
+      </nav>
+
+      <button class="header__menu-btn" onclick="toggleSidebar()">
+        <i class="ph ph-list"></i>
+      </button>
+    </div>
+  </header>
+
+  <!-- Sidebar Mobile -->
+  <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar__header">
+      <span class="sidebar__title">Menu</span>
+      <button class="sidebar__close" onclick="toggleSidebar()"><i class="ph ph-x"></i></button>
+    </div>
+    <nav class="sidebar__nav">
+      <div class="sidebar__section">
+        <h3 class="sidebar__section-title">Navegação</h3>
+        <ul class="sidebar__list">
+          <li><a href="index.html" class="sidebar__link"><i class="ph ph-house"></i><span>Início</span></a></li>
+          <li><a href="artigos.html" class="sidebar__link active"><i class="ph ph-article"></i><span>Artigos Técnicos</span></a></li>
+          <li><a href="tabelas.html" class="sidebar__link"><i class="ph ph-table"></i><span>Tabelas Práticas</span></a></li>
+          <li><a href="glossario.html" class="sidebar__link"><i class="ph ph-book-open"></i><span>Glossário</span></a></li>
+        </ul>
+      </div>
+      <div class="sidebar__section">
+        <h3 class="sidebar__section-title">Ferramentas</h3>
+        <ul class="sidebar__list">
+          <li><a href="cronograma.html" class="sidebar__link"><i class="ph ph-calendar"></i><span>Cronograma</span></a></li>
+          <li><a href="calculadora.html" class="sidebar__link"><i class="ph ph-calculator"></i><span>Calculadora</span><span class="sidebar__badge">Novo</span></a></li>
+        </ul>
+      </div>
+    </nav>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <div class="container" id="artigoContainer">
+      <!-- Article will be rendered here -->
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer__container">
+      <div class="footer__main">
+        <div class="footer__brand">
+          <div class="footer__logo">
+            <i class="ph-fill ph-scales"></i>
+            <span>Reforma Tributária 2026</span>
+          </div>
+          <p class="footer__description">
+            Portal especializado em conteúdo técnico sobre a Reforma Tributária 
+            Brasileira. Artigos, tabelas práticas e ferramentas para profissionais 
+            da área fiscal e contábil.
+          </p>
+        </div>
+
+        <div class="footer__links">
+          <h4>Conteúdo</h4>
+          <ul>
+            <li><a href="artigos.html">Artigos Técnicos</a></li>
+            <li><a href="tabelas.html">Tabelas Práticas</a></li>
+            <li><a href="glossario.html">Glossário</a></li>
+            <li><a href="cronograma.html">Cronograma</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer__bottom">
+        <p class="footer__copyright">© 2026 Consultoria Tributária. Todos os direitos reservados.</p>
+        <p class="footer__disclaimer">
+          <i class="ph ph-warning"></i>
+          Conteúdo para fins educacionais. Consulte sempre um profissional especializado.
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const slug = getUrlParam('slug');
+      const artigo = ARTIGOS.find(a => a.slug === slug);
+      
+      const container = document.getElementById('artigoContainer');
+      
+      if (!artigo) {
+        container.innerHTML = `
+          <div class="empty-state" style="text-align: center; padding: 4rem 0;">
+            <i class="ph ph-warning-circle" style="font-size: 4rem; color: var(--color-primary); margin-bottom: 1rem;"></i>
+            <h2>Artigo não encontrado</h2>
+            <p>O artigo que você procurava não existe ou foi removido.</p>
+            <a href="artigos.html" class="btn btn--primary" style="margin-top: 2rem;">Voltar para Artigos</a>
+          </div>
+        `;
+        return;
+      }
+
+      // Update page title
+      document.title = `${artigo.titulo} | Reforma Tributária 2026`;
+
+      container.innerHTML = `
+        <article class="animate-fade-in">
+          <header class="article-header">
+            <span class="badge badge--${artigo.categoria}" style="margin-bottom: 1rem;">
+              ${getCategoriaLabel(artigo.categoria)}
+            </span>
+            <h1>${artigo.titulo}</h1>
+            <p style="font-size: 1.25rem; color: var(--color-primary-light); margin-bottom: 1rem;">
+              ${artigo.subtitulo}
+            </p>
+            
+            <div class="article-meta">
+              <span><i class="ph ph-user"></i> ${artigo.autor}</span>
+              <span><i class="ph ph-calendar"></i> ${formatDate(artigo.dataPublicacao)}</span>
+              <span><i class="ph ph-clock"></i> ${artigo.tempoLeitura} min de leitura</span>
+            </div>
+            
+            <div class="article-card__tags" style="justify-content: center; margin-bottom: 2rem;">
+              ${artigo.tags.map(tag => `<span class="article-card__tag">${tag}</span>`).join('')}
+            </div>
+          </header>
+
+          <div class="article-body">
+            <p><strong>Resumo:</strong> ${artigo.resumo}</p>
+            <p>Este é o conteúdo detalhado sobre <em>${artigo.titulo}</em>. Em um sistema completo, este texto viria do banco de dados ou de um arquivo Markdown contendo todo o texto técnico esperado para este tópico.</p>
+            <p>A nova legislação traz uma série de impactos para as empresas do segmento, exigindo uma reavaliação de custos e a correta parametrização dos sistemas fiscais. Com a transição gradual iniciando em 2026, é vital compreender como a regra de não-cumulatividade afetará as operações do dia a dia.</p>
+            <p>Continue acompanhando nossas atualizações para mais análises profundas sobre os desdobramentos desta reforma e como aplicar as regulamentações publicadas pelo Comitê Gestor.</p>
+          </div>
+          
+          <div style="text-align: center; margin-top: 4rem;">
+            <a href="artigos.html" class="btn btn--outline"><i class="ph ph-arrow-left"></i> Voltar para Artigos</a>
+          </div>
+        </article>
+      `;
+    });
+  </script>
+</body>
+</html>
