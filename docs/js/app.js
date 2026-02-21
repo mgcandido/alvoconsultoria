@@ -551,3 +551,91 @@ function getUrlParam(param) {
   const urlParams = new URLSearchParams(window.location.search);
   return urlParams.get(param);
 }
+<<<<<<< HEAD
+=======
+
+// ============================================
+// WHATSAPP WIDGET
+// ============================================
+
+function initWhatsAppWidget() {
+  const whatsappNumber = '5532988726385';
+  
+  const widgetHtml = `
+    <div class="whatsapp-widget" id="whatsappWidget">
+      <div class="whatsapp-widget__window">
+        <div class="whatsapp-widget__header">
+          <div class="whatsapp-widget__header-icon">
+            <i class="ph-fill ph-whatsapp-logo"></i>
+          </div>
+          <div class="whatsapp-widget__header-info">
+            <h4>Fale com um Consultor</h4>
+            <p>Responde rapidamente</p>
+          </div>
+        </div>
+        <div class="whatsapp-widget__body">
+          <div class="whatsapp-widget__message">
+            Olá! Como podemos te ajudar hoje?
+          </div>
+        </div>
+        <div class="whatsapp-widget__footer">
+          <input type="text" id="whatsappInput" class="whatsapp-widget__input" placeholder="Digite sua mensagem..." />
+          <button id="whatsappSend" class="whatsapp-widget__send">
+            <i class="ph-fill ph-paper-plane-right"></i>
+          </button>
+        </div>
+      </div>
+      <button id="whatsappToggle" class="whatsapp-widget__btn">
+        <i class="ph-fill ph-whatsapp-logo"></i>
+      </button>
+    </div>
+  `;
+
+  document.body.insertAdjacentHTML('beforeend', widgetHtml);
+
+  const widget = document.getElementById('whatsappWidget');
+  const toggleBtn = document.getElementById('whatsappToggle');
+  const sendBtn = document.getElementById('whatsappSend');
+  const input = document.getElementById('whatsappInput');
+
+  toggleBtn.addEventListener('click', () => {
+    widget.classList.toggle('open');
+    if (widget.classList.contains('open')) {
+      setTimeout(() => input.focus(), 300);
+      toggleBtn.innerHTML = '<i class="ph ph-x"></i>';
+    } else {
+      toggleBtn.innerHTML = '<i class="ph-fill ph-whatsapp-logo"></i>';
+    }
+  });
+
+  const sendMessage = () => {
+    const text = input.value.trim();
+    if (!text) return;
+    
+    const encodeText = encodeURIComponent(text);
+    const url = \`https://wa.me/\${whatsappNumber}?text=\${encodeText}\`;
+    
+    window.open(url, '_blank');
+    
+    input.value = '';
+    widget.classList.remove('open');
+    toggleBtn.innerHTML = '<i class="ph-fill ph-whatsapp-logo"></i>';
+  };
+
+  sendBtn.addEventListener('click', sendMessage);
+  
+  input.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') {
+      sendMessage();
+    }
+  });
+}
+
+// Ensure the widget is initialized after DOM is loaded. 
+// If it's already loaded, run it directly.
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initWhatsAppWidget);
+} else {
+  initWhatsAppWidget();
+}
+>>>>>>> 50afbf9e (add chat whatsapp)

@@ -105,4 +105,8 @@ Para mais informações sobre terminologia e referências legais, consulte:
 ---
 
 **Versão**: 1.0  
+<<<<<<< HEAD
 **Última atualização**: 2026
+=======
+**Última atualização**: 2024
+>>>>>>> 50afbf9e (add chat whatsapp)
