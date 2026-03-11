@@ -1,0 +1,9 @@
+# Tabelas Práticas
+
+Tabelas de referência para uso operacional e consultivo.
+
+## Subpastas:
+- Transicao_PIS_COFINS/ - Tabelas de transição PIS/COFINS → CBS
+- NCM_CBS/ - NCMs e enquadramento CBS
+- NCM_IBS/ - NCMs e enquadramento IBS
+- cClassTrib/ - Classificações tributárias

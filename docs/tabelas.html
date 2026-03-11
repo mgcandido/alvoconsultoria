@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tabelas Práticas | Reforma Tributária 2026</title>
+  <meta name="description" content="Tabelas de NCM, CST, cClassTrib e alíquotas da Reforma Tributária 2026.">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Source+Sans+3:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/pages.css">
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="header__container">
+      <a href="index.html" class="header__logo">
+        <div class="header__logo-icon"><i class="ph-fill ph-scales"></i></div>
+        <div class="header__logo-text">
+          <span class="header__logo-title">Reforma Tributária</span>
+          <span class="header__logo-subtitle">2026</span>
+        </div>
+      </a>
+      <nav class="header__nav">
+        <a href="index.html" class="header__nav-link"><i class="ph ph-house"></i>Início</a>
+        <a href="artigos.html" class="header__nav-link"><i class="ph ph-article"></i>Artigos</a>
+        <a href="tabelas.html" class="header__nav-link active"><i class="ph ph-table"></i>Tabelas</a>
+        <a href="glossario.html" class="header__nav-link"><i class="ph ph-book-open"></i>Glossário</a>
+        <a href="cronograma.html" class="header__nav-link"><i class="ph ph-calendar"></i>Cronograma</a>
+        <a href="calculadora.html" class="header__nav-link header__nav-link--cta"><i class="ph ph-calculator"></i>Calculadora</a>
+      </nav>
+      <button class="header__menu-btn" onclick="toggleSidebar()"><i class="ph ph-list"></i></button>
+    </div>
+  </header>
+
+  <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar__header">
+      <span class="sidebar__title">Menu</span>
+      <button class="sidebar__close" onclick="toggleSidebar()"><i class="ph ph-x"></i></button>
+    </div>
+    <nav class="sidebar__nav">
+      <div class="sidebar__section">
+        <h3 class="sidebar__section-title">Navegação</h3>
+        <ul class="sidebar__list">
+          <li><a href="index.html" class="sidebar__link"><i class="ph ph-house"></i><span>Início</span></a></li>
+          <li><a href="artigos.html" class="sidebar__link"><i class="ph ph-article"></i><span>Artigos</span></a></li>
+          <li><a href="tabelas.html" class="sidebar__link active"><i class="ph ph-table"></i><span>Tabelas</span></a></li>
+          <li><a href="glossario.html" class="sidebar__link"><i class="ph ph-book-open"></i><span>Glossário</span></a></li>
+        </ul>
+      </div>
+    </nav>
+  </aside>
+
+  <main class="main-content">
+    <div class="container">
+      <header class="page-header">
+        <h1>Tabelas Práticas</h1>
+        <p>Tabelas de referência para consulta rápida sobre NCMs, CSTs, cClassTrib e alíquotas da Reforma Tributária 2026.</p>
+      </header>
+
+      <!-- Table Selector -->
+      <div class="table-selector">
+        <button class="table-btn active" data-table="ncm-cbs" onclick="selectTable('ncm-cbs')">
+          <i class="ph ph-barcode"></i>NCM × CBS
+        </button>
+        <button class="table-btn" data-table="ncm-ibs" onclick="selectTable('ncm-ibs')">
+          <i class="ph ph-tag"></i>NCM × IBS
+        </button>
+        <button class="table-btn" data-table="cst-mapeamento" onclick="selectTable('cst-mapeamento')">
+          <i class="ph ph-swap"></i>CST Mapeamento
+        </button>
+        <button class="table-btn" data-table="cclasstrib" onclick="selectTable('cclasstrib')">
+          <i class="ph ph-list-numbers"></i>cClassTrib
+        </button>
+        <button class="table-btn" data-table="aliquotas" onclick="selectTable('aliquotas')">
+          <i class="ph ph-percent"></i>Alíquotas
+        </button>
+      </div>
+
+      <div id="tableContainer">
+        <!-- Table rendered by JavaScript -->
+      </div>
+
+      <div class="info-card" style="margin-top: var(--space-2xl)">
+        <i class="ph-fill ph-info"></i>
+        <div>
+          <h3>Sobre as Tabelas</h3>
+          <p>As tabelas são atualizadas conforme publicações oficiais da Receita Federal e do Comitê Gestor do IBS. Última atualização: Janeiro de 2026.</p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer__container">
+      <div class="footer__bottom">
+        <p class="footer__copyright">© 2026 Consultoria Tributária.</p>
+        <p class="footer__disclaimer"><i class="ph ph-warning"></i>Conteúdo para fins educacionais.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    let currentTable = 'ncm-cbs';
+    
+    function selectTable(tipo) {
+      currentTable = tipo;
+      document.querySelectorAll('.table-btn').forEach(btn => {
+        btn.classList.remove('active');
+        if (btn.dataset.table === tipo) btn.classList.add('active');
+      });
+      renderTable(tipo);
+    }
+    
+    document.addEventListener('DOMContentLoaded', () => {
+      const hash = window.location.hash.replace('#', '');
+      if (hash && ['ncm-cbs', 'ncm-ibs', 'cst-mapeamento', 'cclasstrib', 'aliquotas', 'transicao'].includes(hash)) {
+        selectTable(hash === 'transicao' ? 'cst-mapeamento' : hash);
+      } else {
+        renderTable('ncm-cbs');
+      }
+    });
+  </script>
+</body>
+</html>
