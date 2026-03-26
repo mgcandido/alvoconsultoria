@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Consulta NCM | Reforma Tributária 2026</title>
+  <meta name="description" content="Consulte códigos NCM vigentes com classificação tributária CBS/IBS conforme LC 214/2025. Dados em tempo real do Portal SISCOMEX via BrasilAPI.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Source+Sans+3:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/pages.css">
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="header__container">
+      <a href="index.html" class="header__logo">
+        <div class="header__logo-icon"><i class="ph-fill ph-scales"></i></div>
+        <div class="header__logo-text">
+          <span class="header__logo-title">Reforma Tributária</span>
+          <span class="header__logo-subtitle">2026</span>
+        </div>
+      </a>
+      <nav class="header__nav">
+        <a href="index.html" class="header__nav-link"><i class="ph ph-house"></i>Início</a>
+        <a href="artigos.html" class="header__nav-link"><i class="ph ph-article"></i>Artigos</a>
+        <a href="tabelas.html" class="header__nav-link"><i class="ph ph-table"></i>Tabelas</a>
+        <a href="consulta-ncm.html" class="header__nav-link active"><i class="ph ph-barcode"></i>Consulta NCM</a>
+        <a href="glossario.html" class="header__nav-link"><i class="ph ph-book-open"></i>Glossário</a>
+        <a href="cronograma.html" class="header__nav-link"><i class="ph ph-calendar"></i>Cronograma</a>
+        <a href="calculadora.html" class="header__nav-link header__nav-link--cta"><i class="ph ph-calculator"></i>Calculadora</a>
+      </nav>
+      <button class="header__menu-btn" onclick="toggleSidebar()"><i class="ph ph-list"></i></button>
+    </div>
+  </header>
+
+  <!-- Sidebar Mobile -->
+  <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar__header">
+      <span class="sidebar__title">Menu</span>
+      <button class="sidebar__close" onclick="toggleSidebar()"><i class="ph ph-x"></i></button>
+    </div>
+    <nav class="sidebar__nav">
+      <div class="sidebar__section">
+        <h3 class="sidebar__section-title">Navegação</h3>
+        <ul class="sidebar__list">
+          <li><a href="index.html" class="sidebar__link"><i class="ph ph-house"></i><span>Início</span></a></li>
+          <li><a href="artigos.html" class="sidebar__link"><i class="ph ph-article"></i><span>Artigos Técnicos</span></a></li>
+          <li><a href="tabelas.html" class="sidebar__link"><i class="ph ph-table"></i><span>Tabelas Práticas</span></a></li>
+          <li><a href="consulta-ncm.html" class="sidebar__link active"><i class="ph ph-barcode"></i><span>Consulta NCM</span></a></li>
+          <li><a href="glossario.html" class="sidebar__link"><i class="ph ph-book-open"></i><span>Glossário</span></a></li>
+        </ul>
+      </div>
+      <div class="sidebar__section">
+        <h3 class="sidebar__section-title">Ferramentas</h3>
+        <ul class="sidebar__list">
+          <li><a href="cronograma.html" class="sidebar__link"><i class="ph ph-calendar"></i><span>Cronograma</span></a></li>
+          <li><a href="calculadora.html" class="sidebar__link"><i class="ph ph-calculator"></i><span>Calculadora</span><span class="sidebar__badge">Novo</span></a></li>
+        </ul>
+      </div>
+    </nav>
+  </aside>
+
+  <!-- Main -->
+  <main class="main-content">
+    <div class="container">
+
+      <header class="page-header">
+        <h1>Consulta NCM</h1>
+        <p>Pesquise a Nomenclatura Comum do Mercosul em tempo real. Informe o código ou descrição e clique em <strong>Buscar</strong> para consultar os dados oficiais com a classificação tributária CBS/IBS.</p>
+      </header>
+
+      <!-- Bloco de busca principal -->
+      <div class="ncm-search-wrapper animate-fade-in">
+
+        <div class="ncm-search-form">
+          <div class="ncm-search-box" id="searchBox">
+            <i class="ph ph-barcode ncm-search-box__icon"></i>
+            <input
+              type="text"
+              id="ncmInput"
+              class="ncm-search-box__input"
+              placeholder="Ex: 2202.99.00 — ou descrição: refrigerante, smartphone..."
+              autocomplete="off"
+              spellcheck="false"
+              onkeydown="if(event.key==='Enter') buscar()"
+            >
+            <button class="ncm-search-box__clear" id="clearBtn" onclick="limpar()" style="display:none" aria-label="Limpar">
+              <i class="ph ph-x"></i>
+            </button>
+          </div>
+          <button class="ncm-btn-buscar" id="btnBuscar" onclick="buscar()">
+            <i class="ph ph-magnifying-glass"></i>
+            <span>Buscar</span>
+          </button>
+        </div>
+
+        <!-- Exemplos de busca rápida -->
+        <div class="ncm-quick-links">
+          <span class="ncm-quick-links__label">Exemplos:</span>
+          <button class="ncm-quick-btn" onclick="quickSearch('2202.99.00')">🥤 <code>2202.99.00</code></button>
+          <button class="ncm-quick-btn" onclick="quickSearch('8517.12.00')">📱 <code>8517.12.00</code></button>
+          <button class="ncm-quick-btn" onclick="quickSearch('3004')">💊 <code>3004</code> medicamentos</button>
+          <button class="ncm-quick-btn" onclick="quickSearch('2710')">⛽ <code>2710</code> combustíveis</button>
+          <button class="ncm-quick-btn" onclick="quickSearch('0401')">🥛 <code>0401</code> leite</button>
+          <button class="ncm-quick-btn" onclick="quickSearch('4901')">📚 <code>4901</code> livros</button>
+        </div>
+      </div>
+
+      <!-- Estado: inicial / carregando / resultado / erro -->
+      <div id="ncmEstado">
+
+        <!-- Estado inicial -->
+        <div id="estadoInicial" class="ncm-estado ncm-estado--inicial">
+          <div class="ncm-estado__icon"><i class="ph ph-barcode"></i></div>
+          <h3>Pronta para consultar</h3>
+          <p>Digite um código NCM completo (ex: <code>2202.99.00</code>) ou parte da descrição (ex: <code>refrigerante</code>) e clique em <strong>Buscar</strong>.</p>
+          <p class="ncm-estado__hint">
+            <i class="ph ph-info"></i>
+            Os dados são consultados em tempo real na API oficial — BrasilAPI (fonte: SISCOMEX/MDIC).
+          </p>
+        </div>
+
+        <!-- Estado: carregando -->
+        <div id="estadoCarregando" class="ncm-estado ncm-estado--carregando" style="display:none">
+          <div class="ncm-spinner">
+            <span></span><span></span><span></span><span></span>
+          </div>
+          <h3>Consultando a API oficial...</h3>
+          <p id="carregandoMsg">Buscando <code id="carregandoTermo"></code> no SISCOMEX</p>
+        </div>
+
+        <!-- Estado: erro -->
+        <div id="estadoErro" class="ncm-estado ncm-estado--erro" style="display:none">
+          <div class="ncm-estado__icon ncm-estado__icon--erro"><i class="ph ph-warning-circle"></i></div>
+          <h3 id="erroTitulo">Não foi possível consultar</h3>
+          <p id="erroMensagem"></p>
+          <div class="ncm-estado__acoes">
+            <button class="btn btn--primary" onclick="buscar()">
+              <i class="ph ph-arrow-clockwise"></i> Tentar novamente
+            </button>
+            <a href="https://portalunico.siscomex.gov.br/classif/#/publico/nomenclatura/download"
+               target="_blank" rel="noopener" class="btn btn--outline">
+              <i class="ph ph-arrow-square-out"></i> Consultar no SISCOMEX
+            </a>
+          </div>
+        </div>
+
+        <!-- Estado: resultados -->
+        <div id="estadoResultados" style="display:none">
+
+          <!-- Barra de info dos resultados -->
+          <div class="ncm-result-bar">
+            <div class="ncm-result-bar__info">
+              <span id="resultCount" class="ncm-result-bar__count"></span>
+              <span class="ncm-source-pill ncm-source-pill--live" id="sourcePill">
+                <i class="ph ph-check-circle"></i>
+                <span id="sourceLabel">BrasilAPI / SISCOMEX</span>
+              </span>
+            </div>
+            <div class="ncm-result-bar__filtros" id="resultFiltros" style="display:none">
+              <button class="filter-tab active" data-f="" onclick="filtrar(this,'')">Todos</button>
+              <button class="filter-tab" data-f="integral" onclick="filtrar(this,'integral')"><i class="ph ph-equals"></i>Tributado</button>
+              <button class="filter-tab" data-f="zero" onclick="filtrar(this,'zero')"><i class="ph ph-percent"></i>Alíq. Zero</button>
+              <button class="filter-tab" data-f="reduzido" onclick="filtrar(this,'reduzido')"><i class="ph ph-arrow-down"></i>Reduzido</button>
+              <button class="filter-tab" data-f="imune" onclick="filtrar(this,'imune')"><i class="ph ph-shield-check"></i>Imune/Isento</button>
+              <button class="filter-tab" data-f="sem-mapa" onclick="filtrar(this,'sem-mapa')"><i class="ph ph-question"></i>A verificar</button>
+            </div>
+          </div>
+
+          <!-- Grid de cards -->
+          <div id="ncmGrid" class="ncm-grid"></div>
+
+          <!-- Carregar mais -->
+          <div id="ncmMais" class="ncm-more" style="display:none">
+            <p id="ncmMaisTexto"></p>
+            <button class="btn btn--outline" onclick="carregarMais()">
+              <i class="ph ph-plus"></i> Carregar mais
+            </button>
+          </div>
+        </div>
+
+      </div><!-- /ncmEstado -->
+
+      <!-- Fontes oficiais -->
+      <div class="ncm-sources" style="margin-top: var(--space-2xl)">
+        <h3 class="ncm-sources__title"><i class="ph ph-link-simple"></i> Fontes Oficiais</h3>
+        <div class="ncm-sources__grid">
+          <a href="https://portalunico.siscomex.gov.br/classif/#/publico/nomenclatura/download"
+             target="_blank" rel="noopener" class="ncm-source-card">
+            <div class="ncm-source-card__icon"><i class="ph ph-download"></i></div>
+            <div>
+              <strong>Download NCM Vigente</strong>
+              <span>Portal SISCOMEX — tabela completa</span>
+            </div>
+            <i class="ph ph-arrow-square-out ncm-source-card__ext"></i>
+          </a>
+          <a href="https://portalunico.siscomex.gov.br/classif/#/consulta/nomenclatura/historico"
+             target="_blank" rel="noopener" class="ncm-source-card">
+            <div class="ncm-source-card__icon"><i class="ph ph-clock-counter-clockwise"></i></div>
+            <div>
+              <strong>Histórico NCM</strong>
+              <span>Portal SISCOMEX — alterações históricas</span>
+            </div>
+            <i class="ph ph-arrow-square-out ncm-source-card__ext"></i>
+          </a>
+          <a href="https://www.gov.br/receitafederal/pt-br/assuntos/aduana-e-comercio-exterior/classificacao-fiscal-de-mercadorias"
+             target="_blank" rel="noopener" class="ncm-source-card">
+            <div class="ncm-source-card__icon"><i class="ph ph-bank"></i></div>
+            <div>
+              <strong>Classificação Fiscal</strong>
+              <span>Receita Federal — orientações NCM</span>
+            </div>
+            <i class="ph ph-arrow-square-out ncm-source-card__ext"></i>
+          </a>
+          <a href="tabelas.html#cclasstrib" class="ncm-source-card">
+            <div class="ncm-source-card__icon"><i class="ph ph-list-numbers"></i></div>
+            <div>
+              <strong>Tabela cClassTrib</strong>
+              <span>Códigos CBS/IBS — LC 214/2025</span>
+            </div>
+            <i class="ph ph-arrow-right ncm-source-card__ext"></i>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer__container">
+      <div class="footer__bottom">
+        <p class="footer__copyright">© 2026 Consultoria Tributária. Todos os direitos reservados.</p>
+        <p class="footer__disclaimer">
+          <i class="ph ph-warning"></i>
+          Conteúdo para fins educacionais. Consulte sempre um profissional especializado.
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+  // ================================================================
+  //  CONSULTA NCM — busca em tempo real via BrasilAPI / SISCOMEX
+  // ================================================================
+
+  // APIs (tentadas em ordem)
+  const APIS = [
+    {
+      nome: 'BrasilAPI',
+      urlCodigo:   c  => `https://brasilapi.com.br/api/ncm/v1/${encodeURIComponent(c)}`,
+      urlBusca:    t  => `https://brasilapi.com.br/api/ncm/v1?search=${encodeURIComponent(t)}`,
+      normalizar:  item => ({
+        codigo:      item.codigo      || '',
+        descricao:   item.descricao   || '',
+        dataInicio:  item.data_inicio || null,
+        dataFim:     item.data_fim    || null,
+        tipoAto:     item.tipo_ato    || null,
+        numeroAto:   item.numero_ato  || null,
+        anoAto:      item.ano_ato     || null
+      })
+    }
+  ];
+
+  // Mapa de enriquecimento local: NCM → dados CBS/IBS
+  const MAPA_LOCAL = {};
+  TABELA_NCM.forEach(n => {
+    const chave = n.ncm.replace(/\./g, '');
+    MAPA_LOCAL[chave] = n;
+    MAPA_LOCAL[n.ncm] = n;
+  });
+
+  let todosResultados = [];
+  let filtroAtivo    = '';
+  const PER_PAGE     = 20;
+  let paginaAtual    = 0;
+
+  // ── Enriquece item da API com dados CBS/IBS locais ─────────────
+  function enriquecer(item) {
+    const chave1 = item.codigo;
+    const chave2 = item.codigo.replace(/\./g, '');
+    // tenta código exato, depois 4 dígitos iniciais
+    const local = MAPA_LOCAL[chave1]
+                || MAPA_LOCAL[chave2]
+                || MAPA_LOCAL[chave2.substring(0,4)]
+                || null;
+    return { ...item, local };
+  }
+
+  // ── Normaliza código digitado ──────────────────────────────────
+  function normalizarCodigo(valor) {
+    // Remove espaços; se for numérico com pontos, mantém. Senão passa como texto.
+    return valor.trim();
+  }
+
+  // ── Detecta se é código NCM (dígitos/pontos) ou texto ─────────
+  function eCodigo(valor) {
+    return /^[\d.]+$/.test(valor.trim());
+  }
+
+  // ── Fetch com timeout ──────────────────────────────────────────
+  async function fetchComTimeout(url, ms) {
+    const ctrl = new AbortController();
+    const tid  = setTimeout(() => ctrl.abort(), ms);
+    try {
+      const r = await fetch(url, { signal: ctrl.signal });
+      clearTimeout(tid);
+      return r;
+    } catch(e) {
+      clearTimeout(tid);
+      throw e;
+    }
+  }
+
+  // ── Função principal de busca ──────────────────────────────────
+  async function buscar() {
+    const input = document.getElementById('ncmInput');
+    const termo = normalizarCodigo(input.value);
+
+    if (!termo) {
+      input.focus();
+      input.classList.add('ncm-input-shake');
+      setTimeout(() => input.classList.remove('ncm-input-shake'), 500);
+      return;
+    }
+
+    document.getElementById('clearBtn').style.display = 'flex';
+    mostrarEstado('carregando');
+    document.getElementById('carregandoTermo').textContent = termo;
+
+    // Desabilita botão durante busca
+    const btn = document.getElementById('btnBuscar');
+    btn.disabled = true;
+    btn.innerHTML = '<i class="ph ph-spinner ncm-spin"></i><span>Buscando...</span>';
+
+    let itens = [];
+    let fonteUsada = '';
+    let erro = null;
+
+    // ── Tenta cada API em sequência ────────────────────────────
+    for (const api of APIS) {
+      try {
+        let resp, dados;
+
+        if (eCodigo(termo)) {
+          // Busca por código exato primeiro
+          resp = await fetchComTimeout(api.urlCodigo(termo), 8000);
+
+          if (resp.ok) {
+            const json = await resp.json();
+            // BrasilAPI retorna objeto ou array dependendo do endpoint
+            dados = Array.isArray(json) ? json : [json];
+          } else if (resp.status === 404) {
+            // Código não encontrado exato — tenta busca por texto
+            resp = await fetchComTimeout(api.urlBusca(termo), 8000);
+            if (resp.ok) {
+              dados = await resp.json();
+            } else {
+              throw new Error(`HTTP ${resp.status}`);
+            }
+          } else {
+            throw new Error(`HTTP ${resp.status}`);
+          }
+        } else {
+          // Busca por descrição
+          resp = await fetchComTimeout(api.urlBusca(termo), 8000);
+          if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+          dados = await resp.json();
+        }
+
+        if (!Array.isArray(dados)) dados = dados ? [dados] : [];
+
+        itens = dados.map(api.normalizar).map(enriquecer);
+        fonteUsada = api.nome;
+        break; // sucesso — não tenta próxima API
+
+      } catch(e) {
+        erro = e;
+        console.warn(`[${api.nome}] falhou:`, e.message);
+      }
+    }
+
+    // Restaura botão
+    btn.disabled = false;
+    btn.innerHTML = '<i class="ph ph-magnifying-glass"></i><span>Buscar</span>';
+
+    if (itens.length === 0 && erro) {
+      mostrarEstado('erro');
+      document.getElementById('erroTitulo').textContent = 'Não foi possível consultar a API';
+      document.getElementById('erroMensagem').textContent =
+        `Erro ao conectar nas fontes oficiais. Verifique sua conexão e tente novamente. Detalhes: ${erro.message}`;
+      return;
+    }
+
+    if (itens.length === 0) {
+      mostrarEstado('erro');
+      document.getElementById('erroTitulo').textContent = 'NCM não encontrado';
+      document.getElementById('erroMensagem').textContent =
+        `Nenhum resultado para "${termo}". Verifique o código ou tente outra descrição.`;
+      return;
+    }
+
+    // Sucesso — exibe resultados
+    todosResultados = itens;
+    filtroAtivo     = '';
+    paginaAtual     = 0;
+
+    document.getElementById('sourceLabel').textContent =
+      fonteUsada + ' · SISCOMEX/MDIC';
+    document.getElementById('resultFiltros').style.display =
+      itens.length > 3 ? 'flex' : 'none';
+
+    mostrarEstado('resultados');
+    aplicarFiltro();
+  }
+
+  // ── Filtro por situação tributária ─────────────────────────────
+  function filtrar(btn, valor) {
+    filtroAtivo = valor;
+    paginaAtual = 0;
+    document.querySelectorAll('#resultFiltros .filter-tab')
+      .forEach(t => t.classList.toggle('active', t.dataset.f === valor));
+    aplicarFiltro();
+  }
+
+  function aplicarFiltro() {
+    let lista = todosResultados;
+
+    if (filtroAtivo && filtroAtivo !== '') {
+      lista = todosResultados.filter(item => {
+        const ct = item.local?.cClassTrib || '';
+        const al = item.local?.aliquotaCBS;
+        switch(filtroAtivo) {
+          case 'integral':  return ct.startsWith('000');
+          case 'zero':      return ct.startsWith('200') && al === 0;
+          case 'reduzido':  return ct.startsWith('200') && al > 0;
+          case 'imune':     return ct.startsWith('410') || ct.startsWith('400');
+          case 'sem-mapa':  return !ct;
+          default: return true;
+        }
+      });
+    }
+
+    const visiveis = lista.slice(0, PER_PAGE * (paginaAtual + 1));
+    renderGrid(visiveis);
+
+    const count = document.getElementById('resultCount');
+    count.textContent = lista.length === 1
+      ? '1 NCM encontrado'
+      : lista.length.toLocaleString('pt-BR') + ' NCMs encontrados';
+
+    const mais = document.getElementById('ncmMais');
+    if (lista.length > visiveis.length) {
+      mais.style.display = 'block';
+      document.getElementById('ncmMaisTexto').textContent =
+        `Exibindo ${visiveis.length} de ${lista.length} resultados`;
+      mais._lista = lista;
+    } else {
+      mais.style.display = 'none';
+    }
+  }
+
+  function carregarMais() {
+    paginaAtual++;
+    aplicarFiltro();
+  }
+
+  // ── Renderiza os cards ─────────────────────────────────────────
+  function renderGrid(itens) {
+    const grid = document.getElementById('ncmGrid');
+
+    if (!itens.length) {
+      grid.innerHTML = `
+        <div class="empty-state" style="grid-column:1/-1">
+          <i class="ph ph-barcode"></i>
+          <h3>Sem resultados para este filtro</h3>
+          <p>Tente remover o filtro ou <a href="#" onclick="filtrar(document.querySelector('[data-f=\\'\\']'),'');return false">ver todos</a>.</p>
+        </div>`;
+      return;
+    }
+
+    grid.innerHTML = itens.map(cardNCM).join('');
+  }
+
+  function cardNCM(item) {
+    const local = item.local;
+    const ct    = local?.cClassTrib || '';
+
+    // ── Badge situação tributária ──────────────────────────────
+    let badgeLabel = '', badgeClass = '', badgeIcon = 'ph-question';
+    if (ct) {
+      if      (ct.startsWith('000'))                               { badgeLabel='Tributado Integral'; badgeClass='badge--federal';   badgeIcon='ph-equals'; }
+      else if (ct.startsWith('200') && local?.aliquotaCBS === 0)  { badgeLabel='Alíquota Zero';       badgeClass='badge--municipal'; badgeIcon='ph-percent'; }
+      else if (ct.startsWith('200') && local?.aliquotaCBS > 0)    { badgeLabel='Alíquota Reduzida';   badgeClass='badge--estadual';  badgeIcon='ph-arrow-down'; }
+      else if (ct.startsWith('410') || ct.startsWith('400'))      { badgeLabel='Imune / Isento';      badgeClass='badge--integrado'; badgeIcon='ph-shield-check'; }
+      else if (ct.startsWith('620'))                               { badgeLabel='Monofásico';          badgeClass='badge--federal';   badgeIcon='ph-gas-pump'; }
+      else if (ct.startsWith('510') || ct.startsWith('515'))      { badgeLabel='Diferimento';         badgeClass='';                 badgeIcon='ph-clock'; }
+    }
+
+    // ── Data de vigência ───────────────────────────────────────
+    const inicio  = item.dataInicio  ? new Date(item.dataInicio).toLocaleDateString('pt-BR')  : null;
+    const fim     = item.dataFim     ? new Date(item.dataFim).toLocaleDateString('pt-BR')     : null;
+    const vigente = !item.dataFim;
+
+    // ── Ato legal ─────────────────────────────────────────────
+    const ato = item.tipoAto && item.numeroAto
+      ? `${item.tipoAto} nº ${item.numeroAto}/${item.anoAto}`
+      : null;
+
+    return `
+    <div class="ncm-card animate-fade-in">
+
+      <!-- Cabeçalho -->
+      <div class="ncm-card__header">
+        <div class="ncm-card__header-left">
+          <code class="ncm-card__code">${item.codigo}</code>
+          ${vigente ? '<span class="ncm-card__vigente"><i class="ph ph-check-circle"></i>Vigente</span>' : '<span class="ncm-card__vigente ncm-card__vigente--inativo"><i class="ph ph-x-circle"></i>Inativo</span>'}
+        </div>
+        ${badgeLabel
+          ? `<span class="badge ${badgeClass} ncm-card__badge"><i class="ph ${badgeIcon}"></i>${badgeLabel}</span>`
+          : `<span class="badge ncm-card__badge ncm-card__badge--unknown"><i class="ph ph-question"></i>A verificar</span>`
+        }
+      </div>
+
+      <!-- Descrição completa da API -->
+      <p class="ncm-card__desc">${item.descricao}</p>
+
+      <!-- Dados da API oficial -->
+      <div class="ncm-card__api-dados">
+        ${inicio ? `
+          <div class="ncm-card__dado-item">
+            <span class="ncm-card__dado-label"><i class="ph ph-calendar"></i> Vigência</span>
+            <span class="ncm-card__dado-val">${inicio}${fim ? ' → ' + fim : ' — atual'}</span>
+          </div>` : ''}
+        ${ato ? `
+          <div class="ncm-card__dado-item">
+            <span class="ncm-card__dado-label"><i class="ph ph-file-text"></i> Ato Legal</span>
+            <span class="ncm-card__dado-val">${ato}</span>
+          </div>` : ''}
+      </div>
+
+      <!-- Tributação CBS/IBS (se mapeado) -->
+      ${local ? `
+        <div class="ncm-card__tribut">
+          <div class="ncm-card__tribut-title">
+            <i class="ph ph-scales"></i>
+            Classificação Tributária CBS/IBS
+            <span class="ncm-card__tribut-badge">LC 214/2025</span>
+          </div>
+          <div class="ncm-card__tax-grid">
+            ${ct ? `
+              <div class="ncm-card__tax-item ncm-card__tax-item--destaque">
+                <span class="ncm-card__tax-label">cClassTrib</span>
+                <code class="ncm-card__tax-code">${ct}</code>
+              </div>` : ''}
+            ${local.cstNovo ? `
+              <div class="ncm-card__tax-item">
+                <span class="ncm-card__tax-label">CST IBS/CBS</span>
+                <code class="ncm-card__tax-code">${local.cstNovo}</code>
+              </div>` : ''}
+            <div class="ncm-card__tax-item">
+              <span class="ncm-card__tax-label">Alíq. CBS</span>
+              <strong class="ncm-card__tax-val ${local.aliquotaCBS === 0 ? 'ncm-card__tax-val--zero' : ''}">
+                ${local.aliquotaCBS !== undefined ? local.aliquotaCBS + '%' : '—'}
+              </strong>
+            </div>
+            <div class="ncm-card__tax-item">
+              <span class="ncm-card__tax-label">Alíq. IBS</span>
+              <strong class="ncm-card__tax-val ${local.aliquotaIBS === 0 ? 'ncm-card__tax-val--zero' : ''}">
+                ${local.aliquotaIBS !== undefined ? local.aliquotaIBS + '%' : '—'}
+              </strong>
+            </div>
+            ${local.novoCBS && local.novoCBS !== local.novoIBS ? `
+              <div class="ncm-card__tax-item">
+                <span class="ncm-card__tax-label">Situação CBS</span>
+                <span class="ncm-card__tax-val">${local.novoCBS}</span>
+              </div>
+              <div class="ncm-card__tax-item">
+                <span class="ncm-card__tax-label">Situação IBS</span>
+                <span class="ncm-card__tax-val">${local.novoIBS || '—'}</span>
+              </div>` :
+              local.novoCBS ? `
+              <div class="ncm-card__tax-item ncm-card__tax-item--full">
+                <span class="ncm-card__tax-label">Situação</span>
+                <span class="ncm-card__tax-val">${local.novoCBS}</span>
+              </div>` : ''}
+          </div>
+          ${local.observacoes ? `
+            <p class="ncm-card__obs">
+              <i class="ph ph-note-pencil"></i>${local.observacoes}
+            </p>` : ''}
+        </div>
+      ` : `
+        <div class="ncm-card__no-tax">
+          <i class="ph ph-warning"></i>
+          <div>
+            <strong>Enquadramento CBS/IBS não mapeado localmente</strong><br>
+            <span>Consulte a LC 214/2025 e os anexos da Receita Federal para verificar a classificação tributária deste NCM.</span>
+          </div>
+        </div>
+      `}
+
+      <!-- Rodapé com links -->
+      <div class="ncm-card__footer">
+        <span></span>
+        <div class="ncm-card__links">
+          <a href="https://portalunico.siscomex.gov.br/classif/#/consulta/nomenclatura/historico"
+             target="_blank" rel="noopener" class="ncm-card__link">
+            <i class="ph ph-arrow-square-out"></i>SISCOMEX
+          </a>
+          ${ct ? `
+            <a href="tabelas.html#cclasstrib" class="ncm-card__link">
+              <i class="ph ph-table"></i>cClassTrib
+            </a>` : ''}
+        </div>
+      </div>
+
+    </div>`;
+  }
+
+  // ── Controle de estados de tela ────────────────────────────────
+  function mostrarEstado(estado) {
+    document.getElementById('estadoInicial').style.display    = estado === 'inicial'     ? '' : 'none';
+    document.getElementById('estadoCarregando').style.display = estado === 'carregando'  ? '' : 'none';
+    document.getElementById('estadoErro').style.display       = estado === 'erro'        ? '' : 'none';
+    document.getElementById('estadoResultados').style.display = estado === 'resultados'  ? '' : 'none';
+
+    // Feedback visual na caixa de busca
+    const box = document.getElementById('searchBox');
+    box.classList.toggle('ncm-search-box--loading',  estado === 'carregando');
+    box.classList.toggle('ncm-search-box--error',    estado === 'erro');
+    box.classList.toggle('ncm-search-box--success',  estado === 'resultados');
+  }
+
+  function quickSearch(valor) {
+    const inp = document.getElementById('ncmInput');
+    inp.value = valor;
+    document.getElementById('clearBtn').style.display = 'flex';
+    buscar();
+  }
+
+  function limpar() {
+    document.getElementById('ncmInput').value = '';
+    document.getElementById('clearBtn').style.display = 'none';
+    document.getElementById('ncmInput').focus();
+    mostrarEstado('inicial');
+
+    const box = document.getElementById('searchBox');
+    box.classList.remove('ncm-search-box--loading','ncm-search-box--error','ncm-search-box--success');
+  }
+
+  // Input listener — só controla botão limpar
+  document.getElementById('ncmInput').addEventListener('input', function() {
+    document.getElementById('clearBtn').style.display = this.value ? 'flex' : 'none';
+  });
+  </script>
+
+</body>
+</html>

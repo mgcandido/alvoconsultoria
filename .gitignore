@@ -1,0 +1,27 @@
+# Arquivos temporários
+*.tmp
+*.temp
+*.swp
+*.bak
+*~
+
+# Logs
+*.log
+
+# Arquivos do sistema
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Arquivos de backup
+*.backup
+*.old
+
+# Arquivos pessoais/notas
+NOTAS_PESSOAIS.md
+TODO.md
+
+# Editores
+.vscode/
+.idea/
+*.sublime-workspace
