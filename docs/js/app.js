@@ -544,8 +544,8 @@ function calcular() {
     default: fatorReducao = 1;
   }
 
-  const aliquotaCBSEfetiva = 12 * fatorReducao;
-  const aliquotaIBSEfetiva = 15 * fatorReducao;
+  const aliquotaCBSEfetiva = 8.8 * fatorReducao;
+  const aliquotaIBSEfetiva = 17.7 * fatorReducao;
 
   // Cálculo DEPOIS
   const valorCBS = valorOperacao * (aliquotaCBSEfetiva / 100);

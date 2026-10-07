@@ -28,11 +28,12 @@ const ARTIGOS = [
       <h2>1. Introdução</h2>
       <p>A Reforma Tributária de 2026 promove uma das maiores mudanças na tributação federal das últimas décadas: a extinção do PIS (Programa de Integração Social) e da COFINS (Contribuição para o Financiamento da Seguridade Social), substituídos pela <strong>CBS — Contribuição sobre Bens e Serviços</strong>.</p>
       <p>A transição é estrutural e afeta diretamente as obrigações acessórias, os cálculos de crédito, os enquadramentos de NCM e os sistemas fiscais de todas as empresas sujeitas ao regime não cumulativo.</p>
+      <p>A implantação começa com um <strong>ano de teste em 2026</strong>, quando a CBS é cobrada a 0,9% (compensável, com impacto líquido próximo de zero). A <strong>CBS plena</strong>, que substitui definitivamente o PIS e a COFINS, entra em vigor em <strong>2027</strong>.</p>
 
       <h2>2. Contexto Legal e Conceitual</h2>
       <p>A CBS foi instituída pela <strong>Lei Complementar nº 214/2025</strong>, em conformidade com a Emenda Constitucional nº 132/2023. Segue o modelo de IVA (Imposto sobre Valor Agregado), com as seguintes características:</p>
       <ul>
-        <li><strong>Alíquota única federal:</strong> 12% sobre o valor da operação</li>
+        <li><strong>Alíquota única federal:</strong> 8,8% sobre o valor da operação</li>
         <li><strong>Não cumulatividade plena:</strong> crédito irrestrito sobre todas as entradas tributadas</li>
         <li><strong>Base ampla:</strong> incide sobre bens e serviços, eliminando distinções do modelo antigo</li>
         <li><strong>Destino:</strong> receita vai para a União Federal</li>
@@ -57,7 +58,7 @@ const ARTIGOS = [
       </div>
 
       <h2>4. Como Fica com a CBS</h2>
-      <p>A CBS unifica os dois tributos em um único com alíquota de <strong>12%</strong>, regime não cumulativo para todos, e crédito amplo. A tabela abaixo compara os cenários:</p>
+      <p>A CBS unifica os dois tributos em um único com alíquota de <strong>8,8%</strong>, regime não cumulativo para todos, e crédito amplo. A tabela abaixo compara os cenários:</p>
 
       <div class="table-wrapper">
         <table>
@@ -69,7 +70,7 @@ const ARTIGOS = [
             </tr>
           </thead>
           <tbody>
-            <tr><td>Alíquota total</td><td>1,65% + 7,60% = 9,25% (não cum.)</td><td>12%</td></tr>
+            <tr><td>Alíquota total</td><td>1,65% + 7,60% = 9,25% (não cum.)</td><td>8,8%</td></tr>
             <tr><td>Regimes</td><td>Cumulativo e Não Cumulativo</td><td>Único (não cumulativo)</td></tr>
             <tr><td>Crédito</td><td>Restrito (lista de insumos)</td><td>Amplo (todas as entradas tributadas)</td></tr>
             <tr><td>Obrigação acessória</td><td>EFD-Contribuições</td><td>EFD-CBS</td></tr>
@@ -119,7 +120,7 @@ const ARTIGOS = [
       <h3>6.2 Financeiros</h3>
       <ul>
         <li>Empresas do Lucro Real: variação de carga tributária de acordo com o setor</li>
-        <li>Empresas do Lucro Presumido: aumento de carga (passam de 3,65% para 12%, porém com créditos)</li>
+        <li>Empresas do Lucro Presumido: aumento de carga (passam de 3,65% para 8,8%, porém com créditos)</li>
         <li>Créditos de entradas: ampliação significativa do direito a crédito</li>
       </ul>
 
@@ -133,14 +134,14 @@ const ARTIGOS = [
           </thead>
           <tbody>
             <tr><td>Valor da venda</td><td>R$ 10.000,00</td><td>R$ 10.000,00</td></tr>
-            <tr><td>PIS/CBS</td><td>R$ 165,00 (1,65%)</td><td>R$ 1.200,00 (12%)</td></tr>
+            <tr><td>PIS/CBS</td><td>R$ 165,00 (1,65%)</td><td>R$ 880,00 (8,8%)</td></tr>
             <tr><td>COFINS</td><td>R$ 760,00 (7,60%)</td><td>— (extinta)</td></tr>
-            <tr><td>Crédito de entradas</td><td>R$ 400,00</td><td>R$ 960,00 (ampliado)</td></tr>
-            <tr><td><strong>Tributo líquido</strong></td><td><strong>R$ 525,00</strong></td><td><strong>R$ 240,00</strong></td></tr>
+            <tr><td>Crédito de entradas</td><td>R$ 400,00</td><td>R$ 600,00 (ampliado)</td></tr>
+            <tr><td><strong>Tributo líquido</strong></td><td><strong>R$ 525,00</strong></td><td><strong>R$ 280,00</strong></td></tr>
           </tbody>
         </table>
       </div>
-      <p>Neste exemplo, a ampliação do crédito de entradas compensou o aumento de alíquota, resultando em redução da carga efetiva.</p>
+      <p>Neste exemplo, a alíquota de referência da CBS (8,8%) fica próxima da soma de PIS e COFINS, e a ampliação dos créditos reduz a carga efetiva.</p>
 
       <h2>8. Orientações Operacionais</h2>
       <div class="article-callout article-callout--success">
@@ -188,9 +189,9 @@ const ARTIGOS = [
             <tr><th>Componente</th><th>Ente</th><th>Alíquota Padrão</th></tr>
           </thead>
           <tbody>
-            <tr><td>IBS Estadual</td><td>Estados</td><td>12%</td></tr>
-            <tr><td>IBS Municipal</td><td>Municípios</td><td>3%</td></tr>
-            <tr><td><strong>IBS Total</strong></td><td>CG-IBS (rateio)</td><td><strong>15%</strong></td></tr>
+            <tr><td>IBS Estadual</td><td>Estados</td><td>parcela estadual</td></tr>
+            <tr><td>IBS Municipal</td><td>Municípios</td><td>parcela municipal</td></tr>
+            <tr><td><strong>IBS Total</strong></td><td>CG-IBS (rateio)</td><td><strong>17,7% (ref.)</strong></td></tr>
           </tbody>
         </table>
       </div>
@@ -219,7 +220,7 @@ const ARTIGOS = [
         </div>
       </div>
       <ul>
-        <li><strong>Alíquota uniforme:</strong> 15% em todo o território nacional</li>
+        <li><strong>Alíquota uniforme:</strong> 17,7% em todo o território nacional</li>
         <li><strong>Não cumulatividade plena:</strong> crédito irrestrito sobre todas as entradas</li>
         <li><strong>Gestão centralizada:</strong> o CG-IBS arrecada e distribui proporcionalmente</li>
         <li><strong>Fim do DIFAL:</strong> operações interestaduais simplificadas</li>
@@ -250,10 +251,10 @@ const ARTIGOS = [
             <tr><th>Setor</th><th>Carga Anterior</th><th>Carga IBS</th><th>Impacto</th></tr>
           </thead>
           <tbody>
-            <tr><td>Indústria (SP)</td><td>12% ICMS</td><td>15% IBS</td><td>↑ Leve aumento</td></tr>
-            <tr><td>Comércio Varejo</td><td>18% ICMS</td><td>15% IBS</td><td>↓ Redução</td></tr>
-            <tr><td>Serviços de TI</td><td>5% ISS</td><td>15% IBS</td><td>↑ Aumento (com crédito)</td></tr>
-            <tr><td>Transportadora</td><td>12% ICMS interestadual</td><td>15% IBS destino</td><td>Simplificação</td></tr>
+            <tr><td>Indústria (SP)</td><td>12% ICMS</td><td>17,7% IBS</td><td>↑ Leve aumento</td></tr>
+            <tr><td>Comércio Varejo</td><td>18% ICMS</td><td>17,7% IBS</td><td>↓ Redução</td></tr>
+            <tr><td>Serviços de TI</td><td>5% ISS</td><td>17,7% IBS</td><td>↑ Aumento (com crédito)</td></tr>
+            <tr><td>Transportadora</td><td>12% ICMS interestadual</td><td>17,7% IBS destino</td><td>Simplificação</td></tr>
             <tr><td>Saúde/Educação</td><td>Variado</td><td>Redução 60% IBS</td><td>↓ Redução</td></tr>
           </tbody>
         </table>
@@ -268,8 +269,8 @@ const ARTIGOS = [
           </thead>
           <tbody>
             <tr><td>Valor do serviço</td><td>R$ 50.000,00</td><td>R$ 50.000,00</td></tr>
-            <tr><td>Tributo</td><td>ISS 5% para SP</td><td>IBS 15% para RJ (destino)</td></tr>
-            <tr><td>Valor do tributo</td><td>R$ 2.500,00</td><td>R$ 7.500,00 - créditos</td></tr>
+            <tr><td>Tributo</td><td>ISS 5% para SP</td><td>IBS 17,7% para RJ (destino)</td></tr>
+            <tr><td>Valor do tributo</td><td>R$ 2.500,00</td><td>R$ 8.850,00 - créditos</td></tr>
             <tr><td>Crédito de entradas</td><td>Não havia</td><td>Dedutível das entradas</td></tr>
             <tr><td>Competência</td><td>Município SP</td><td>Município RJ</td></tr>
           </tbody>
@@ -357,7 +358,7 @@ const ARTIGOS = [
           <tbody>
             <tr><td><code>000001</code></td><td>Tributado Integralmente</td><td>Produtos gerais, eletrônicos, veículos, bebidas</td><td>0%</td><td>Art. 4º, LC 214/2025</td></tr>
             <tr><td><code>200003</code></td><td>Cesta Básica Nacional</td><td>Arroz, feijão, leite, óleos, carnes, farinha</td><td>100% (alíq. zero)</td><td>Art. 125, LC 214/2025</td></tr>
-            <tr><td><code>200004</code></td><td>Dispositivos Médicos</td><td>Aparelhos médico-cirúrgicos (Anexo XII)</td><td>60%</td><td>Art. 144, LC 214/2025</td></tr>
+            <tr><td><code>200004</code></td><td>Dispositivos Médicos</td><td>Aparelhos médico-cirúrgicos (Anexo XII)</td><td>100% (alíq. zero)</td><td>Art. 144, LC 214/2025</td></tr>
             <tr><td><code>200009</code></td><td>Medicamentos — Alíq. Zero</td><td>Medicamentos do Anexo XIV (Anvisa)</td><td>100% (alíq. zero)</td><td>Art. 146, LC 214/2025</td></tr>
             <tr><td><code>200028</code></td><td>Serviços de Educação</td><td>Escolas, universidades, cursos (Anexo II)</td><td>60%</td><td>Art. 129, LC 214/2025</td></tr>
             <tr><td><code>200029</code></td><td>Serviços de Saúde</td><td>Hospitais, clínicas, consultas (Anexo III)</td><td>60%</td><td>Art. 130, LC 214/2025</td></tr>
@@ -403,7 +404,7 @@ const ARTIGOS = [
             <tr><td><code>4901.99.00</code></td><td>Livros impressos</td><td><code>410</code></td><td><code>410008</code></td><td>Imunidade constitucional — Art. 150 CF</td></tr>
             <tr><td><code>2710.12.59</code></td><td>Gasolina automotiva</td><td><code>620</code></td><td><code>620001</code></td><td>Tributação monofásica — refinaria</td></tr>
             <tr><td><code>0401.10.10</code></td><td>Leite UHT integral</td><td><code>200</code></td><td><code>200003</code></td><td>Cesta Básica Nacional — Alíquota zero</td></tr>
-            <tr><td><code>9018.11.00</code></td><td>Eletrocardiógrafos</td><td><code>200</code></td><td><code>200004</code></td><td>Dispositivo médico (Anexo XII) — red. 60%</td></tr>
+            <tr><td><code>9018.11.00</code></td><td>Eletrocardiógrafos</td><td><code>200</code></td><td><code>200004</code></td><td>Dispositivo médico (Anexo XII) — alíq. zero</td></tr>
             <tr><td><code>1905.31.00</code></td><td>Biscoitos salgados</td><td><code>200</code></td><td><code>200034</code></td><td>Alimentos consumo humano (Anexo VII) — red. 60%</td></tr>
           </tbody>
         </table>
@@ -444,7 +445,7 @@ const ARTIGOS = [
     destaque: false,
     conteudo: `
       <h2>1. Introdução</h2>
-      <p>O setor de serviços é um dos mais impactados pela Reforma Tributária de 2026. A transição do ISS (2% a 5%) para o IBS (15%) representa uma mudança significativa de carga nominal — ainda que compensada pela não cumulatividade plena, que antes era praticamente inexistente para serviços.</p>
+      <p>O setor de serviços é um dos mais impactados pela Reforma Tributária de 2026. A transição do ISS (2% a 5%) para o IBS (17,7%) representa uma mudança significativa de carga nominal — ainda que compensada pela não cumulatividade plena, que antes era praticamente inexistente para serviços.</p>
 
       <h2>2. Cenário Anterior — ISS</h2>
       <ul>
@@ -464,7 +465,7 @@ const ARTIGOS = [
         </div>
       </div>
       <ul>
-        <li>Alíquota padrão: 15% (12% estadual + 3% municipal)</li>
+        <li>Alíquota de referência: 17,7% (parcela estadual + municipal)</li>
         <li>Não cumulatividade plena: crédito sobre todos os insumos tributados</li>
         <li>Gestão: CG-IBS arrecada e distribui ao município de destino</li>
         <li>Retenção simplificada pelo tomador do serviço</li>
@@ -483,14 +484,14 @@ const ARTIGOS = [
             </tr>
           </thead>
           <tbody>
-            <tr><td><code>6201-5</code></td><td>Desenvolvimento de Software</td><td>2%–5%</td><td>15%</td><td>001</td></tr>
-            <tr><td><code>6920-6</code></td><td>Contabilidade</td><td>2%–5%</td><td>15%</td><td>001</td></tr>
-            <tr><td><code>8599-6</code></td><td>Ensino/Educação Privada</td><td>2%–5%</td><td>6% (redução 60%)</td><td>002</td></tr>
-            <tr><td><code>8621-6</code></td><td>Serviços Médicos</td><td>2%–5%</td><td>6% (redução 60%)</td><td>002</td></tr>
-            <tr><td><code>4912-4</code></td><td>Transporte Rodoviário</td><td>ICMS (2,5%–12%)</td><td>6% (redução 60%)</td><td>002</td></tr>
-            <tr><td><code>5611-2</code></td><td>Restaurantes</td><td>ISS 5% + ICMS</td><td>15% IBS</td><td>001</td></tr>
-            <tr><td><code>7111-1</code></td><td>Arquitetura e Eng.</td><td>2%–5%</td><td>15%</td><td>001</td></tr>
-            <tr><td><code>7020-4</code></td><td>Consultoria de Gestão</td><td>2%–5%</td><td>15%</td><td>001</td></tr>
+            <tr><td><code>6201-5</code></td><td>Desenvolvimento de Software</td><td>2%–5%</td><td>17,7%</td><td>000001</td></tr>
+            <tr><td><code>6920-6</code></td><td>Contabilidade</td><td>2%–5%</td><td>12,4% (redução 30%)</td><td>200052</td></tr>
+            <tr><td><code>8599-6</code></td><td>Ensino/Educação Privada</td><td>2%–5%</td><td>7,1% (redução 60%)</td><td>200028</td></tr>
+            <tr><td><code>8621-6</code></td><td>Serviços Médicos</td><td>2%–5%</td><td>7,1% (redução 60%)</td><td>200029</td></tr>
+            <tr><td><code>4912-4</code></td><td>Transporte de Passageiros</td><td>ICMS (2,5%–12%)</td><td>10,6% (redução 40%)</td><td>200049</td></tr>
+            <tr><td><code>5611-2</code></td><td>Restaurantes</td><td>ISS 5% + ICMS</td><td>10,6% (redução 40%)</td><td>200047</td></tr>
+            <tr><td><code>7111-1</code></td><td>Arquitetura e Eng.</td><td>2%–5%</td><td>12,4% (redução 30%)</td><td>200052</td></tr>
+            <tr><td><code>7020-4</code></td><td>Consultoria de Gestão</td><td>2%–5%</td><td>12,4% (redução 30%)</td><td>200052</td></tr>
           </tbody>
         </table>
       </div>
@@ -506,10 +507,10 @@ const ARTIGOS = [
             <tr><td>ISS (2%)</td><td>R$ 4.000,00</td><td>— (extinto)</td></tr>
             <tr><td>PIS (1,65%)</td><td>R$ 3.300,00</td><td>— (extinto)</td></tr>
             <tr><td>COFINS (7,6%)</td><td>R$ 15.200,00</td><td>— (extinto)</td></tr>
-            <tr><td>CBS (12%)</td><td>—</td><td>R$ 24.000,00</td></tr>
-            <tr><td>IBS (15%)</td><td>—</td><td>R$ 30.000,00</td></tr>
+            <tr><td>CBS (8,8%)</td><td>—</td><td>R$ 17.600,00</td></tr>
+            <tr><td>IBS (17,7%)</td><td>—</td><td>R$ 35.400,00</td></tr>
             <tr><td>Crédito de entradas</td><td>R$ 2.500,00</td><td>R$ 12.000,00 (ampliado)</td></tr>
-            <tr><td><strong>Tributo líquido</strong></td><td><strong>R$ 20.000,00</strong></td><td><strong>R$ 42.000,00</strong></td></tr>
+            <tr><td><strong>Tributo líquido</strong></td><td><strong>R$ 20.000,00</strong></td><td><strong>R$ 41.000,00</strong></td></tr>
           </tbody>
         </table>
       </div>
@@ -526,9 +527,9 @@ const ARTIGOS = [
       <ul>
         <li>Educação básica e superior</li>
         <li>Saúde (serviços médicos, hospitalares e odontológicos)</li>
-        <li>Transporte coletivo de passageiros</li>
+        <li>Medicamentos e dispositivos médicos</li>
         <li>Produtos agropecuários (insumos)</li>
-        <li>Serviços de comunicação (internet e telefonia residencial)</li>
+        <li>Produções artísticas, culturais e jornalísticas nacionais</li>
       </ul>
 
       <h2>7. Orientações para Prestadores de Serviços</h2>
@@ -547,7 +548,7 @@ const ARTIGOS = [
       </div>
 
       <h2>8. Conclusão</h2>
-      <p>O setor de serviços enfrenta o maior desafio da Reforma: aumento nominal de alíquota de até 3x (de 5% ISS para 15% IBS). Porém, a não cumulatividade plena e as reduções setoriais podem mitigar — e em alguns casos reverter — esse aumento. O planejamento tributário e a correta identificação do CNAE e cClassTrib são essenciais para o sucesso na transição.</p>
+      <p>O setor de serviços enfrenta o maior desafio da Reforma: aumento nominal de alíquota de até 3x (de 5% ISS para 17,7% IBS). Porém, a não cumulatividade plena e as reduções setoriais podem mitigar — e em alguns casos reverter — esse aumento. O planejamento tributário e a correta identificação do CNAE e cClassTrib são essenciais para o sucesso na transição.</p>
     `
   },
   {
@@ -586,7 +587,7 @@ const ARTIGOS = [
         <i class="ph ph-info"></i>
         <div>
           <strong>Princípio do Destino</strong>
-          <p>O IBS é integralmente devido no estado e município onde o bem é consumido ou o serviço é utilizado, independentemente da origem da operação. <strong>Alíquota única nacional: 15%.</strong></p>
+          <p>O IBS é integralmente devido no estado e município onde o bem é consumido ou o serviço é utilizado, independentemente da origem da operação. <strong>Alíquota de referência nacional: 17,7%.</strong></p>
         </div>
       </div>
 
@@ -594,7 +595,7 @@ const ARTIGOS = [
       <ul>
         <li><strong>Fim do DIFAL:</strong> não há mais diferencial de alíquota entre estados</li>
         <li><strong>Fim da guerra fiscal:</strong> os benefícios estaduais de ICMS são extintos</li>
-        <li><strong>Alíquota uniforme:</strong> 12% (estadual) + 3% (municipal) = 15% em qualquer destino</li>
+        <li><strong>Alíquota de referência:</strong> 17,7% (parcela estadual + municipal) em qualquer destino</li>
         <li><strong>Crédito irrestrito:</strong> o adquirente se credita do IBS pago na origem</li>
         <li><strong>CG-IBS distribui:</strong> o Comitê repassa automaticamente para o estado/município de destino</li>
       </ul>
@@ -606,7 +607,7 @@ const ARTIGOS = [
             <tr><th>Aspecto</th><th>ICMS Interestadual</th><th>IBS</th></tr>
           </thead>
           <tbody>
-            <tr><td>Alíquota</td><td>7% ou 12%</td><td>15% (uniforme)</td></tr>
+            <tr><td>Alíquota</td><td>7% ou 12%</td><td>17,7% (uniforme)</td></tr>
             <tr><td>DIFAL</td><td>Sim — complexo</td><td>Não existe</td></tr>
             <tr><td>Guerra fiscal</td><td>Sim — benefícios estaduais</td><td>Extinta</td></tr>
             <tr><td>Destino da receita</td><td>Estado de origem + partilha DIFAL</td><td>Estado/município de destino</td></tr>
@@ -625,12 +626,12 @@ const ARTIGOS = [
             <tr><th>Tributo</th><th>Modelo ICMS</th><th>Modelo IBS</th></tr>
           </thead>
           <tbody>
-            <tr><td>Alíquota na NF-e</td><td>7% (interestadual SP→PE)</td><td>15% (IBS)</td></tr>
-            <tr><td>Tributo destacado</td><td>R$ 7.000,00</td><td>R$ 15.000,00</td></tr>
+            <tr><td>Alíquota na NF-e</td><td>7% (interestadual SP→PE)</td><td>17,7% (IBS)</td></tr>
+            <tr><td>Tributo destacado</td><td>R$ 7.000,00</td><td>R$ 17.700,00</td></tr>
             <tr><td>DIFAL para PE</td><td>R$ 11.000,00 (alíq. interna 18%)</td><td>— (extinto)</td></tr>
-            <tr><td>Total de ICMS/IBS</td><td>R$ 18.000,00</td><td>R$ 15.000,00</td></tr>
+            <tr><td>Total de ICMS/IBS</td><td>R$ 18.000,00</td><td>R$ 17.700,00</td></tr>
             <tr><td>Destino da receita</td><td>SP + PE (partilhado)</td><td>Integralmente para PE</td></tr>
-            <tr><td>Crédito no varejista PE</td><td>Apenas os 7%</td><td>15% integral</td></tr>
+            <tr><td>Crédito no varejista PE</td><td>Apenas os 7%</td><td>17,7% integral</td></tr>
           </tbody>
         </table>
       </div>
@@ -638,7 +639,7 @@ const ARTIGOS = [
         <i class="ph ph-lightbulb"></i>
         <div>
           <strong>Resultado</strong>
-          <p>Carga menor (15% vs 18%) e simplificação total: sem DIFAL, sem guia GNRE, sem Protocolo ICMS, sem benefício fiscal a controlar.</p>
+          <p>Carga menor (17,7% vs 18%) e simplificação total: sem DIFAL, sem guia GNRE, sem Protocolo ICMS, sem benefício fiscal a controlar.</p>
         </div>
       </div>
 
@@ -668,7 +669,7 @@ const ARTIGOS = [
             <li>Mapear todos os estados para os quais a empresa vende e compra</li>
             <li>Eliminar o controle de DIFAL dos sistemas a partir de 2027</li>
             <li>Cancelar Inscrições Estaduais em outros estados (quando aplicável)</li>
-            <li>Revisar precificação considerando a alíquota uniforme de 15%</li>
+            <li>Revisar precificação considerando a alíquota de referência de 17,7%</li>
             <li>Atualizar o ERP para o novo leiaute da NF-e com IBS no destino</li>
             <li>Identificar quais Protocolos ICMS ainda vigem durante a transição (2029–2032)</li>
           </ul>
@@ -1048,8 +1049,8 @@ const TABELA_CCLASSTRIB = [
 
 // Glossário
 const GLOSSARIO = [
-  { id: 'cbs', termo: 'Contribuição sobre Bens e Serviços', sigla: 'CBS', categoria: 'tributos-federais', definicao: 'Novo tributo federal que substitui o PIS e a COFINS. Incide sobre o consumo de bens e serviços com características de IVA, permitindo amplo direito ao crédito e com alíquota única de 12%.', exemploUso: 'A CBS incidirá sobre a venda de mercadorias com alíquota de 12%, substituindo o PIS (1,65%) e a COFINS (7,6%).', fundamentoLegal: 'Lei Complementar 214/2025', relacionados: ['PIS', 'COFINS', 'IVA'] },
-  { id: 'ibs', termo: 'Imposto sobre Bens e Serviços', sigla: 'IBS', categoria: 'tributos-estaduais', definicao: 'Novo imposto de competência compartilhada entre Estados e Municípios que unifica o ICMS e o ISS. Possui gestão centralizada pelo Comitê Gestor do IBS e alíquota padrão de 15% (12% estadual + 3% municipal).', exemploUso: 'O IBS será cobrado no destino, com alíquota única de 15%, eliminando a guerra fiscal.', fundamentoLegal: 'Lei Complementar 214/2025', relacionados: ['ICMS', 'ISS', 'CG-IBS'] },
+  { id: 'cbs', termo: 'Contribuição sobre Bens e Serviços', sigla: 'CBS', categoria: 'tributos-federais', definicao: 'Novo tributo federal que substitui o PIS e a COFINS. Incide sobre o consumo de bens e serviços com características de IVA, permitindo amplo direito ao crédito e com alíquota de referência de 8,8%.', exemploUso: 'A CBS incidirá sobre a venda de mercadorias com alíquota de 8,8%, substituindo o PIS (1,65%) e a COFINS (7,6%).', fundamentoLegal: 'Lei Complementar 214/2025', relacionados: ['PIS', 'COFINS', 'IVA'] },
+  { id: 'ibs', termo: 'Imposto sobre Bens e Serviços', sigla: 'IBS', categoria: 'tributos-estaduais', definicao: 'Novo imposto de competência compartilhada entre Estados e Municípios que unifica o ICMS e o ISS. Possui gestão centralizada pelo Comitê Gestor do IBS e alíquota de referência de 17,7% (parcela estadual + municipal).', exemploUso: 'O IBS será cobrado no destino, com alíquota de referência de 17,7%, eliminando a guerra fiscal.', fundamentoLegal: 'Lei Complementar 214/2025', relacionados: ['ICMS', 'ISS', 'CG-IBS'] },
   { id: 'pis', termo: 'Programa de Integração Social', sigla: 'PIS', categoria: 'tributos-federais', definicao: 'Contribuição social federal incidente sobre a receita bruta das empresas, destinada ao financiamento do seguro-desemprego e abono salarial. Será extinto e substituído pela CBS.', exemploUso: 'O PIS era cobrado com alíquota de 1,65% no regime não-cumulativo.', fundamentoLegal: 'Lei Complementar 7/1970 (extinta)', relacionados: ['CBS', 'COFINS'] },
   { id: 'cofins', termo: 'Contribuição para o Financiamento da Seguridade Social', sigla: 'COFINS', categoria: 'tributos-federais', definicao: 'Contribuição social federal incidente sobre o faturamento das empresas, destinada ao financiamento da seguridade social. Será extinta e substituída pela CBS.', exemploUso: 'A COFINS era cobrada com alíquota de 7,6% no regime não-cumulativo.', fundamentoLegal: 'Lei Complementar 70/1991 (extinta)', relacionados: ['CBS', 'PIS'] },
   { id: 'icms', termo: 'Imposto sobre Circulação de Mercadorias e Serviços', sigla: 'ICMS', categoria: 'tributos-estaduais', definicao: 'Imposto estadual incidente sobre operações relativas à circulação de mercadorias e serviços de transporte interestadual e intermunicipal. Será extinto gradualmente e integrado ao IBS.', exemploUso: 'O ICMS possuía alíquotas que variavam de 7% a 25% dependendo do estado e produto.', fundamentoLegal: 'Lei Complementar 87/1996 (em extinção)', relacionados: ['IBS', 'ST'] },
@@ -1088,7 +1089,7 @@ const TIPOS_TABELA = [
 // Cronograma CBS
 const FASES_CBS = [
   { ano: 2026, pisCofins: 100, cbs: 0, descricao: 'Período de preparação e teste da CBS', marcos: ['Publicação de regulamentações', 'Adequação de sistemas', 'Homologação'] },
-  { ano: 2027, pisCofins: 0, cbs: 100, descricao: 'Extinção do PIS/COFINS, vigência plena da CBS', marcos: ['CBS em vigor com 12%', 'PIS/COFINS extintos', 'EFD-CBS obrigatória'] }
+  { ano: 2027, pisCofins: 0, cbs: 100, descricao: 'Extinção do PIS/COFINS, vigência plena da CBS', marcos: ['CBS em vigor (ref. 8,8%)', 'PIS/COFINS extintos', 'EFD-CBS obrigatória'] }
 ];
 
 // Cronograma IBS
