@@ -104,6 +104,34 @@
   ]
 }
   </script>
+
+  <style>
+    .sim-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:var(--space-md);margin:var(--space-lg) 0;}
+    .sim-resumo{display:flex;flex-wrap:wrap;gap:var(--space-md);margin:var(--space-lg) 0;}
+    .sim-stat{flex:1;min-width:180px;background:var(--bg-card);border:1px solid var(--border-color);border-radius:var(--radius-md);padding:var(--space-md) var(--space-lg);}
+    .sim-stat__label{color:var(--text-muted);font-size:.8rem;}
+    .sim-stat__value{font-size:1.4rem;font-weight:700;font-family:var(--font-mono);margin-top:.25rem;}
+    .sim-stat__value.up{color:var(--error);}
+    .sim-stat__value.down{color:var(--success);}
+    .sim-stat__sub{color:var(--text-muted);font-size:.78rem;margin-top:.15rem;}
+    .sim-table-wrap{overflow-x:auto;border:1px solid var(--border-color);border-radius:var(--radius-md);margin-top:var(--space-lg);}
+    table.sim-table{width:100%;border-collapse:collapse;font-size:.9rem;}
+    table.sim-table th,table.sim-table td{padding:.6rem .8rem;text-align:left;border-bottom:1px solid var(--border-color);vertical-align:top;}
+    table.sim-table th{background:var(--bg-tertiary);color:var(--text-primary);font-weight:600;}
+    table.sim-table td.num{font-family:var(--font-mono);text-align:right;white-space:nowrap;}
+    table.sim-table td.ano{font-family:var(--font-mono);font-weight:700;color:var(--text-accent);}
+    table.sim-table tr:hover td{background:var(--bg-card-hover);}
+    .sim-chart{display:flex;align-items:flex-end;gap:.4rem;height:210px;margin:var(--space-xl) 0 0;padding-top:1.4rem;border-bottom:1px solid var(--border-color);overflow-x:auto;}
+    .sim-bar{flex:1;min-width:46px;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;}
+    .sim-bar__fill{width:72%;background:linear-gradient(180deg,var(--color-primary-light),var(--color-primary));border-radius:6px 6px 0 0;min-height:2px;transition:height .4s ease;}
+    .sim-bar__pct{font-size:.7rem;color:var(--text-secondary);margin-bottom:4px;font-family:var(--font-mono);}
+    .sim-bar__ano{font-size:.72rem;color:var(--text-muted);margin-top:6px;font-family:var(--font-mono);}
+    .sim-chart-cap{color:var(--text-muted);font-size:.8rem;margin:.5rem 0 0;}
+    .sim-notes{margin-top:var(--space-xl);background:var(--bg-card);border:1px solid var(--border-color);border-radius:var(--radius-md);padding:var(--space-md) var(--space-lg);}
+    .sim-notes summary{cursor:pointer;font-weight:600;color:var(--text-primary);}
+    .sim-notes ul{margin:.75rem 0 0;padding-left:1.1rem;color:var(--text-secondary);font-size:.85rem;line-height:1.6;}
+    .sim-notes h4{margin:var(--space-md) 0 .35rem;color:var(--text-primary);font-size:.9rem;}
+  </style>
 </head>
 <body>
   <header class="header">
@@ -283,6 +311,74 @@
         <i class="ph ph-warning"></i>
         <p><strong>Atenção:</strong> Esta calculadora apresenta uma simulação simplificada. Os valores reais podem variar conforme o setor, regime tributário específico, benefícios fiscais e outros fatores. Consulte sempre um profissional especializado.</p>
       </div>
+
+      <!-- Simulador de Transição Ano a Ano -->
+      <section class="sim-transicao" id="simulador" style="margin-top: var(--space-2xl)">
+        <header class="page-header">
+          <h2><i class="ph ph-chart-line-up"></i> Simulador de Transição 2026–2033</h2>
+          <p>Projete a carga tributária estimada <strong>ano a ano</strong> durante a transição da Reforma (LC 214/2025), a partir do seu faturamento anual, setor e regime. Baseado no modelo do projeto aberto mcp-fiscal-brasil.</p>
+        </header>
+
+        <div class="sim-grid">
+          <div class="form-group">
+            <label>Faturamento anual (R$)</label>
+            <input type="number" id="simFaturamento" value="1200000" min="0" step="1000" oninput="simular()">
+          </div>
+          <div class="form-group">
+            <label>Setor</label>
+            <select id="simSetor" onchange="simular()">
+              <option value="comercio">Comércio</option>
+              <option value="industria">Indústria</option>
+              <option value="servicos">Serviços</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Regime atual</label>
+            <select id="simRegime" onchange="simular()">
+              <option value="Simples Nacional">Simples Nacional</option>
+              <option value="Lucro Presumido" selected>Lucro Presumido</option>
+              <option value="Lucro Real">Lucro Real</option>
+            </select>
+          </div>
+          <div class="form-group" id="simIcmsField">
+            <label>Alíquota ICMS (%)</label>
+            <input type="number" id="simIcms" value="12" min="0" max="100" step="0.1" oninput="simular()">
+          </div>
+          <div class="form-group" id="simIssField" style="display:none">
+            <label>Alíquota ISS (%)</label>
+            <input type="number" id="simIss" value="5" min="0" max="100" step="0.1" oninput="simular()">
+          </div>
+        </div>
+
+        <div class="sim-resumo" id="simResumo"></div>
+
+        <div class="sim-chart" id="simChart"></div>
+        <p class="sim-chart-cap">Carga tributária total estimada (%) sobre o faturamento, por ano.</p>
+
+        <div class="sim-table-wrap">
+          <table class="sim-table">
+            <thead>
+              <tr>
+                <th>Ano</th>
+                <th class="num">Regime atual</th>
+                <th class="num">CBS/IBS (novo)</th>
+                <th class="num">Carga total</th>
+                <th class="num">Em R$</th>
+                <th>O que muda</th>
+              </tr>
+            </thead>
+            <tbody id="simTbody"></tbody>
+          </table>
+        </div>
+
+        <details class="sim-notes">
+          <summary>Premissas e avisos importantes</summary>
+          <h4>Premissas utilizadas</h4>
+          <ul id="simPremissas"></ul>
+          <h4>Avisos</h4>
+          <ul id="simAvisos"></ul>
+        </details>
+      </section>
     </div>
   </main>
 
@@ -301,6 +397,118 @@
     document.addEventListener('DOMContentLoaded', () => {
       calcular();
     });
+  </script>
+  <script>
+    /* Simulador de transição da Reforma Tributária (LC 214/2025).
+       Modelo portado de mcp-fiscal-brasil (MIT, (c) 2026 Nikolas DeHor). */
+    (function () {
+      const CBS_REF = 8.8, IBS_REF = 17.7;
+      const FRAC_IBS = { 2026:0, 2027:0, 2028:0, 2029:0.10, 2030:0.20, 2031:0.30, 2032:0.40, 2033:1.00 };
+      const NOTAS = {
+        2026: "Fase de teste: CBS 0,9% + IBS 0,1%, compensáveis no PIS/COFINS. Impacto adicional líquido próximo de zero.",
+        2027: "CBS plena substitui PIS/COFINS. IPI zerado (exceto ZFM). ICMS e ISS seguem integrais.",
+        2028: "Consolidação da CBS. ICMS e ISS permanecem integrais; o IBS ainda não os reduz.",
+        2029: "Início da redução: ICMS/ISS recuam para 90% e o IBS assume 10% da carga de referência.",
+        2030: "ICMS/ISS em 80%; o IBS assume 20% da carga de referência.",
+        2031: "ICMS/ISS em 70%; o IBS assume 30% da carga de referência.",
+        2032: "ICMS/ISS em 60%; o IBS assume 40% da carga de referência.",
+        2033: "Extinção de ICMS e ISS. IBS pleno — novo sistema de tributação sobre consumo em vigor integral."
+      };
+      const AVISOS = [
+        "As alíquotas de referência do IBS (~17,7%) e da CBS (~8,8%) são ESTIMATIVAS e ainda não foram fixadas em lei — serão definidas pelo Comitê Gestor do IBS (CGIBS) e pelo Senado Federal.",
+        "Simples Nacional e MEI (estimativa muito aproximada): PIS/COFINS, ICMS e ISS estão embutidos no DAS e não são apurados em separado. O simulador os trata como independentes, o que superestima a carga atual. Optantes entram no novo sistema a partir de 2027, com regras próprias ainda em regulamentação. Use apenas como ordem de grandeza.",
+        "A não-cumulatividade (créditos de IBS/CBS) não é modelada nesta versão — empresas com cadeia de créditos podem ter carga efetiva bem diferente.",
+        "O ICMS varia por UF e o ISS por município: informe a alíquota correta para maior precisão.",
+        "Setores com alíquota reduzida (saúde, educação, transporte público, cesta básica etc.) têm tratamento diferenciado não modelado aqui.",
+        "Esta estimativa não substitui parecer contábil ou jurídico. Consulte um profissional antes de decidir."
+      ];
+
+      const $ = id => document.getElementById(id);
+      const fmtBRL = v => v.toLocaleString('pt-BR', { style:'currency', currency:'BRL' });
+      const fmtPct = v => v.toLocaleString('pt-BR', { minimumFractionDigits:2, maximumFractionDigits:2 }) + '%';
+      const esc = s => String(s).replace(/[&<>]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+
+      function pisCofins(regime) { return regime === 'Lucro Real' ? 9.25 : 3.65; }
+
+      function calcAno(ano, fat, pc, icmsIss) {
+        const f = FRAC_IBS[ano], rest = 1 - f;
+        let antiga, nova;
+        if (ano === 2026) { antiga = pc + icmsIss; nova = 0; }
+        else if (ano === 2027 || ano === 2028) { antiga = icmsIss; nova = CBS_REF; }
+        else { antiga = icmsIss * rest; nova = CBS_REF + IBS_REF * f; }
+        const total = antiga + nova;
+        return { ano, antiga:+antiga.toFixed(2), nova:+nova.toFixed(2), total:+total.toFixed(2), reais:+(fat*total/100).toFixed(2), nota:NOTAS[ano] };
+      }
+
+      window.simular = function () {
+        const fat = Math.max(0, parseFloat($('simFaturamento').value) || 0);
+        const setor = $('simSetor').value;
+        const regime = $('simRegime').value;
+        const servicos = setor === 'servicos';
+        $('simIcmsField').style.display = servicos ? 'none' : '';
+        $('simIssField').style.display = servicos ? '' : 'none';
+        const nomeTrib = servicos ? 'ISS' : 'ICMS';
+        const icmsIss = servicos ? (parseFloat($('simIss').value) || 0) : (parseFloat($('simIcms').value) || 0);
+        const pc = pisCofins(regime);
+
+        const anos = [];
+        for (let a = 2026; a <= 2033; a++) anos.push(calcAno(a, fat, pc, icmsIss));
+
+        const cargaHoje = pc + icmsIss;           // = carga "antiga" de 2026
+        const carga2033 = anos[anos.length - 1].total;
+        const deltaPct = carga2033 - cargaHoje;
+        const deltaReais = fat * deltaPct / 100;
+        const cls = deltaPct > 0 ? 'up' : (deltaPct < 0 ? 'down' : '');
+        const sinal = deltaPct > 0 ? '+' : '';
+
+        $('simResumo').innerHTML = `
+          <div class="sim-stat"><div class="sim-stat__label">Carga atual estimada (${esc(nomeTrib)} + PIS/COFINS)</div>
+            <div class="sim-stat__value">${fmtPct(cargaHoje)}</div>
+            <div class="sim-stat__sub">${fmtBRL(fat*cargaHoje/100)} / ano</div></div>
+          <div class="sim-stat"><div class="sim-stat__label">Carga plena em 2033 (CBS + IBS)</div>
+            <div class="sim-stat__value">${fmtPct(carga2033)}</div>
+            <div class="sim-stat__sub">${fmtBRL(fat*carga2033/100)} / ano</div></div>
+          <div class="sim-stat"><div class="sim-stat__label">Variação 2033 vs. hoje</div>
+            <div class="sim-stat__value ${cls}">${sinal}${fmtPct(deltaPct)}</div>
+            <div class="sim-stat__sub">${sinal}${fmtBRL(deltaReais)} / ano (sem créditos)</div></div>`;
+
+        const maxT = Math.max(...anos.map(a => a.total), 1);
+        $('simChart').innerHTML = anos.map(a => `
+          <div class="sim-bar" title="${a.ano}: ${fmtPct(a.total)}">
+            <span class="sim-bar__pct">${a.total.toLocaleString('pt-BR',{maximumFractionDigits:1})}%</span>
+            <div class="sim-bar__fill" style="height:${(a.total/maxT*100).toFixed(1)}%"></div>
+            <span class="sim-bar__ano">${a.ano}</span>
+          </div>`).join('');
+
+        $('simTbody').innerHTML = anos.map(a => `
+          <tr>
+            <td class="ano">${a.ano}</td>
+            <td class="num">${fmtPct(a.antiga)}</td>
+            <td class="num">${fmtPct(a.nova)}</td>
+            <td class="num"><strong>${fmtPct(a.total)}</strong></td>
+            <td class="num">${fmtBRL(a.reais)}</td>
+            <td>${esc(a.nota)}</td>
+          </tr>`).join('');
+
+        const infTrib = servicos
+          ? ($('simIss').value !== '' ? 'informada' : 'padrão assumido')
+          : ($('simIcms').value !== '' ? 'informada' : 'padrão assumido');
+        const premissas = [
+          `Faturamento anual: ${fmtBRL(fat)}.`,
+          `Setor: ${esc(setor)}. Regime atual: ${esc(regime)}.`,
+          `Alíquota ${esc(nomeTrib)}: ${fmtPct(icmsIss)} (${infTrib}; varia por estado/município).`,
+          `PIS/COFINS: ${fmtPct(pc)} (padrão para ${esc(regime)}).`,
+          `CBS de referência: ${fmtPct(CBS_REF)} (substitui PIS/COFINS a partir de 2027).`,
+          `IBS de referência: ${fmtPct(IBS_REF)} (alíquota plena em 2033).`,
+          `Cronograma IBS/(ICMS-ISS): 10%/90% em 2029, 20%/80% em 2030, 30%/70% em 2031, 40%/60% em 2032, 100%/0% em 2033.`,
+          `2026 é fase de teste com compensação; impacto adicional líquido assumido como zero.`
+        ];
+        $('simPremissas').innerHTML = premissas.map(p => `<li>${esc(p)}</li>`).join('');
+        $('simAvisos').innerHTML = AVISOS.map(a => `<li>${esc(a)}</li>`).join('');
+      };
+
+      simular();
+    })();
   </script>
   <!-- Cloudflare Web Analytics -->
   <script type="module" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "f4fcc25a7cd64ae49b673976803f486b"}'></script>
