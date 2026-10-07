@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://mgcandido.github.io/alvoconsultoria/sitemap.xml
