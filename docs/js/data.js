@@ -179,7 +179,7 @@ const ARTIGOS = [
       <p>Esta unificação é a mudança mais estrutural para estados e municípios, pondo fim à guerra fiscal e harmonizando a tributação do consumo em todo o território nacional.</p>
 
       <h2>2. Base Legal</h2>
-      <p>O IBS está previsto na <strong>Emenda Constitucional nº 132/2023</strong> e regulamentado pela <strong>Lei Complementar nº 214/2025</strong>. Sua vigência inicia em 2027, com transição gradual até 2032.</p>
+      <p>O IBS está previsto na <strong>Emenda Constitucional nº 132/2023</strong> e regulamentado pela <strong>Lei Complementar nº 214/2025</strong>. A CBS entra plena em 2027; a cobrança efetiva do IBS começa em 2029 e a transição se completa em 2033, com a extinção do ICMS e do ISS.</p>
 
       <h2>3. Estrutura do IBS</h2>
       <div class="table-wrapper">
@@ -225,19 +225,20 @@ const ARTIGOS = [
         <li><strong>Fim do DIFAL:</strong> operações interestaduais simplificadas</li>
       </ul>
 
-      <h2>6. Transição Gradual (2027–2032)</h2>
+      <h2>6. Transição Gradual (2029–2033)</h2>
       <div class="table-wrapper">
         <table>
           <thead>
             <tr><th>Ano</th><th>ICMS/ISS</th><th>IBS</th><th>Observação</th></tr>
           </thead>
           <tbody>
-            <tr><td>2027</td><td>90%</td><td>10%</td><td>Início da transição</td></tr>
-            <tr><td>2028</td><td>80%</td><td>20%</td><td>Coexistência de regimes</td></tr>
-            <tr><td>2029</td><td>60%</td><td>40%</td><td>IBS se torna relevante</td></tr>
-            <tr><td>2030</td><td>40%</td><td>60%</td><td>IBS passa a ser majoritário</td></tr>
-            <tr><td>2031</td><td>20%</td><td>80%</td><td>Fase final de transição</td></tr>
-            <tr><td>2032</td><td>0%</td><td>100%</td><td>Extinção do ICMS/ISS</td></tr>
+            <tr><td>2026</td><td>100%</td><td>teste (0,1%)</td><td>Fase de teste do IBS, compensável</td></tr>
+            <tr><td>2027–2028</td><td>100%</td><td>teste (0,1%)</td><td>CBS plena substitui o PIS/COFINS; ICMS/ISS integrais</td></tr>
+            <tr><td>2029</td><td>90%</td><td>10%</td><td>Início da redução do ICMS/ISS</td></tr>
+            <tr><td>2030</td><td>80%</td><td>20%</td><td>Coexistência de regimes</td></tr>
+            <tr><td>2031</td><td>70%</td><td>30%</td><td>IBS ganha relevância</td></tr>
+            <tr><td>2032</td><td>60%</td><td>40%</td><td>Fase final de transição</td></tr>
+            <tr><td>2033</td><td>0%</td><td>100%</td><td>Extinção do ICMS/ISS; IBS pleno</td></tr>
           </tbody>
         </table>
       </div>
@@ -281,7 +282,7 @@ const ARTIGOS = [
         <div>
           <strong>Pontos de Atenção</strong>
           <ul>
-            <li>Revisar contratos com cláusula de reajuste tributário para 2027–2032</li>
+            <li>Revisar contratos com cláusula de reajuste tributário para 2029–2033</li>
             <li>Atualizar o ERP para emissão de NF-e/NFS-e com IBS</li>
             <li>Identificar o local de destino de cada operação</li>
             <li>Aproveitar créditos de IBS sobre todas as entradas tributadas</li>
@@ -291,7 +292,7 @@ const ARTIGOS = [
       </div>
 
       <h2>10. Conclusão</h2>
-      <p>O IBS representa uma simplificação histórica do sistema tributário subnacional. A transição de 6 anos (2027–2032) oferece tempo para adequação, mas exige planejamento imediato — especialmente para setores como serviços, que terão aumento significativo de alíquota nominal, ainda que compensado pela não cumulatividade plena.</p>
+      <p>O IBS representa uma simplificação histórica do sistema tributário subnacional. A transição (período de teste em 2026, CBS plena em 2027 e redução do ICMS/ISS de 2029 a 2033) oferece tempo para adequação, mas exige planejamento imediato — especialmente para setores como serviços, que terão aumento significativo de alíquota nominal, ainda que compensado pela não cumulatividade plena.</p>
     `
   },
   {
@@ -669,7 +670,7 @@ const ARTIGOS = [
             <li>Cancelar Inscrições Estaduais em outros estados (quando aplicável)</li>
             <li>Revisar precificação considerando a alíquota uniforme de 15%</li>
             <li>Atualizar o ERP para o novo leiaute da NF-e com IBS no destino</li>
-            <li>Identificar quais Protocolos ICMS ainda vigem durante a transição (2027–2031)</li>
+            <li>Identificar quais Protocolos ICMS ainda vigem durante a transição (2029–2032)</li>
           </ul>
         </div>
       </div>
@@ -1093,10 +1094,11 @@ const FASES_CBS = [
 // Cronograma IBS
 const FASES_IBS = [
   { ano: 2026, icms: 100, ibs: 0, descricao: 'Período de preparação para o IBS', marcos: ['Criação do Comitê Gestor', 'Definição de alíquotas', 'Sistemas em desenvolvimento'] },
-  { ano: 2027, icms: 90, ibs: 10, descricao: 'Início da transição gradual ICMS/ISS → IBS', marcos: ['IBS começa a vigorar', 'Coexistência de tributos'] },
-  { ano: 2028, icms: 80, ibs: 20, descricao: 'Continuidade da transição gradual', marcos: ['20% de IBS', '80% de ICMS/ISS'] },
-  { ano: 2029, icms: 60, ibs: 40, descricao: 'Aceleração da transição', marcos: ['40% de IBS', '60% de ICMS/ISS'] },
-  { ano: 2030, icms: 40, ibs: 60, descricao: 'IBS passa a ser majoritário', marcos: ['60% de IBS', '40% de ICMS/ISS'] },
-  { ano: 2031, icms: 20, ibs: 80, descricao: 'Fase final de transição', marcos: ['80% de IBS', '20% de ICMS/ISS'] },
-  { ano: 2032, icms: 0, ibs: 100, descricao: 'Extinção do ICMS/ISS, vigência plena do IBS', marcos: ['IBS em 100%', 'ICMS/ISS extintos', 'Sistema unificado'] }
+  { ano: 2027, icms: 100, ibs: 0, descricao: 'CBS plena substitui PIS/COFINS; ICMS/ISS integrais; IBS em fase de teste', marcos: ['CBS em vigor', 'IBS em teste (0,1%)', 'Imposto Seletivo inicia'] },
+  { ano: 2028, icms: 100, ibs: 0, descricao: 'ICMS/ISS integrais; IBS ainda em fase de teste', marcos: ['ICMS/ISS em 100%', 'IBS em teste (0,1%)'] },
+  { ano: 2029, icms: 90, ibs: 10, descricao: 'Início da redução do ICMS/ISS e aumento do IBS', marcos: ['IBS em 10%', 'ICMS/ISS em 90%'] },
+  { ano: 2030, icms: 80, ibs: 20, descricao: 'Coexistência de regimes', marcos: ['IBS em 20%', 'ICMS/ISS em 80%'] },
+  { ano: 2031, icms: 70, ibs: 30, descricao: 'IBS ganha relevância', marcos: ['IBS em 30%', 'ICMS/ISS em 70%'] },
+  { ano: 2032, icms: 60, ibs: 40, descricao: 'Fase final de transição', marcos: ['IBS em 40%', 'ICMS/ISS em 60%'] },
+  { ano: 2033, icms: 0, ibs: 100, descricao: 'Extinção do ICMS/ISS, vigência plena do IBS', marcos: ['IBS em 100%', 'ICMS/ISS extintos', 'Sistema unificado'] }
 ];
