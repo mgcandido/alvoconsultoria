@@ -30,7 +30,7 @@ const ARTIGOS = [
       <p>A transição é estrutural e afeta diretamente as obrigações acessórias, os cálculos de crédito, os enquadramentos de NCM e os sistemas fiscais de todas as empresas sujeitas ao regime não cumulativo.</p>
 
       <h2>2. Contexto Legal e Conceitual</h2>
-      <p>A CBS foi instituída pela <strong>Lei Complementar nº XXX/2025</strong>, em conformidade com a Emenda Constitucional nº 132/2023. Segue o modelo de IVA (Imposto sobre Valor Agregado), com as seguintes características:</p>
+      <p>A CBS foi instituída pela <strong>Lei Complementar nº 214/2025</strong>, em conformidade com a Emenda Constitucional nº 132/2023. Segue o modelo de IVA (Imposto sobre Valor Agregado), com as seguintes características:</p>
       <ul>
         <li><strong>Alíquota única federal:</strong> 12% sobre o valor da operação</li>
         <li><strong>Não cumulatividade plena:</strong> crédito irrestrito sobre todas as entradas tributadas</li>
@@ -179,7 +179,7 @@ const ARTIGOS = [
       <p>Esta unificação é a mudança mais estrutural para estados e municípios, pondo fim à guerra fiscal e harmonizando a tributação do consumo em todo o território nacional.</p>
 
       <h2>2. Base Legal</h2>
-      <p>O IBS está previsto na <strong>Emenda Constitucional nº 132/2023</strong> e regulamentado pela <strong>Lei Complementar nº XXX/2025</strong>. Sua vigência inicia em 2027, com transição gradual até 2032.</p>
+      <p>O IBS está previsto na <strong>Emenda Constitucional nº 132/2023</strong> e regulamentado pela <strong>Lei Complementar nº 214/2025</strong>. Sua vigência inicia em 2027, com transição gradual até 2032.</p>
 
       <h2>3. Estrutura do IBS</h2>
       <div class="table-wrapper">
@@ -521,7 +521,7 @@ const ARTIGOS = [
       </div>
 
       <h2>6. Setores com Benefício de Redução</h2>
-      <p>A LC XXX/2025 prevê redução de 60% da alíquota para:</p>
+      <p>A LC 214/2025 prevê redução de 60% da alíquota para:</p>
       <ul>
         <li>Educação básica e superior</li>
         <li>Saúde (serviços médicos, hospitalares e odontológicos)</li>
@@ -676,6 +676,211 @@ const ARTIGOS = [
 
       <h2>9. Conclusão</h2>
       <p>A simplificação das operações interestaduais é um dos maiores benefícios práticos do IBS. A extinção do DIFAL, da guerra fiscal e dos Protocolos ICMS reduzirá significativamente o custo de compliance — mas exige revisão completa dos sistemas, contratos e modelos de negócio de todas as empresas que operam em mais de um estado.</p>
+    `
+  },
+  {
+    id: '6',
+    slug: 'split-payment-recolhimento-liquidacao',
+    titulo: 'Split Payment: o Recolhimento na Liquidação Financeira',
+    subtitulo: 'Como o IBS e a CBS passam a ser separados no momento do pagamento',
+    resumo: 'Entenda o pagamento dividido da Reforma: o imposto é segregado automaticamente na liquidação da transação, o cronograma de adesão a partir de 2027 e os impactos no fluxo de caixa.',
+    categoria: 'integrado',
+    tags: ['Split Payment', 'CBS', 'IBS', 'Fluxo de Caixa', 'PIX'],
+    autor: 'Consultoria Tributária',
+    dataPublicacao: '2026-10-07',
+    tempoLeitura: 10,
+    destaque: true,
+    conteudo: `
+      <h2>1. O que é o Split Payment</h2>
+      <p>O <strong>split payment</strong> (pagamento dividido) é um dos pilares operacionais da Reforma Tributária. Em vez de a empresa receber o valor cheio da venda e recolher os tributos depois, o <strong>IBS</strong> e a <strong>CBS</strong> passam a ser <strong>separados automaticamente no momento em que o pagamento é liquidado</strong>: o fornecedor recebe apenas o valor líquido e a parcela de imposto segue direto para o Fisco.</p>
+      <p>O objetivo é reduzir a sonegação e a inadimplência tributária, garantindo que o imposto destacado no documento fiscal seja efetivamente recolhido — e, com isso, assegurar o crédito a quem compra.</p>
+
+      <h2>2. Como funciona na prática</h2>
+      <ol>
+        <li>A empresa emite a nota com o IBS e a CBS destacados e a respectiva cClassTrib.</li>
+        <li>No pagamento (PIX, TED, boleto ou TEF), o arranjo financeiro identifica os valores de IBS e CBS vinculados àquele documento fiscal.</li>
+        <li>O sistema segrega a parcela de tributo e a direciona ao Fisco; o fornecedor recebe o líquido.</li>
+      </ol>
+      <p>A primeira fase contempla quatro arranjos de pagamento — <strong>PIX, TED, boleto e TEF</strong> — com a inclusão de novos campos para os valores de CBS, IBS e a identificação do documento fiscal.</p>
+
+      <h2>3. Cronograma de adesão</h2>
+      <div class="table-wrapper">
+        <table>
+          <thead><tr><th>Fase</th><th>Escopo</th></tr></thead>
+          <tbody>
+            <tr><td>2026</td><td>Período de teste da CBS/IBS; ambiente de integração em preparação</td></tr>
+            <tr><td>2027</td><td>Início <strong>facultativo</strong>, restrito a operações entre empresas (B2B)</td></tr>
+            <tr><td>Após estabilização</td><td>Uso obrigatório no B2B</td></tr>
+            <tr><td>Fase seguinte</td><td>Possível ampliação para o consumidor final (B2C)</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Os prazos e detalhes operacionais seguem em regulamentação pelo Comitê Gestor do IBS e pela Receita Federal.</p>
+
+      <h2>4. Impacto no fluxo de caixa</h2>
+      <p>Hoje muitas empresas usam o intervalo entre receber a venda e recolher o tributo como capital de giro. Com o split payment esse "float" desaparece: o imposto sai no ato. Setores com margem apertada e ciclo financeiro longo precisam revisar projeções de caixa, política de prazos e precificação.</p>
+      <ul>
+        <li>Menor disponibilidade de caixa no curtíssimo prazo;</li>
+        <li>Maior previsibilidade e menor risco de autuação;</li>
+        <li>Créditos mais "limpos", já que o recolhimento na origem passa a ser a regra.</li>
+      </ul>
+
+      <h2>5. O que preparar</h2>
+      <ul>
+        <li>Adaptar o ERP e os meios de pagamento aos novos campos (CBS, IBS, chave do documento);</li>
+        <li>Conciliar automaticamente recebimentos líquidos com os tributos segregados;</li>
+        <li>Reprojetar fluxo de caixa e capital de giro para 2027;</li>
+        <li>Revisar contratos e condições comerciais (prazos e descontos).</li>
+      </ul>
+
+      <h2>6. Conclusão</h2>
+      <p>O split payment muda a lógica de arrecadação sobre o consumo: o imposto deixa de ser uma obrigação posterior e passa a ser liquidado junto com o pagamento. Quem ajustar sistemas e caixa com antecedência transforma uma mudança disruptiva em vantagem de compliance.</p>
+    `
+  },
+  {
+    id: '7',
+    slug: 'creditos-nao-cumulatividade-ibs-cbs',
+    titulo: 'Créditos e Não-Cumulatividade no IBS e na CBS',
+    subtitulo: 'O crédito amplo que elimina o imposto sobre imposto',
+    resumo: 'Como funciona o crédito financeiro amplo do novo IVA dual, a condição do recolhimento efetivo, o que não gera crédito e o que muda em relação ao PIS/COFINS e ao ICMS.',
+    categoria: 'integrado',
+    tags: ['Crédito', 'Não-Cumulatividade', 'CBS', 'IBS', 'IVA'],
+    autor: 'Consultoria Tributária',
+    dataPublicacao: '2026-10-07',
+    tempoLeitura: 11,
+    destaque: false,
+    conteudo: `
+      <h2>1. Introdução</h2>
+      <p>A não-cumulatividade é o coração do modelo de IVA adotado pela Reforma. No IBS e na CBS a regra é o <strong>crédito amplo (financeiro)</strong>: salvo exceções previstas em lei, tudo o que a empresa adquire e que foi tributado gera crédito a ser abatido do imposto devido nas suas saídas.</p>
+
+      <h2>2. O que muda em relação ao sistema atual</h2>
+      <div class="table-wrapper">
+        <table>
+          <thead><tr><th>Aspecto</th><th>Hoje (PIS/COFINS/ICMS)</th><th>IBS / CBS</th></tr></thead>
+          <tbody>
+            <tr><td>Amplitude</td><td>Restrita (listas e conceito de insumo)</td><td>Ampla (financeira), salvo uso/consumo pessoal</td></tr>
+            <tr><td>Condição</td><td>Depende de enquadramento</td><td>Vinculada ao recolhimento efetivo (split payment)</td></tr>
+            <tr><td>Bens de capital</td><td>Crédito parcelado/limitado</td><td>Crédito integral e imediato</td></tr>
+            <tr><td>Uso e consumo</td><td>Em regra vedado</td><td>Admitido quando ligado à atividade</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2>3. A condição do recolhimento efetivo</h2>
+      <p>O direito ao crédito pelo adquirente está vinculado ao <strong>recolhimento do imposto</strong> na etapa anterior. É por isso que o split payment é tão central: ao garantir que o IBS/CBS destacado seja efetivamente pago, ele assegura o crédito "cheio" a quem compra. Comprar de fornecedores regulares passa a ter valor tributário concreto.</p>
+
+      <h2>4. O que não gera crédito</h2>
+      <ul>
+        <li>Bens e serviços de uso ou consumo pessoal;</li>
+        <li>Operações não tributadas (salvo manutenção de crédito prevista em lei, como nas exportações);</li>
+        <li>Hipóteses expressamente vedadas pela LC 214/2025.</li>
+      </ul>
+
+      <h2>5. Impactos para as empresas</h2>
+      <ul>
+        <li>Fim da cumulatividade embutida em cadeias longas — menos imposto sobre imposto;</li>
+        <li>Seleção de fornecedores que efetivamente recolhem, para preservar créditos;</li>
+        <li>Revisão da precificação: a carga efetiva passa a depender dos créditos ao longo da cadeia.</li>
+      </ul>
+
+      <h2>6. Conclusão</h2>
+      <p>A não-cumulatividade ampla tende a reduzir distorções e a tornar a carga mais transparente. Mas ela só se realiza quando o imposto é recolhido em cada etapa — por isso, gestão de fornecedores, qualidade do documento fiscal e conciliação do split payment passam a ser parte da estratégia tributária.</p>
+    `
+  },
+  {
+    id: '8',
+    slug: 'imposto-seletivo-reforma',
+    titulo: 'Imposto Seletivo (IS): o "Imposto do Pecado"',
+    subtitulo: 'O tributo que desestimula o consumo de bens nocivos à saúde e ao meio ambiente',
+    resumo: 'Sobre o que incide o Imposto Seletivo, sua natureza extrafiscal e monofásica, a relação com a base do IBS/CBS e o início da cobrança em 2027.',
+    categoria: 'federal',
+    tags: ['Imposto Seletivo', 'IS', 'Extrafiscal', 'CBS', 'IBS'],
+    autor: 'Consultoria Tributária',
+    dataPublicacao: '2026-10-07',
+    tempoLeitura: 9,
+    destaque: false,
+    conteudo: `
+      <h2>1. O que é o Imposto Seletivo</h2>
+      <p>O <strong>Imposto Seletivo (IS)</strong>, apelidado de "imposto do pecado", é um tributo federal <strong>extrafiscal</strong>: sua função principal não é arrecadar, mas <strong>desestimular o consumo e a produção de bens e serviços prejudiciais à saúde ou ao meio ambiente</strong>.</p>
+
+      <h2>2. Sobre o que incide</h2>
+      <ul>
+        <li>Cigarros e demais produtos fumígenos;</li>
+        <li>Bebidas alcoólicas;</li>
+        <li>Bebidas açucaradas;</li>
+        <li>Veículos, embarcações e aeronaves;</li>
+        <li>Bens minerais extraídos (ex.: carvão mineral e petróleo);</li>
+        <li>Concursos de prognósticos e fantasy sport (apostas).</li>
+      </ul>
+      <p>Não incide sobre exportações nem sobre operações com energia elétrica e telecomunicações.</p>
+
+      <h2>3. Características principais</h2>
+      <div class="table-wrapper">
+        <table>
+          <thead><tr><th>Característica</th><th>Descrição</th></tr></thead>
+          <tbody>
+            <tr><td>Natureza</td><td>Extrafiscal — desestímulo ao consumo</td></tr>
+            <tr><td>Incidência</td><td>Monofásica — uma única vez na cadeia ou na importação</td></tr>
+            <tr><td>Crédito</td><td>Não gera crédito (compõe o custo)</td></tr>
+            <tr><td>Base</td><td>Integra a base de cálculo do IBS e da CBS</td></tr>
+            <tr><td>Início</td><td>2027</td></tr>
+            <tr><td>Alíquotas</td><td>Fixadas por lei ordinária (ainda não definidas)</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2>4. Como se relaciona com IBS e CBS</h2>
+      <p>O IS é cobrado "por dentro": compõe a base sobre a qual incidem o IBS e a CBS. Por ser monofásico e sem direito a crédito, encarece deliberadamente os produtos-alvo — efeito pretendido pela política pública.</p>
+
+      <h2>5. Quem deve se preparar</h2>
+      <p>Indústrias e importadores dos setores afetados precisam mapear os produtos sujeitos ao IS, revisar a precificação e acompanhar a lei que fixará as alíquotas, prevista para 2027. O governo sinalizou aguardar a fase inicial da Reforma antes de definir os percentuais.</p>
+
+      <h2>6. Conclusão</h2>
+      <p>O Imposto Seletivo é a ferramenta da Reforma para corrigir externalidades: oneram-se, de forma concentrada, bens e serviços de consumo nocivo. Para os setores afetados, a antecipação no mapeamento de produtos e na precificação será decisiva.</p>
+    `
+  },
+  {
+    id: '9',
+    slug: 'simples-nacional-reforma',
+    titulo: 'Simples Nacional na Reforma: Regime Híbrido e a Opção pelo Regime Regular',
+    subtitulo: 'A decisão estratégica que pode definir a competitividade do pequeno negócio',
+    resumo: 'O Simples e o MEI continuam, mas surge uma escolha: recolher IBS/CBS no DAS unificado ou apurá-los por fora, pelo regime regular, para gerar crédito integral ao cliente.',
+    categoria: 'federal',
+    tags: ['Simples Nacional', 'MEI', 'CBS', 'IBS', 'Crédito'],
+    autor: 'Consultoria Tributária',
+    dataPublicacao: '2026-10-07',
+    tempoLeitura: 10,
+    destaque: false,
+    conteudo: `
+      <h2>1. O Simples continua — com uma escolha nova</h2>
+      <p>A Reforma mantém o <strong>Simples Nacional</strong> e o <strong>MEI</strong>, mas cria uma decisão estratégica. A partir de 2027, o optante poderá <strong>continuar recolhendo tudo no DAS unificado</strong> ou <strong>apurar o IBS e a CBS "por fora"</strong>, pelo regime regular.</p>
+
+      <h2>2. As duas formas de recolher IBS/CBS</h2>
+      <div class="table-wrapper">
+        <table>
+          <thead><tr><th>Opção</th><th>Como funciona</th><th>Efeito para o cliente</th></tr></thead>
+          <tbody>
+            <tr><td>DAS unificado (padrão)</td><td>IBS/CBS embutidos na guia do Simples</td><td>Crédito limitado ao adquirente</td></tr>
+            <tr><td>Regime regular (opcional)</td><td>IBS/CBS apurados à parte, com direito a crédito</td><td>Crédito integral ao adquirente</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2>3. O trade-off: simplicidade x competitividade</h2>
+      <p>Permanecer no DAS é mais simples, mas transfere pouco crédito ao comprador — o que pode tornar o pequeno fornecedor menos competitivo nas vendas <strong>B2B</strong>. Optar pelo regime regular gera crédito cheio ao cliente (atraente no B2B), ao custo de mais obrigações. No <strong>B2C</strong> (consumidor final), o crédito não importa e o DAS tende a ser a melhor escolha.</p>
+
+      <h2>4. Como decidir</h2>
+      <ul>
+        <li>Perfil dos clientes: predomina B2B ou B2C?</li>
+        <li>Peso dos créditos na negociação com os compradores;</li>
+        <li>Capacidade de cumprir as obrigações do regime regular.</li>
+      </ul>
+
+      <h2>5. MEI e prazos</h2>
+      <p>O MEI permanece com tratamento simplificado. A entrada do Simples no novo sistema ocorre a partir de 2027, com regras ainda em regulamentação pelo Comitê Gestor do IBS.</p>
+
+      <h2>6. Conclusão</h2>
+      <p>Para o pequeno negócio, a Reforma não é só uma questão de carga, mas de posicionamento: quem vende para outras empresas precisará avaliar se a geração de crédito justifica migrar para o regime regular. É uma decisão de competitividade — e deve ser simulada caso a caso.</p>
     `
   }
 ];
@@ -842,8 +1047,8 @@ const TABELA_CCLASSTRIB = [
 
 // Glossário
 const GLOSSARIO = [
-  { id: 'cbs', termo: 'Contribuição sobre Bens e Serviços', sigla: 'CBS', categoria: 'tributos-federais', definicao: 'Novo tributo federal que substitui o PIS e a COFINS. Incide sobre o consumo de bens e serviços com características de IVA, permitindo amplo direito ao crédito e com alíquota única de 12%.', exemploUso: 'A CBS incidirá sobre a venda de mercadorias com alíquota de 12%, substituindo o PIS (1,65%) e a COFINS (7,6%).', fundamentoLegal: 'Lei Complementar XXX/2025', relacionados: ['PIS', 'COFINS', 'IVA'] },
-  { id: 'ibs', termo: 'Imposto sobre Bens e Serviços', sigla: 'IBS', categoria: 'tributos-estaduais', definicao: 'Novo imposto de competência compartilhada entre Estados e Municípios que unifica o ICMS e o ISS. Possui gestão centralizada pelo Comitê Gestor do IBS e alíquota padrão de 15% (12% estadual + 3% municipal).', exemploUso: 'O IBS será cobrado no destino, com alíquota única de 15%, eliminando a guerra fiscal.', fundamentoLegal: 'Lei Complementar XXX/2025', relacionados: ['ICMS', 'ISS', 'CG-IBS'] },
+  { id: 'cbs', termo: 'Contribuição sobre Bens e Serviços', sigla: 'CBS', categoria: 'tributos-federais', definicao: 'Novo tributo federal que substitui o PIS e a COFINS. Incide sobre o consumo de bens e serviços com características de IVA, permitindo amplo direito ao crédito e com alíquota única de 12%.', exemploUso: 'A CBS incidirá sobre a venda de mercadorias com alíquota de 12%, substituindo o PIS (1,65%) e a COFINS (7,6%).', fundamentoLegal: 'Lei Complementar 214/2025', relacionados: ['PIS', 'COFINS', 'IVA'] },
+  { id: 'ibs', termo: 'Imposto sobre Bens e Serviços', sigla: 'IBS', categoria: 'tributos-estaduais', definicao: 'Novo imposto de competência compartilhada entre Estados e Municípios que unifica o ICMS e o ISS. Possui gestão centralizada pelo Comitê Gestor do IBS e alíquota padrão de 15% (12% estadual + 3% municipal).', exemploUso: 'O IBS será cobrado no destino, com alíquota única de 15%, eliminando a guerra fiscal.', fundamentoLegal: 'Lei Complementar 214/2025', relacionados: ['ICMS', 'ISS', 'CG-IBS'] },
   { id: 'pis', termo: 'Programa de Integração Social', sigla: 'PIS', categoria: 'tributos-federais', definicao: 'Contribuição social federal incidente sobre a receita bruta das empresas, destinada ao financiamento do seguro-desemprego e abono salarial. Será extinto e substituído pela CBS.', exemploUso: 'O PIS era cobrado com alíquota de 1,65% no regime não-cumulativo.', fundamentoLegal: 'Lei Complementar 7/1970 (extinta)', relacionados: ['CBS', 'COFINS'] },
   { id: 'cofins', termo: 'Contribuição para o Financiamento da Seguridade Social', sigla: 'COFINS', categoria: 'tributos-federais', definicao: 'Contribuição social federal incidente sobre o faturamento das empresas, destinada ao financiamento da seguridade social. Será extinta e substituída pela CBS.', exemploUso: 'A COFINS era cobrada com alíquota de 7,6% no regime não-cumulativo.', fundamentoLegal: 'Lei Complementar 70/1991 (extinta)', relacionados: ['CBS', 'PIS'] },
   { id: 'icms', termo: 'Imposto sobre Circulação de Mercadorias e Serviços', sigla: 'ICMS', categoria: 'tributos-estaduais', definicao: 'Imposto estadual incidente sobre operações relativas à circulação de mercadorias e serviços de transporte interestadual e intermunicipal. Será extinto gradualmente e integrado ao IBS.', exemploUso: 'O ICMS possuía alíquotas que variavam de 7% a 25% dependendo do estado e produto.', fundamentoLegal: 'Lei Complementar 87/1996 (em extinção)', relacionados: ['IBS', 'ST'] },
@@ -853,7 +1058,7 @@ const GLOSSARIO = [
   { id: 'cclasstrib', termo: 'Classificação Tributária', sigla: 'cClassTrib', categoria: 'classificacoes', definicao: 'Nova classificação tributária unificada de 6 dígitos que substitui os CSTs antigos (PIS/COFINS/ICMS) na sistemática CBS/IBS, conforme IT 2025.002 e LC 214/2025. Estrutura: AAA (CST IBS/CBS) + BBB (sub-código vinculado ao artigo da LC 214/2025). Obrigatório na NF-e, NFS-e, CT-e e demais documentos fiscais a partir de 2026.', exemploUso: 'A cClassTrib 000001 indica tributação integral pelo IBS e CBS. A cClassTrib 200003 indica produtos da Cesta Básica Nacional com alíquota zero.', fundamentoLegal: 'IT 2025.002 v1.40 | Art. 62, LC 214/2025', relacionados: ['CST', 'NCM', 'CBS', 'IBS'] },
   { id: 'cnae', termo: 'Classificação Nacional de Atividades Econômicas', sigla: 'CNAE', categoria: 'classificacoes', definicao: 'Código que identifica a atividade econômica principal da empresa ou serviço prestado. Utilizado para classificação de serviços no IBS.', exemploUso: 'O CNAE 6201-5 classifica empresas de desenvolvimento de software.', relacionados: ['ISS', 'IBS'] },
   { id: 'st', termo: 'Substituição Tributária', sigla: 'ST', categoria: 'operacional', definicao: 'Regime onde o imposto é cobrado na origem da cadeia produtiva, não no consumo final. Continua existindo no novo modelo com adaptações específicas por setor.', exemploUso: 'A ST de combustíveis concentra a cobrança do IBS na refinaria.', relacionados: ['ICMS', 'IBS'] },
-  { id: 'cg-ibs', termo: 'Comitê Gestor do IBS', sigla: 'CG-IBS', categoria: 'transicao', definicao: 'Órgão responsável pela gestão centralizada do IBS, incluindo regulamentação, arrecadação, distribuição e fiscalização. Composto por representantes de estados e municípios.', exemploUso: 'O CG-IBS publica resoluções com as regras operacionais do novo imposto.', fundamentoLegal: 'Lei Complementar XXX/2025', relacionados: ['IBS'] },
+  { id: 'cg-ibs', termo: 'Comitê Gestor do IBS', sigla: 'CG-IBS', categoria: 'transicao', definicao: 'Órgão responsável pela gestão centralizada do IBS, incluindo regulamentação, arrecadação, distribuição e fiscalização. Composto por representantes de estados e municípios.', exemploUso: 'O CG-IBS publica resoluções com as regras operacionais do novo imposto.', fundamentoLegal: 'Lei Complementar 214/2025', relacionados: ['IBS'] },
   { id: 'periodo-transicao', termo: 'Período de Transição', categoria: 'transicao', definicao: 'Prazo de 7 anos (2026-2032) para adequação gradual ao novo sistema tributário. Durante este período, convivem os tributos antigos (em extinção) e os novos (CBS/IBS).', exemploUso: 'Em 2028, as empresas pagarão 80% de ICMS e 20% de IBS.', relacionados: ['CBS', 'IBS'] },
   { id: 'split-payment', termo: 'Split Payment', categoria: 'transicao', definicao: 'Sistema de pagamento dividido onde o imposto é automaticamente segregado no momento da transação financeira, reduzindo a sonegação e o custo de compliance.', exemploUso: 'Com o split payment, o banco separa automaticamente o CBS/IBS no momento do pagamento.', relacionados: ['CBS', 'IBS'] },
   { id: 'principio-destino', termo: 'Princípio do Destino', categoria: 'transicao', definicao: 'Regra onde o imposto é cobrado integralmente no local de consumo (destino), não na origem. Adotado pelo IBS para eliminar a guerra fiscal.', exemploUso: 'Com o princípio do destino, não importa onde o produto é fabricado, o IBS vai para onde é consumido.', relacionados: ['IBS', 'ICMS'] }
