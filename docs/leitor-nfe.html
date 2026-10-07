@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Leitor de NF-e: Ler XML da Nota Fiscal Online | Reforma 2026</title>
+  <meta name="description" content="Leia o XML da NF-e e NFC-e direto no navegador: chave de acesso, emitente, destinatário, itens, impostos e os novos campos de IBS/CBS/IS da Reforma 2026. Nada é enviado a servidores.">
+
+  <meta name="author" content="Reforma Tributária 2026">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+  <link rel="canonical" href="https://mgcandido.github.io/alvoconsultoria/leitor-nfe.html">
+  <meta name="theme-color" content="#0f172a">
+
+  <!-- Favicon -->
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Reforma Tributária 2026">
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:title" content="Leitor de NF-e: Ler XML da Nota Fiscal Online | Reforma 2026">
+  <meta property="og:description" content="Leia o XML da NF-e e NFC-e no navegador: chave, emitente, destinatário, itens, impostos e os novos campos de IBS/CBS/IS. Processamento local, sem envio a servidores.">
+  <meta property="og:url" content="https://mgcandido.github.io/alvoconsultoria/leitor-nfe.html">
+  <meta property="og:image" content="https://mgcandido.github.io/alvoconsultoria/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Reforma Tributaria 2026 - CBS, IBS e transicao">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Leitor de NF-e: Ler XML da Nota Fiscal Online | Reforma 2026">
+  <meta name="twitter:description" content="Leia o XML da NF-e e NFC-e no navegador: chave, emitente, destinatário, itens, impostos e os novos campos de IBS/CBS/IS.">
+  <meta name="twitter:image" content="https://mgcandido.github.io/alvoconsultoria/og-image.png">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Source+Sans+3:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/pages.css">
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://mgcandido.github.io/alvoconsultoria/#organization",
+      "name": "Reforma Tributária 2026",
+      "url": "https://mgcandido.github.io/alvoconsultoria/",
+      "logo": "https://mgcandido.github.io/alvoconsultoria/favicon.svg",
+      "description": "Portal especializado na Reforma Tributária Brasileira 2026 (CBS e IBS).",
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "contactType": "customer support",
+        "telephone": "+55-32-98844-8292",
+        "availableLanguage": "Portuguese"
+      }
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://mgcandido.github.io/alvoconsultoria/#website",
+      "name": "Reforma Tributária 2026",
+      "url": "https://mgcandido.github.io/alvoconsultoria/",
+      "inLanguage": "pt-BR",
+      "publisher": { "@id": "https://mgcandido.github.io/alvoconsultoria/#organization" }
+    },
+    {
+      "@type": "WebApplication",
+      "@id": "https://mgcandido.github.io/alvoconsultoria/leitor-nfe.html#webpage",
+      "url": "https://mgcandido.github.io/alvoconsultoria/leitor-nfe.html",
+      "name": "Leitor de NF-e (XML)",
+      "description": "Ferramenta para ler o XML da NF-e e NFC-e no navegador e exibir chave, partes, itens, impostos e os campos de IBS/CBS/IS.",
+      "applicationCategory": "BusinessApplication",
+      "operatingSystem": "Web",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "BRL" },
+      "inLanguage": "pt-BR",
+      "isPartOf": { "@id": "https://mgcandido.github.io/alvoconsultoria/#website" },
+      "breadcrumb": { "@id": "https://mgcandido.github.io/alvoconsultoria/leitor-nfe.html#breadcrumb" },
+      "about": { "@id": "https://mgcandido.github.io/alvoconsultoria/#organization" }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://mgcandido.github.io/alvoconsultoria/leitor-nfe.html#breadcrumb",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Início", "item": "https://mgcandido.github.io/alvoconsultoria/" },
+        { "@type": "ListItem", "position": 2, "name": "Leitor de NF-e", "item": "https://mgcandido.github.io/alvoconsultoria/leitor-nfe.html" }
+      ]
+    }
+  ]
+}
+  </script>
+
+  <style>
+    .nfe-drop{border:2px dashed var(--border-light);border-radius:var(--radius-lg);padding:var(--space-2xl);text-align:center;cursor:pointer;transition:border-color .2s,background .2s;background:var(--bg-card);margin:var(--space-xl) 0;}
+    .nfe-drop:hover,.nfe-drop.drag{border-color:var(--color-primary);background:var(--bg-card-hover);}
+    .nfe-drop i{font-size:2.5rem;color:var(--color-primary);}
+    .nfe-drop h3{margin:.6rem 0 .3rem;color:var(--text-primary);}
+    .nfe-drop p{color:var(--text-muted);font-size:.9rem;}
+    .nfe-priv{display:flex;gap:.5rem;align-items:center;justify-content:center;color:var(--text-secondary);font-size:.82rem;margin-top:.8rem;}
+    .nfe-priv i{font-size:1rem;color:var(--success);}
+    .nfe-err{background:rgba(239,68,68,.12);border:1px solid var(--error);color:#fca5a5;padding:var(--space-md);border-radius:var(--radius-md);margin:var(--space-lg) 0;}
+    .nfe-sec{margin-top:var(--space-2xl);}
+    .nfe-sec h2{font-size:1.25rem;color:var(--text-primary);margin-bottom:var(--space-md);display:flex;align-items:center;gap:.5rem;}
+    .nfe-sec h2 i{color:var(--color-primary);}
+    .nfe-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:var(--space-lg);}
+    .nfe-card{background:var(--bg-card);border:1px solid var(--border-color);border-radius:var(--radius-md);padding:var(--space-lg);}
+    .nfe-card h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.05em;color:var(--text-muted);margin-bottom:.6rem;}
+    .nfe-kv{display:flex;justify-content:space-between;gap:1rem;padding:.3rem 0;border-bottom:1px dashed var(--border-color);font-size:.9rem;}
+    .nfe-kv:last-child{border-bottom:none;}
+    .nfe-kv span:first-child{color:var(--text-secondary);}
+    .nfe-kv span:last-child{color:var(--text-primary);font-weight:500;text-align:right;}
+    .nfe-kv .mono{font-family:var(--font-mono);}
+    .nfe-chave{display:flex;flex-wrap:wrap;align-items:center;gap:.6rem;background:var(--bg-tertiary);border:1px solid var(--border-color);border-radius:var(--radius-md);padding:var(--space-md);margin-top:.5rem;}
+    .nfe-chave code{font-family:var(--font-mono);color:var(--text-accent);word-break:break-all;font-size:.95rem;flex:1;min-width:220px;}
+    .nfe-copy{background:var(--color-primary);color:#fff;border:none;border-radius:var(--radius-sm,6px);padding:.4rem .8rem;cursor:pointer;font-size:.8rem;font-weight:600;}
+    .nfe-badge{display:inline-block;padding:.15rem .6rem;border-radius:999px;font-size:.75rem;font-weight:600;}
+    .nfe-badge--ok{background:rgba(34,197,94,.15);color:#4ade80;}
+    .nfe-badge--warn{background:rgba(234,179,8,.15);color:#fde047;}
+    .nfe-table-wrap{overflow-x:auto;border:1px solid var(--border-color);border-radius:var(--radius-md);}
+    table.nfe-table{width:100%;border-collapse:collapse;font-size:.85rem;}
+    table.nfe-table th,table.nfe-table td{padding:.55rem .7rem;text-align:left;border-bottom:1px solid var(--border-color);white-space:nowrap;}
+    table.nfe-table th{background:var(--bg-tertiary);color:var(--text-primary);font-weight:600;}
+    table.nfe-table td.n{text-align:right;font-family:var(--font-mono);}
+    table.nfe-table td.desc{white-space:normal;min-width:220px;}
+    table.nfe-table tr:hover td{background:var(--bg-card-hover);}
+    .nfe-tot{columns:2;column-gap:var(--space-xl);}
+    @media(max-width:600px){.nfe-tot{columns:1;}}
+    .nfe-reform{border:1px solid var(--color-primary);}
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="header__container">
+      <a href="index.html" class="header__logo">
+        <div class="header__logo-icon"><i class="ph-fill ph-scales"></i></div>
+        <div class="header__logo-text">
+          <span class="header__logo-title">Reforma Tributária</span>
+          <span class="header__logo-subtitle">2026</span>
+        </div>
+      </a>
+      <nav class="header__nav">
+        <a href="index.html" class="header__nav-link"><i class="ph ph-house"></i>Início</a>
+        <a href="artigos.html" class="header__nav-link"><i class="ph ph-article"></i>Artigos</a>
+        <a href="tabelas.html" class="header__nav-link"><i class="ph ph-table"></i>Tabelas</a>
+        <a href="consulta-ncm.html" class="header__nav-link"><i class="ph ph-barcode"></i>Consulta NCM</a>
+        <a href="consultas-fiscais.html" class="header__nav-link"><i class="ph ph-magnifying-glass"></i>Consultas Fiscais</a>
+        <a href="leitor-nfe.html" class="header__nav-link active"><i class="ph ph-file-text"></i>Leitor NF-e</a>
+        <a href="glossario.html" class="header__nav-link"><i class="ph ph-book-open"></i>Glossário</a>
+        <a href="cronograma.html" class="header__nav-link"><i class="ph ph-calendar"></i>Cronograma</a>
+        <a href="calculadora.html" class="header__nav-link header__nav-link--cta"><i class="ph ph-calculator"></i>Calculadora</a>
+      </nav>
+      <button class="header__menu-btn" onclick="toggleSidebar()"><i class="ph ph-list"></i></button>
+    </div>
+  </header>
+
+  <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar__header">
+      <span class="sidebar__title">Menu</span>
+      <button class="sidebar__close" onclick="toggleSidebar()"><i class="ph ph-x"></i></button>
+    </div>
+    <nav class="sidebar__nav">
+      <div class="sidebar__section">
+        <h3 class="sidebar__section-title">Navegação</h3>
+        <ul class="sidebar__list">
+          <li><a href="index.html" class="sidebar__link"><i class="ph ph-house"></i><span>Início</span></a></li>
+          <li><a href="artigos.html" class="sidebar__link"><i class="ph ph-article"></i><span>Artigos</span></a></li>
+          <li><a href="tabelas.html" class="sidebar__link"><i class="ph ph-table"></i><span>Tabelas</span></a></li>
+          <li><a href="consulta-ncm.html" class="sidebar__link"><i class="ph ph-barcode"></i><span>Consulta NCM</span></a></li>
+          <li><a href="consultas-fiscais.html" class="sidebar__link"><i class="ph ph-magnifying-glass"></i><span>Consultas Fiscais</span></a></li>
+          <li><a href="leitor-nfe.html" class="sidebar__link active"><i class="ph ph-file-text"></i><span>Leitor NF-e</span></a></li>
+          <li><a href="glossario.html" class="sidebar__link"><i class="ph ph-book-open"></i><span>Glossário</span></a></li>
+          <li><a href="cronograma.html" class="sidebar__link"><i class="ph ph-calendar"></i><span>Cronograma</span></a></li>
+          <li><a href="calculadora.html" class="sidebar__link"><i class="ph ph-calculator"></i><span>Calculadora</span></a></li>
+        </ul>
+      </div>
+    </nav>
+  </aside>
+
+  <main class="main-content">
+    <div class="container">
+      <header class="page-header">
+        <h1>Leitor de NF-e</h1>
+        <p>Abra o XML da sua NF-e ou NFC-e e veja todos os dados na hora: chave de acesso, emitente, destinatário, itens, impostos e os novos campos de IBS/CBS/IS da Reforma.</p>
+      </header>
+
+      <div class="nfe-drop" id="drop">
+        <i class="ph ph-file-arrow-up"></i>
+        <h3>Solte o arquivo XML aqui ou clique para selecionar</h3>
+        <p>Compatível com NF-e (modelo 55) e NFC-e (modelo 65), com ou sem protocolo.</p>
+        <input type="file" id="file" accept=".xml,text/xml,application/xml" hidden>
+      </div>
+      <p class="nfe-priv"><i class="ph-fill ph-lock-key"></i> Processamento 100% no seu navegador — o arquivo não é enviado para nenhum servidor.</p>
+
+      <div id="nfeOut"></div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer__container">
+      <div class="footer__bottom">
+        <p class="footer__copyright">© 2026 Consultoria Tributária.</p>
+        <p class="footer__disclaimer"><i class="ph ph-warning"></i>Conteúdo para fins educacionais.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/app.js"></script>
+  <script>
+    (function () {
+      const $ = id => document.getElementById(id);
+      const out = $('nfeOut'), drop = $('drop'), file = $('file');
+
+      const esc = s => (s == null ? '' : String(s)).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+      const first = (root, name) => root ? root.getElementsByTagNameNS('*', name)[0] || null : null;
+      const txt = (root, name) => { const e = first(root, name); return e ? e.textContent.trim() : ''; };
+      const num = v => { const n = parseFloat(v); return isNaN(n) ? null : n; };
+      const brl = v => v == null ? '—' : v.toLocaleString('pt-BR', { style:'currency', currency:'BRL' });
+      const dec = (v, d=4) => v == null ? '—' : v.toLocaleString('pt-BR', { minimumFractionDigits:2, maximumFractionDigits:d });
+      const pct = v => v == null ? '—' : v.toLocaleString('pt-BR', { minimumFractionDigits:2, maximumFractionDigits:2 }) + '%';
+
+      function fmtDoc(d) {
+        if (!d) return '—';
+        d = d.replace(/\D/g, '');
+        if (d.length === 14) return d.replace(/(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/, '$1.$2.$3/$4-$5');
+        if (d.length === 11) return d.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
+        return d;
+      }
+      function fmtCep(c) { c = (c||'').replace(/\D/g,''); return c.length === 8 ? c.replace(/(\d{5})(\d{3})/, '$1-$2') : (c||'—'); }
+      function fmtData(iso) {
+        if (!iso) return '—';
+        const d = new Date(iso);
+        if (isNaN(d)) return iso;
+        return d.toLocaleString('pt-BR', { day:'2-digit', month:'2-digit', year:'numeric', hour:'2-digit', minute:'2-digit' });
+      }
+      function validaDV(chave) {
+        if (!/^\d{44}$/.test(chave)) return null;
+        const base = chave.slice(0, 43);
+        let peso = 2, soma = 0;
+        for (let i = base.length - 1; i >= 0; i--) { soma += parseInt(base[i], 10) * peso; peso = peso === 9 ? 2 : peso + 1; }
+        const resto = soma % 11;
+        const dv = (resto === 0 || resto === 1) ? 0 : 11 - resto;
+        return dv === parseInt(chave[43], 10);
+      }
+      const UF_COD = {11:'RO',12:'AC',13:'AM',14:'RR',15:'PA',16:'AP',17:'TO',21:'MA',22:'PI',23:'CE',24:'RN',25:'PB',26:'PE',27:'AL',28:'SE',29:'BA',31:'MG',32:'ES',33:'RJ',35:'SP',41:'PR',42:'SC',43:'RS',50:'MS',51:'MT',52:'GO',53:'DF'};
+
+      function kv(label, value, mono) {
+        return `<div class="nfe-kv"><span>${esc(label)}</span><span class="${mono?'mono':''}">${value == null || value === '' ? '—' : esc(value)}</span></div>`;
+      }
+      function endereco(root, pref) {
+        const lgr = txt(root, 'xLgr'), nro = txt(root, 'nro'), bairro = txt(root, 'xBairro'),
+              mun = txt(root, 'xMun'), uf = txt(root, 'UF'), cep = txt(root, 'CEP');
+        const linha = [lgr, nro].filter(Boolean).join(', ');
+        return `${esc(linha || '—')}${bairro ? ' — ' + esc(bairro) : ''}<br>${esc(mun||'')}${uf?'/'+esc(uf):''} · CEP ${fmtCep(cep)}`;
+      }
+
+      function render(xmlText) {
+        out.innerHTML = '';
+        let doc;
+        try { doc = new DOMParser().parseFromString(xmlText, 'application/xml'); }
+        catch (e) { return erro('Não foi possível ler o arquivo.'); }
+        if (doc.getElementsByTagName('parsererror').length) return erro('O arquivo não é um XML válido.');
+
+        const infNFe = first(doc, 'infNFe');
+        if (!infNFe) return erro('Não encontrei a estrutura de uma NF-e (infNFe) neste XML. Verifique se é o XML da nota (não o DANFE em PDF).');
+
+        const ide = first(infNFe, 'ide');
+        const emit = first(infNFe, 'emit');
+        const dest = first(infNFe, 'dest');
+        const total = first(infNFe, 'ICMSTot');
+        const totReforma = first(infNFe, 'IBSCBSTot');
+        const dets = Array.from(infNFe.getElementsByTagNameNS('*', 'det'));
+        const prot = first(doc, 'infProt');
+
+        const chave = (infNFe.getAttribute('Id') || '').replace(/^NFe/, '');
+        const dvOk = validaDV(chave);
+        const mod = txt(ide, 'mod');
+        const tpNF = txt(ide, 'tpNF');
+        const modNome = mod === '65' ? 'NFC-e (65)' : (mod === '55' ? 'NF-e (55)' : (mod || '—'));
+        const tpNome = tpNF === '0' ? 'Entrada (0)' : (tpNF === '1' ? 'Saída (1)' : (tpNF || '—'));
+
+        // chave decodificada
+        let chaveInfo = '';
+        if (/^\d{44}$/.test(chave)) {
+          const cUF = UF_COD[parseInt(chave.slice(0,2),10)] || chave.slice(0,2);
+          const aamm = chave.slice(2,6), mm = aamm.slice(2), aa = aamm.slice(0,2);
+          chaveInfo = `UF ${cUF} · ${mm}/20${aa} · CNPJ emit. ${fmtDoc(chave.slice(6,20))} · mod. ${chave.slice(20,22)} · série ${parseInt(chave.slice(22,25),10)} · nº ${parseInt(chave.slice(25,34),10)}`;
+        }
+
+        let html = '';
+
+        // Cabeçalho
+        html += `<section class="nfe-sec"><h2><i class="ph ph-identification-card"></i> Identificação</h2>
+          <div class="nfe-cards"><div class="nfe-card">
+            ${kv('Modelo', modNome)}
+            ${kv('Número', txt(ide,'nNF'))}
+            ${kv('Série', txt(ide,'serie'))}
+            ${kv('Tipo', tpNome)}
+            ${kv('Natureza da operação', txt(ide,'natOp'))}
+            ${kv('Emissão', fmtData(txt(ide,'dhEmi') || txt(ide,'dEmi')))}
+          </div><div class="nfe-card">
+            ${prot ? kv('Protocolo', txt(prot,'nProt'), true) : ''}
+            ${prot ? kv('Situação', (txt(prot,'cStat')? txt(prot,'cStat')+' — ':'') + (txt(prot,'xMotivo')||'')) : kv('Protocolo','Sem protocolo de autorização no XML')}
+            ${prot ? kv('Autorização', fmtData(txt(prot,'dhRecbto'))) : ''}
+            <div class="nfe-kv"><span>Dígito verificador</span><span>${chave ? (dvOk===null?'—':(dvOk?'<span class="nfe-badge nfe-badge--ok">válido</span>':'<span class="nfe-badge nfe-badge--warn">inválido</span>')) : '—'}</span></div>
+          </div></div>
+          <div class="nfe-chave"><code>${esc(chave||'—')}</code>${chave?'<button class="nfe-copy" id="copyChave">Copiar chave</button>':''}</div>
+          ${chaveInfo?`<p class="nfe-priv" style="justify-content:flex-start"><i class="ph ph-info"></i> ${esc(chaveInfo)}</p>`:''}
+        </section>`;
+
+        // Emitente / Destinatário
+        html += `<section class="nfe-sec"><h2><i class="ph ph-buildings"></i> Partes</h2>
+          <div class="nfe-cards">
+            <div class="nfe-card"><h3>Emitente</h3>
+              ${kv('Nome / Razão social', txt(emit,'xNome'))}
+              ${kv('CNPJ', fmtDoc(txt(emit,'CNPJ')), true)}
+              ${kv('Inscrição estadual', txt(emit,'IE'), true)}
+              <div class="nfe-kv"><span>Endereço</span><span style="text-align:right">${emit?endereco(first(emit,'enderEmit')||emit):'—'}</span></div>
+            </div>
+            <div class="nfe-card"><h3>Destinatário</h3>
+              ${kv('Nome / Razão social', txt(dest,'xNome'))}
+              ${kv('CNPJ / CPF', fmtDoc(txt(dest,'CNPJ') || txt(dest,'CPF')), true)}
+              ${kv('Inscrição estadual', txt(dest,'IE'), true)}
+              <div class="nfe-kv"><span>Endereço</span><span style="text-align:right">${dest?endereco(first(dest,'enderDest')||dest):'—'}</span></div>
+            </div>
+          </div></section>`;
+
+        // Itens
+        let temReformaItem = false;
+        const rows = dets.map(det => {
+          const prod = first(det, 'prod');
+          const imposto = first(det, 'imposto');
+          const icmsGrp = first(imposto, 'ICMS');
+          const cst = txt(icmsGrp, 'CST') || txt(icmsGrp, 'CSOSN');
+          const ibscbs = first(imposto, 'IBSCBS');
+          const cbs = ibscbs ? (first(ibscbs,'gCBS') || first(ibscbs,'CBS')) : null;
+          const vCBS = cbs ? num(txt(cbs,'vCBS')) : null;
+          if (vCBS != null) temReformaItem = true;
+          const nItem = det.getAttribute('nItem') || '';
+          return `<tr>
+            <td class="n">${esc(nItem)}</td>
+            <td class="mono">${esc(txt(prod,'cProd'))}</td>
+            <td class="desc">${esc(txt(prod,'xProd'))}</td>
+            <td class="mono">${esc(txt(prod,'NCM'))}</td>
+            <td class="mono">${esc(txt(prod,'CFOP'))}</td>
+            <td>${esc(txt(prod,'uCom'))}</td>
+            <td class="n">${dec(num(txt(prod,'qCom')))}</td>
+            <td class="n">${brl(num(txt(prod,'vUnCom')))}</td>
+            <td class="n">${brl(num(txt(prod,'vProd')))}</td>
+            <td class="mono">${esc(cst||'—')}</td>
+            <td class="n">${pct(num(txt(icmsGrp,'pICMS')))}</td>
+            <td class="n">${brl(num(txt(icmsGrp,'vICMS')))}</td>
+          </tr>`;
+        }).join('');
+
+        html += `<section class="nfe-sec"><h2><i class="ph ph-list-bullets"></i> Itens <span style="font-weight:400;color:var(--text-muted);font-size:1rem">(${dets.length})</span></h2>
+          <div class="nfe-table-wrap"><table class="nfe-table"><thead><tr>
+            <th>#</th><th>Código</th><th>Descrição</th><th>NCM</th><th>CFOP</th><th>Un</th>
+            <th>Qtd</th><th>V. Unit.</th><th>V. Total</th><th>CST</th><th>Alíq. ICMS</th><th>V. ICMS</th>
+          </tr></thead><tbody>${rows || ''}</tbody></table></div></section>`;
+
+        // Totais
+        html += `<section class="nfe-sec"><h2><i class="ph ph-receipt"></i> Totais</h2>
+          <div class="nfe-card nfe-tot">
+            ${kv('Valor dos produtos', brl(num(txt(total,'vProd'))))}
+            ${kv('Descontos', brl(num(txt(total,'vDesc'))))}
+            ${kv('Frete', brl(num(txt(total,'vFrete'))))}
+            ${kv('Base de cálculo ICMS', brl(num(txt(total,'vBC'))))}
+            ${kv('ICMS', brl(num(txt(total,'vICMS'))))}
+            ${kv('ICMS ST', brl(num(txt(total,'vST'))))}
+            ${kv('IPI', brl(num(txt(total,'vIPI'))))}
+            ${kv('PIS', brl(num(txt(total,'vPIS'))))}
+            ${kv('COFINS', brl(num(txt(total,'vCOFINS'))))}
+          </div>
+          <div class="nfe-card" style="margin-top:var(--space-lg);border:2px solid var(--color-primary)">
+            <h3 style="color:var(--text-accent)"><i class="ph ph-scales"></i> Valor total da nota</h3>
+            <div class="nfe-kv"><span>Total da NF-e</span><span class="mono" style="font-size:1.3rem;color:var(--text-accent)">${brl(num(txt(total,'vNF')))}</span></div>
+          </div>`;
+
+        if (totReforma) {
+          html += `<div class="nfe-card nfe-reform" style="margin-top:var(--space-lg)">
+            <h3 style="color:var(--text-accent)"><i class="ph ph-sparkle"></i> Tributos da Reforma (IBS / CBS / IS)</h3>
+            <div class="nfe-tot">
+              ${kv('Base de cálculo IBS/CBS', brl(num(txt(totReforma,'vBCIBSCBS'))))}
+              ${kv('IBS — Estadual (UF)', brl(num(txt(totReforma,'vIBSUF'))))}
+              ${kv('IBS — Municipal', brl(num(txt(totReforma,'vIBSMun'))))}
+              ${kv('IBS — Total', brl(num(txt(totReforma,'vIBS'))))}
+              ${kv('CBS', brl(num(txt(totReforma,'vCBS'))))}
+              ${kv('Imposto Seletivo (IS)', brl(num(txt(totReforma,'vIS'))))}
+            </div></div>`;
+        }
+        html += `</section>`;
+
+        out.innerHTML = html;
+        const btn = $('copyChave');
+        if (btn) btn.addEventListener('click', () => {
+          navigator.clipboard.writeText(chave).then(() => { btn.textContent = 'Copiado!'; setTimeout(() => btn.textContent = 'Copiar chave', 1500); });
+        });
+        out.scrollIntoView({ behavior:'smooth', block:'start' });
+      }
+
+      function erro(msg) { out.innerHTML = `<div class="nfe-err"><i class="ph ph-warning-circle"></i> ${esc(msg)}</div>`; }
+
+      function lerArquivo(f) {
+        if (!f) return;
+        if (!/\.xml$/i.test(f.name) && !/xml/i.test(f.type)) { erro('Selecione um arquivo .xml da NF-e.'); return; }
+        const r = new FileReader();
+        r.onload = e => render(e.target.result);
+        r.onerror = () => erro('Falha ao ler o arquivo.');
+        r.readAsText(f, 'UTF-8');
+      }
+
+      drop.addEventListener('click', () => file.click());
+      file.addEventListener('change', e => lerArquivo(e.target.files[0]));
+      ['dragover','dragenter'].forEach(ev => drop.addEventListener(ev, e => { e.preventDefault(); drop.classList.add('drag'); }));
+      ['dragleave','drop'].forEach(ev => drop.addEventListener(ev, e => { e.preventDefault(); drop.classList.remove('drag'); }));
+      drop.addEventListener('drop', e => { if (e.dataTransfer.files.length) lerArquivo(e.dataTransfer.files[0]); });
+    })();
+  </script>
+  <!-- Cloudflare Web Analytics -->
+  <script type="module" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "f4fcc25a7cd64ae49b673976803f486b"}'></script>
+  <!-- End Cloudflare Web Analytics -->
+</body>
+</html>
