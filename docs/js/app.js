@@ -507,15 +507,53 @@ function renderCronograma() {
   }
 }
 
+// ── Campos monetários (pt-BR: 1.500,00) ─────────────────────────
+function parseBR(v) {
+  if (v == null) return 0;
+  const n = parseFloat(String(v).replace(/\./g, '').replace(',', '.'));
+  return isNaN(n) ? 0 : n;
+}
+function formatBR(n) {
+  return (Number(n) || 0).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+}
+function maskMoney(input) {
+  const raw = input.value;
+  const pos = input.selectionStart;
+  const digitsBefore = raw.slice(0, pos).replace(/[^\d,]/g, '').length;
+  let clean = raw.replace(/[^\d,]/g, '');
+  const i = clean.indexOf(',');
+  let inteiro = i >= 0 ? clean.slice(0, i) : clean;
+  let dec = i >= 0 ? clean.slice(i + 1).replace(/,/g, '').slice(0, 2) : null;
+  inteiro = inteiro.replace(/^0+(?=\d)/, '').replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+  input.value = dec === null ? inteiro : inteiro + ',' + dec;
+  // restaura o cursor
+  let count = 0, np = input.value.length;
+  for (let k = 0; k < input.value.length; k++) {
+    if (/[\d,]/.test(input.value[k])) count++;
+    if (count === digitsBefore) { np = k + 1; break; }
+  }
+  if (digitsBefore === 0) np = 0;
+  input.setSelectionRange(np, np);
+}
+function initMoneyInputs() {
+  document.querySelectorAll('input[data-money]').forEach(inp => {
+    inp.addEventListener('input', () => maskMoney(inp));
+    inp.addEventListener('blur', () => { inp.value = formatBR(parseBR(inp.value)); });
+    inp.addEventListener('focus', () => { setTimeout(() => inp.select(), 0); });
+    inp.value = formatBR(parseBR(inp.value));
+  });
+}
+document.addEventListener('DOMContentLoaded', initMoneyInputs);
+
 // Calculadora
 function calcular() {
-  const valorOperacao = parseFloat(document.getElementById('valorOperacao').value) || 1000;
+  const valorOperacao = parseBR(document.getElementById('valorOperacao').value) || 1000;
   const tipoOperacao = document.getElementById('tipoOperacao').value;
   const regimeAtual = document.getElementById('regimeAtual').value;
   const aliquotaICMS = parseFloat(document.getElementById('aliquotaICMS')?.value) || 18;
   const aliquotaISS = parseFloat(document.getElementById('aliquotaISS')?.value) || 5;
   const classificacaoNova = document.getElementById('classificacaoNova').value;
-  const creditosEntrada = parseFloat(document.getElementById('creditosEntrada')?.value) || 0;
+  const creditosEntrada = parseBR(document.getElementById('creditosEntrada')?.value);
 
   // Alíquotas PIS/COFINS
   let aliquotaPIS, aliquotaCOFINS;
