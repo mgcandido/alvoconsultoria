@@ -216,11 +216,11 @@ const ARTIGOS = [
         <i class="ph ph-info"></i>
         <div>
           <strong>Princípio do Destino</strong>
-          <p>O IBS é cobrado no local de consumo do bem ou serviço, não na origem. Isso elimina a guerra fiscal e uniformiza a tributação nacional.</p>
+          <p>O IBS é cobrado no local de consumo do bem ou serviço, não na origem. Isso elimina a guerra fiscal e harmoniza a tributação do consumo em âmbito nacional.</p>
         </div>
       </div>
       <ul>
-        <li><strong>Alíquota uniforme:</strong> 17,7% em todo o território nacional</li>
+        <li><strong>Alíquota de referência:</strong> 17,7% — cada estado e município fixa a sua alíquota (a mesma para todos os bens e serviços daquele ente)</li>
         <li><strong>Não cumulatividade plena:</strong> crédito irrestrito sobre todas as entradas</li>
         <li><strong>Gestão centralizada:</strong> o CG-IBS arrecada e distribui proporcionalmente</li>
         <li><strong>Fim do DIFAL:</strong> operações interestaduais simplificadas</li>
@@ -251,7 +251,7 @@ const ARTIGOS = [
             <tr><th>Setor</th><th>Carga Anterior</th><th>Carga IBS</th><th>Impacto</th></tr>
           </thead>
           <tbody>
-            <tr><td>Indústria (SP)</td><td>12% ICMS</td><td>17,7% IBS</td><td>↑ Leve aumento</td></tr>
+            <tr><td>Indústria (SP)</td><td>12% ICMS</td><td>17,7% IBS</td><td>≈ Estável (com crédito)</td></tr>
             <tr><td>Comércio Varejo</td><td>18% ICMS</td><td>17,7% IBS</td><td>↓ Redução</td></tr>
             <tr><td>Serviços de TI</td><td>5% ISS</td><td>17,7% IBS</td><td>↑ Aumento (com crédito)</td></tr>
             <tr><td>Transportadora</td><td>12% ICMS interestadual</td><td>17,7% IBS destino</td><td>Simplificação</td></tr>
@@ -259,6 +259,8 @@ const ARTIGOS = [
           </tbody>
         </table>
       </div>
+
+      <p><em>Observação:</em> a tabela compara <strong>alíquotas nominais</strong>. Como o IBS é não cumulativo, a carga <strong>efetiva</strong> depende dos créditos gerados ao longo da cadeia — por isso setores com muitos insumos tributados (indústria, comércio) tendem a sentir impacto menor que o salto nominal sugere.</p>
 
       <h2>8. Exemplo Prático — Serviço de Consultoria</h2>
       <p>Empresa de São Paulo prestando serviço para cliente no Rio de Janeiro:</p>
@@ -277,6 +279,8 @@ const ARTIGOS = [
         </table>
       </div>
 
+      <p><em>Nota:</em> o exemplo usa a alíquota de referência. Serviços de <strong>profissões regulamentadas</strong> (advogados, contadores, engenheiros, administradores) têm <strong>redução de 30%</strong> — a alíquota efetiva ficaria em torno de 12,4%.</p>
+
       <h2>9. Orientações Operacionais</h2>
       <div class="article-callout article-callout--success">
         <i class="ph ph-check-circle"></i>
@@ -287,7 +291,7 @@ const ARTIGOS = [
             <li>Atualizar o ERP para emissão de NF-e/NFS-e com IBS</li>
             <li>Identificar o local de destino de cada operação</li>
             <li>Aproveitar créditos de IBS sobre todas as entradas tributadas</li>
-            <li>Monitorar alíquotas específicas definidas pelo CG-IBS por setor</li>
+            <li>Monitorar as alíquotas de referência e as reduções setoriais previstas na LC 214/2025</li>
           </ul>
         </div>
       </div>
@@ -565,7 +569,7 @@ const ARTIGOS = [
     destaque: false,
     conteudo: `
       <h2>1. Introdução</h2>
-      <p>As operações interestaduais eram a maior fonte de complexidade do ICMS: alíquotas diferentes por estado de origem e destino, DIFAL (Diferencial de Alíquota), partilha entre estados, Protocolo ICMS e Convênios CONFAZ. Com o IBS, toda essa estrutura é substituída por uma lógica simples: <strong>tributação no destino, alíquota única.</strong></p>
+      <p>As operações interestaduais eram a maior fonte de complexidade do ICMS: alíquotas diferentes por estado de origem e destino, DIFAL (Diferencial de Alíquota), partilha entre estados, Protocolo ICMS e Convênios CONFAZ. Com o IBS, toda essa estrutura é substituída por uma lógica simples: <strong>tributação no destino, com alíquota de referência única para todos os bens e serviços de cada ente.</strong></p>
 
       <h2>2. Como Funcionava o ICMS Interestadual</h2>
       <div class="table-wrapper">
@@ -607,7 +611,7 @@ const ARTIGOS = [
             <tr><th>Aspecto</th><th>ICMS Interestadual</th><th>IBS</th></tr>
           </thead>
           <tbody>
-            <tr><td>Alíquota</td><td>7% ou 12%</td><td>17,7% (uniforme)</td></tr>
+            <tr><td>Alíquota</td><td>7% ou 12%</td><td>17,7% (referência)</td></tr>
             <tr><td>DIFAL</td><td>Sim — complexo</td><td>Não existe</td></tr>
             <tr><td>Guerra fiscal</td><td>Sim — benefícios estaduais</td><td>Extinta</td></tr>
             <tr><td>Destino da receita</td><td>Estado de origem + partilha DIFAL</td><td>Estado/município de destino</td></tr>
@@ -667,7 +671,7 @@ const ARTIGOS = [
           <strong>Checklist para Operações Interestaduais</strong>
           <ul>
             <li>Mapear todos os estados para os quais a empresa vende e compra</li>
-            <li>Eliminar o controle de DIFAL dos sistemas a partir de 2027</li>
+            <li>Reduzir gradualmente o controle de DIFAL conforme o ICMS é extinto na transição (2029–2033)</li>
             <li>Cancelar Inscrições Estaduais em outros estados (quando aplicável)</li>
             <li>Revisar precificação considerando a alíquota de referência de 17,7%</li>
             <li>Atualizar o ERP para o novo leiaute da NF-e com IBS no destino</li>
