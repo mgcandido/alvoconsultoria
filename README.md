@@ -14,7 +14,7 @@ Portal especializado na **Reforma Tributária Brasileira de 2026** (CBS e IBS), 
 | **Artigos** | Artigos técnicos sobre CBS, IBS e a transição | conteúdo próprio (`js/data.js`) |
 | **Tabelas** | Tabelas práticas: NCM × CBS/IBS, CST, cClassTrib, alíquotas | conteúdo próprio (`js/data.js`) |
 | **Consulta NCM** | Busca de NCM com classificação, em tempo real | [BrasilAPI](https://brasilapi.com.br/) (ao vivo) |
-| **Consultas Fiscais** | CFOP, CST ICMS, CSOSN, CST PIS/COFINS, CST IPI e alíquota de ICMS por UF (offline) + **CNAE ao vivo** | tabelas offline + [IBGE](https://servicodados.ibge.gov.br/) |
+| **Consultas Fiscais** | CFOP, CST ICMS, CSOSN, CST PIS/COFINS, CST IPI, alíquota de ICMS por UF e os novos **CST IBS/CBS** (18) e **cClassTrib** (173) — offline — + **CNAE ao vivo** | tabelas offline + [IBGE](https://servicodados.ibge.gov.br/) |
 | **Leitor de NF-e** | Abre o XML da NF-e/NFC-e e exibe chave, partes, itens, impostos e os campos de **IBS/CBS/IS** — 100% no navegador | o próprio arquivo do usuário |
 | **Calculadora** | Comparativo de carga antes/depois + **Simulador de transição ano a ano (2026–2033)** | cálculo local |
 | **Glossário** | Termos técnicos da Reforma | conteúdo próprio (`js/data.js`) |
@@ -44,7 +44,8 @@ alvoconsultoria/
 │   ├── js/
 │   │   ├── app.js             # Lógica compartilhada (nav, render, filtros)
 │   │   ├── data.js            # Conteúdo (artigos, tabelas, glossário, cronograma)
-│   │   └── fiscal-data.js     # Tabelas fiscais offline (CFOP, CST, CSOSN, ICMS)
+│   │   ├── fiscal-data.js     # Tabelas fiscais offline (CFOP, CST, CSOSN, ICMS)
+│   │   └── reforma-data.js    # CST IBS/CBS (18) e cClassTrib (173) — IT 2025.002
 │   ├── favicon.svg            # Ícone do site
 │   ├── og-image.png           # Imagem de compartilhamento (Open Graph)
 │   ├── robots.txt             # Diretrizes para robôs + link do sitemap
@@ -111,7 +112,8 @@ As tabelas fiscais offline (CFOP, CST, CSOSN, ICMS) ficam em [`docs/js/fiscal-da
 
 - Dados das tabelas fiscais offline (CFOP, CST, CSOSN, alíquotas de ICMS) e o modelo do simulador de transição e do leitor de NF-e são derivados do projeto de código aberto **[mcp-fiscal-brasil](https://github.com/DeHor-Labs/mcp-fiscal-brasil)** (licença MIT, © 2026 Nikolas DeHor).
 - Consulta NCM: **BrasilAPI**. Consulta CNAE: **API do IBGE**.
-- Base normativa: **LC 214/2025** e notas técnicas da Reforma (NT 2025.002, para os campos de IBS/CBS/IS na NF-e).
+- Tabelas de **CST IBS/CBS** e **cClassTrib**: **Informe Técnico RT 2025.002** (Portal Nacional da NF-e) / Portal DFe SVRS.
+- Base normativa: **LC 214/2025** e notas técnicas da Reforma (NT/IT 2025.002, inclusive os campos de IBS/CBS/IS na NF-e).
 
 ## ⚠️ Aviso
 

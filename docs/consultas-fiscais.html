@@ -171,7 +171,7 @@
     <div class="container">
       <header class="page-header">
         <h1>Consultas Fiscais</h1>
-        <p>Consulte na hora os principais códigos fiscais brasileiros. As tabelas de CFOP, CST, CSOSN e alíquotas de ICMS funcionam offline (instantâneas); o CNAE é consultado ao vivo na base do IBGE.</p>
+        <p>Consulte na hora os principais códigos fiscais brasileiros — incluindo os novos da Reforma: <strong>CST IBS/CBS</strong> (18) e <strong>cClassTrib</strong> (173). As tabelas de CFOP, CST, CSOSN, ICMS e Reforma funcionam offline (instantâneas); o CNAE é consultado ao vivo na base do IBGE.</p>
       </header>
 
       <!-- Seletor de consulta -->
@@ -181,6 +181,8 @@
         <button class="table-btn" data-cf="csosn" onclick="selectConsulta('csosn')"><i class="ph ph-storefront"></i>CSOSN</button>
         <button class="table-btn" data-cf="cstPisCofins" onclick="selectConsulta('cstPisCofins')"><i class="ph ph-percent"></i>CST PIS/COFINS</button>
         <button class="table-btn" data-cf="cstIpi" onclick="selectConsulta('cstIpi')"><i class="ph ph-factory"></i>CST IPI</button>
+        <button class="table-btn" data-cf="cstIbsCbs" onclick="selectConsulta('cstIbsCbs')"><i class="ph ph-scales"></i>CST IBS/CBS</button>
+        <button class="table-btn" data-cf="cclasstrib" onclick="selectConsulta('cclasstrib')"><i class="ph ph-list-numbers"></i>cClassTrib</button>
         <button class="table-btn" data-cf="icmsAliquota" onclick="selectConsulta('icmsAliquota')"><i class="ph ph-map-pin"></i>ICMS por UF</button>
         <button class="table-btn" data-cf="cnae" onclick="selectConsulta('cnae')"><i class="ph ph-briefcase"></i>CNAE <span style="font-size:.7rem;opacity:.7">(ao vivo)</span></button>
       </div>
@@ -196,7 +198,7 @@
         <i class="ph-fill ph-info"></i>
         <div>
           <h3>Fontes e observações</h3>
-          <p>CFOP, CST, CSOSN e alíquotas internas de ICMS são tabelas oficiais (Ajuste SINIEF / Convênios CONFAZ / RFB), com dados derivados do projeto de código aberto <a href="https://github.com/DeHor-Labs/mcp-fiscal-brasil" target="_blank" rel="noopener noreferrer" style="color:var(--text-accent)">mcp-fiscal-brasil</a> (licença MIT). O CNAE é consultado ao vivo na API do IBGE. A alíquota de ICMS informada é a interna padrão da UF — produtos específicos podem ter alíquotas diferenciadas. Conteúdo para fins informativos; confirme sempre na legislação vigente.</p>
+          <p>CFOP, CST, CSOSN e alíquotas internas de ICMS são tabelas oficiais (Ajuste SINIEF / Convênios CONFAZ / RFB), com dados derivados do projeto de código aberto <a href="https://github.com/DeHor-Labs/mcp-fiscal-brasil" target="_blank" rel="noopener noreferrer" style="color:var(--text-accent)">mcp-fiscal-brasil</a> (licença MIT). <strong>CST IBS/CBS e cClassTrib</strong> seguem o <strong>Informe Técnico RT 2025.002</strong> (Portal Nacional da NF-e) e a LC 214/2025. O CNAE é consultado ao vivo na API do IBGE. A alíquota de ICMS informada é a interna padrão da UF — produtos específicos podem ter alíquotas diferenciadas. Conteúdo para fins informativos; confirme sempre na legislação e nas tabelas oficiais vigentes.</p>
         </div>
       </div>
     </div>
@@ -212,6 +214,7 @@
   </footer>
 
   <script src="js/fiscal-data.js"></script>
+  <script src="js/reforma-data.js"></script>
   <script src="js/app.js"></script>
   <script>
     const UFS = {
@@ -228,6 +231,8 @@
       csosn:       { hint: "Ex.: 101, 102, 500 — Código de Situação da Operação no Simples Nacional." },
       cstPisCofins:{ hint: "Ex.: 01, 06, 50, 70 — CST de PIS e COFINS." },
       cstIpi:      { hint: "Ex.: 00, 50, 99 — CST de IPI (entrada e saída)." },
+      cstIbsCbs:   { hint: "Ex.: 000, 200, 410 — CST do IBS/CBS (18 códigos, IT 2025.002)." },
+      cclasstrib:  { hint: "Ex.: 200034, alimentos, red. 60%, Anexo I — 173 códigos de Classificação Tributária." },
       icmsAliquota:{ hint: "Digite a UF (ex.: SP, MG, RJ) ou o nome do estado — alíquota interna padrão." },
       cnae:        { hint: "Digite o código CNAE (ex.: 4712100 ou 4712-1/00). Consulta ao vivo na base do IBGE." }
     };
@@ -288,6 +293,21 @@
           .filter(r => !t || r.c.includes(t) || norm(r.d).includes(t))
           .map(r => `<tr><td class="code">${r.c}</td><td>${esc(r.d)}</td><td>${r.op}</td></tr>`);
         out = tableWrap(['CST','Descrição','Operação'], rows);
+
+      } else if (consultaAtual === 'cstIbsCbs') {
+        const rows = window.REFORMA_DATA.cstIbsCbs
+          .filter(r => !t || r.codigo.includes(t) || norm(r.nome).includes(t) || norm(r.descricao).includes(t))
+          .map(r => `<tr><td class="code">${r.codigo}</td><td>${esc(r.nome)}</td><td>${esc(r.descricao)}</td></tr>`);
+        out = tableWrap(['CST', 'Nome', 'Descrição'], rows);
+
+      } else if (consultaAtual === 'cclasstrib') {
+        const rows = window.REFORMA_DATA.cclasstrib
+          .filter(r => !t || r.codigo.includes(t) || r.cst.includes(t) || norm(r.descricao).includes(t) || norm(r.tags).includes(t))
+          .map(r => {
+            const red = r.tags ? `<span class="cf-pill cf-pill--in">${esc(r.tags)}</span>` : '<span style="color:var(--text-muted)">—</span>';
+            return `<tr><td class="code">${r.codigo}</td><td class="code">${r.cst}</td><td>${red}</td><td>${esc(r.descricao)}</td></tr>`;
+          });
+        out = tableWrap(['cClassTrib', 'CST', 'Redução / regime', 'Aplicação (LC 214/2025)'], rows);
 
       } else {
         // cstIcms, csosn, cstPisCofins — code -> desc
