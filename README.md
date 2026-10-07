@@ -15,6 +15,7 @@ Portal especializado na **Reforma Tributária Brasileira de 2026** (CBS e IBS), 
 | **Tabelas** | Tabelas práticas: NCM × CBS/IBS, CST, cClassTrib, alíquotas | conteúdo próprio (`js/data.js`) |
 | **Consulta NCM** | Busca de NCM com classificação, em tempo real | [BrasilAPI](https://brasilapi.com.br/) (ao vivo) |
 | **Consultas Fiscais** | CFOP, CST ICMS, CSOSN, CST PIS/COFINS, CST IPI, alíquota de ICMS por UF e os novos **CST IBS/CBS** (18) e **cClassTrib** (173) — offline — + **CNAE ao vivo** | tabelas offline + [IBGE](https://servicodados.ibge.gov.br/) |
+| **Explorador cClassTrib** | Explora os 173 cClassTrib e os 18 CST do IBS/CBS com filtros (CST, redução, Anexo), busca e alíquota efetiva estimada | tabela offline (`reforma-data.js`) |
 | **Leitor de NF-e** | Abre o XML da NF-e/NFC-e e exibe chave, partes, itens, impostos e os campos de **IBS/CBS/IS** — 100% no navegador | o próprio arquivo do usuário |
 | **Calculadora** | Comparativo de carga antes/depois + **Simulador de transição ano a ano (2026–2033)** | cálculo local |
 | **Glossário** | Termos técnicos da Reforma | conteúdo próprio (`js/data.js`) |

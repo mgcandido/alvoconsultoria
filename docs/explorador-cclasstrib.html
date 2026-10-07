@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Explorador cClassTrib e CST IBS/CBS | Reforma Tributária 2026</title>
+  <meta name="description" content="Explore os 173 códigos cClassTrib e os 18 CST do IBS/CBS da Reforma Tributária: filtre por CST, faixa de redução e Anexo, busque por código ou descrição e veja a alíquota efetiva estimada.">
+
+  <meta name="author" content="Reforma Tributária 2026">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+  <link rel="canonical" href="https://mgcandido.github.io/alvoconsultoria/explorador-cclasstrib.html">
+  <meta name="theme-color" content="#0f172a">
+
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Reforma Tributária 2026">
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:title" content="Explorador cClassTrib e CST IBS/CBS | Reforma Tributária 2026">
+  <meta property="og:description" content="Explore os 173 cClassTrib e os 18 CST do IBS/CBS: filtros por CST, redução e Anexo, busca e alíquota efetiva estimada.">
+  <meta property="og:url" content="https://mgcandido.github.io/alvoconsultoria/explorador-cclasstrib.html">
+  <meta property="og:image" content="https://mgcandido.github.io/alvoconsultoria/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Reforma Tributaria 2026 - CBS, IBS e transicao">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Explorador cClassTrib e CST IBS/CBS | Reforma 2026">
+  <meta name="twitter:description" content="Explore os 173 cClassTrib e os 18 CST do IBS/CBS: filtros, busca e alíquota efetiva estimada.">
+  <meta name="twitter:image" content="https://mgcandido.github.io/alvoconsultoria/og-image.png">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Source+Sans+3:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/pages.css">
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    { "@type": "Organization", "@id": "https://mgcandido.github.io/alvoconsultoria/#organization", "name": "Reforma Tributária 2026", "url": "https://mgcandido.github.io/alvoconsultoria/", "logo": "https://mgcandido.github.io/alvoconsultoria/favicon.svg" },
+    { "@type": "WebSite", "@id": "https://mgcandido.github.io/alvoconsultoria/#website", "name": "Reforma Tributária 2026", "url": "https://mgcandido.github.io/alvoconsultoria/", "inLanguage": "pt-BR", "publisher": { "@id": "https://mgcandido.github.io/alvoconsultoria/#organization" } },
+    { "@type": "WebApplication", "@id": "https://mgcandido.github.io/alvoconsultoria/explorador-cclasstrib.html#webpage", "url": "https://mgcandido.github.io/alvoconsultoria/explorador-cclasstrib.html", "name": "Explorador cClassTrib e CST IBS/CBS", "description": "Ferramenta para explorar os 173 códigos cClassTrib e os 18 CST do IBS/CBS da Reforma Tributária.", "applicationCategory": "BusinessApplication", "operatingSystem": "Web", "offers": { "@type": "Offer", "price": "0", "priceCurrency": "BRL" }, "inLanguage": "pt-BR", "isPartOf": { "@id": "https://mgcandido.github.io/alvoconsultoria/#website" }, "breadcrumb": { "@id": "https://mgcandido.github.io/alvoconsultoria/explorador-cclasstrib.html#breadcrumb" } },
+    { "@type": "BreadcrumbList", "@id": "https://mgcandido.github.io/alvoconsultoria/explorador-cclasstrib.html#breadcrumb", "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Início", "item": "https://mgcandido.github.io/alvoconsultoria/" },
+      { "@type": "ListItem", "position": 2, "name": "Explorador cClassTrib", "item": "https://mgcandido.github.io/alvoconsultoria/explorador-cclasstrib.html" }
+    ] }
+  ]
+}
+  </script>
+
+  <style>
+    .xp-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:var(--space-md);margin:var(--space-lg) 0 var(--space-xl);}
+    .xp-stat{background:var(--bg-card);border:1px solid var(--border-color);border-left:3px solid var(--color-primary);border-radius:var(--radius-md);padding:var(--space-md) var(--space-lg);}
+    .xp-stat b{display:block;font-family:var(--font-mono);font-size:1.6rem;color:var(--text-accent);line-height:1.1;}
+    .xp-stat span{color:var(--text-muted);font-size:.8rem;}
+    .xp-toolbar{display:flex;gap:var(--space-sm);flex-wrap:wrap;align-items:center;margin-bottom:var(--space-md);}
+    .xp-search{flex:1;min-width:240px;position:relative;}
+    .xp-search i{position:absolute;left:.85rem;top:50%;transform:translateY(-50%);color:var(--text-muted);}
+    .xp-search input{width:100%;padding:.8rem 1rem .8rem 2.4rem;background:var(--bg-card);color:var(--text-primary);border:1px solid var(--border-color);border-radius:var(--radius-md);font-family:var(--font-sans);font-size:1rem;}
+    .xp-search input:focus{outline:none;border-color:var(--color-primary);}
+    .xp-toggle{display:inline-flex;border:1px solid var(--border-color);border-radius:var(--radius-md);overflow:hidden;}
+    .xp-toggle button{background:var(--bg-card);color:var(--text-secondary);border:none;padding:.7rem 1rem;cursor:pointer;font-weight:600;font-size:.85rem;display:flex;align-items:center;gap:.4rem;}
+    .xp-toggle button.active{background:var(--color-primary);color:#fff;}
+    .xp-filters{display:flex;gap:.4rem;flex-wrap:wrap;margin-bottom:var(--space-md);align-items:center;}
+    .xp-filters .lbl{color:var(--text-muted);font-size:.78rem;text-transform:uppercase;letter-spacing:.04em;margin-right:.3rem;}
+    .xp-chip{background:var(--bg-tertiary);color:var(--text-secondary);border:1px solid var(--border-color);border-radius:999px;padding:.3rem .8rem;cursor:pointer;font-size:.8rem;font-weight:600;transition:all .15s;}
+    .xp-chip:hover{border-color:var(--border-light);}
+    .xp-chip.active{background:rgba(5,150,105,.18);color:var(--text-accent);border-color:var(--color-primary);}
+    .xp-cstsel{background:var(--bg-card);color:var(--text-primary);border:1px solid var(--border-color);border-radius:var(--radius-md);padding:.55rem .7rem;font-family:var(--font-sans);font-size:.85rem;}
+    .xp-count{color:var(--text-muted);font-size:.85rem;margin:.4rem 0 1rem;}
+    .xp-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:var(--space-md);}
+    .xp-card{background:var(--bg-card);border:1px solid var(--border-color);border-left:3px solid var(--cstc,var(--color-primary));border-radius:var(--radius-md);padding:var(--space-md);cursor:pointer;transition:transform .12s,border-color .12s,box-shadow .12s;}
+    .xp-card:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(0,0,0,.25);border-left-color:var(--color-primary-light);}
+    .xp-card__top{display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;margin-bottom:.45rem;}
+    .xp-code{font-family:var(--font-mono);font-weight:700;color:var(--text-accent);font-size:1.05rem;}
+    .xp-cst{font-family:var(--font-mono);font-size:.72rem;background:var(--bg-tertiary);color:var(--text-secondary);padding:.1rem .45rem;border-radius:4px;}
+    .xp-red{font-size:.72rem;font-weight:700;padding:.12rem .5rem;border-radius:999px;}
+    .xp-red--zero{background:rgba(34,197,94,.18);color:#4ade80;}
+    .xp-red--parc{background:rgba(234,179,8,.16);color:#fde047;}
+    .xp-red--cred{background:rgba(59,130,246,.16);color:#93c5fd;}
+    .xp-red--enc{background:rgba(148,163,184,.16);color:#cbd5e1;}
+    .xp-card__desc{color:var(--text-secondary);font-size:.88rem;line-height:1.45;}
+    .xp-empty{text-align:center;color:var(--text-muted);padding:var(--space-2xl);}
+    /* drawer */
+    .xp-overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);opacity:0;visibility:hidden;transition:.2s;z-index:1100;}
+    .xp-overlay.open{opacity:1;visibility:visible;}
+    .xp-drawer{position:fixed;top:0;right:0;height:100%;width:min(460px,92vw);background:var(--bg-secondary);border-left:1px solid var(--border-color);transform:translateX(100%);transition:transform .25s ease;z-index:1101;overflow-y:auto;padding:var(--space-xl);}
+    .xp-drawer.open{transform:translateX(0);}
+    .xp-drawer__close{position:absolute;top:1rem;right:1rem;background:var(--bg-tertiary);border:none;color:var(--text-primary);width:36px;height:36px;border-radius:50%;cursor:pointer;font-size:1.1rem;}
+    .xp-drawer h2{font-family:var(--font-mono);color:var(--text-accent);font-size:2rem;margin:0 0 .2rem;}
+    .xp-drawer .xp-dsub{color:var(--text-muted);font-size:.85rem;margin-bottom:var(--space-lg);}
+    .xp-field{margin-bottom:var(--space-lg);}
+    .xp-field h4{font-size:.75rem;text-transform:uppercase;letter-spacing:.05em;color:var(--text-muted);margin:0 0 .3rem;}
+    .xp-field p{color:var(--text-primary);line-height:1.5;margin:0;}
+    .xp-efetiva{background:var(--bg-card);border:1px solid var(--color-primary);border-radius:var(--radius-md);padding:var(--space-md);text-align:center;}
+    .xp-efetiva b{font-family:var(--font-mono);font-size:1.8rem;color:var(--text-accent);display:block;}
+    .xp-efetiva span{color:var(--text-muted);font-size:.78rem;}
+    .xp-legal{font-family:var(--font-mono);font-size:.8rem;color:var(--text-accent);}
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div class="header__container">
+      <a href="index.html" class="header__logo">
+        <div class="header__logo-icon"><i class="ph-fill ph-scales"></i></div>
+        <div class="header__logo-text">
+          <span class="header__logo-title">Reforma Tributária</span>
+          <span class="header__logo-subtitle">2026</span>
+        </div>
+      </a>
+      <nav class="header__nav">
+        <a href="index.html" class="header__nav-link"><i class="ph ph-house"></i>Início</a>
+        <a href="artigos.html" class="header__nav-link"><i class="ph ph-article"></i>Artigos</a>
+        <a href="tabelas.html" class="header__nav-link"><i class="ph ph-table"></i>Tabelas</a>
+        <a href="consulta-ncm.html" class="header__nav-link"><i class="ph ph-barcode"></i>Consulta NCM</a>
+        <a href="consultas-fiscais.html" class="header__nav-link"><i class="ph ph-magnifying-glass"></i>Consultas Fiscais</a>
+        <a href="explorador-cclasstrib.html" class="header__nav-link active"><i class="ph ph-compass"></i>Explorador cClassTrib</a>
+        <a href="leitor-nfe.html" class="header__nav-link"><i class="ph ph-file-text"></i>Leitor NF-e</a>
+        <a href="glossario.html" class="header__nav-link"><i class="ph ph-book-open"></i>Glossário</a>
+        <a href="cronograma.html" class="header__nav-link"><i class="ph ph-calendar"></i>Cronograma</a>
+        <a href="calculadora.html" class="header__nav-link header__nav-link--cta"><i class="ph ph-calculator"></i>Calculadora</a>
+      </nav>
+      <button class="header__menu-btn" onclick="toggleSidebar()"><i class="ph ph-list"></i></button>
+    </div>
+  </header>
+
+  <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar__header">
+      <span class="sidebar__title">Menu</span>
+      <button class="sidebar__close" onclick="toggleSidebar()"><i class="ph ph-x"></i></button>
+    </div>
+    <nav class="sidebar__nav">
+      <div class="sidebar__section">
+        <h3 class="sidebar__section-title">Navegação</h3>
+        <ul class="sidebar__list">
+          <li><a href="index.html" class="sidebar__link"><i class="ph ph-house"></i><span>Início</span></a></li>
+          <li><a href="artigos.html" class="sidebar__link"><i class="ph ph-article"></i><span>Artigos</span></a></li>
+          <li><a href="tabelas.html" class="sidebar__link"><i class="ph ph-table"></i><span>Tabelas</span></a></li>
+          <li><a href="consulta-ncm.html" class="sidebar__link"><i class="ph ph-barcode"></i><span>Consulta NCM</span></a></li>
+          <li><a href="consultas-fiscais.html" class="sidebar__link"><i class="ph ph-magnifying-glass"></i><span>Consultas Fiscais</span></a></li>
+          <li><a href="explorador-cclasstrib.html" class="sidebar__link active"><i class="ph ph-compass"></i><span>Explorador cClassTrib</span></a></li>
+          <li><a href="leitor-nfe.html" class="sidebar__link"><i class="ph ph-file-text"></i><span>Leitor NF-e</span></a></li>
+          <li><a href="glossario.html" class="sidebar__link"><i class="ph ph-book-open"></i><span>Glossário</span></a></li>
+          <li><a href="cronograma.html" class="sidebar__link"><i class="ph ph-calendar"></i><span>Cronograma</span></a></li>
+          <li><a href="calculadora.html" class="sidebar__link"><i class="ph ph-calculator"></i><span>Calculadora</span></a></li>
+        </ul>
+      </div>
+    </nav>
+  </aside>
+
+  <main class="main-content">
+    <div class="container" style="max-width:1200px">
+      <header class="page-header">
+        <h1>Explorador cClassTrib &amp; CST IBS/CBS</h1>
+        <p>Navegue pelos 173 códigos de Classificação Tributária (cClassTrib) e pelos 18 CST do IBS/CBS da Reforma. Filtre por CST, por faixa de redução ou por Anexo, busque por código ou descrição e veja a alíquota efetiva estimada de cada código.</p>
+      </header>
+
+      <div class="xp-stats" id="xpStats"></div>
+
+      <div class="xp-toolbar">
+        <div class="xp-search">
+          <i class="ph ph-magnifying-glass"></i>
+          <input type="text" id="xpSearch" autocomplete="off" placeholder="Buscar por código, descrição, Anexo ou artigo...">
+        </div>
+        <div class="xp-toggle">
+          <button id="xpViewCct" class="active" onclick="setView('cct')"><i class="ph ph-list-numbers"></i>cClassTrib (173)</button>
+          <button id="xpViewCst" onclick="setView('cst')"><i class="ph ph-scales"></i>CST (18)</button>
+        </div>
+      </div>
+
+      <div class="xp-filters" id="xpFilters">
+        <span class="lbl">Redução</span>
+        <button class="xp-chip active" data-red="todas">Todas</button>
+        <button class="xp-chip" data-red="zero">Alíquota zero</button>
+        <button class="xp-chip" data-red="60">60%</button>
+        <button class="xp-chip" data-red="40">40%</button>
+        <button class="xp-chip" data-red="30">30%</button>
+        <button class="xp-chip" data-red="outras">Outras %</button>
+        <button class="xp-chip" data-red="cred">Créd. presumido</button>
+        <button class="xp-chip" data-red="sem">Sem redução</button>
+        <select class="xp-cstsel" id="xpCstSel" style="margin-left:auto"><option value="">Todos os CST</option></select>
+      </div>
+
+      <p class="xp-count" id="xpCount"></p>
+      <div class="xp-grid" id="xpGrid"></div>
+    </div>
+  </main>
+
+  <div class="xp-overlay" id="xpOverlay" onclick="closeDrawer()"></div>
+  <aside class="xp-drawer" id="xpDrawer"></aside>
+
+  <footer class="footer">
+    <div class="footer__container">
+      <div class="footer__bottom">
+        <p class="footer__copyright">© 2026 Consultoria Tributária.</p>
+        <p class="footer__disclaimer"><i class="ph ph-warning"></i>Fonte: Informe Técnico RT 2025.002 / LC 214/2025. Confira sempre a tabela oficial vigente.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/reforma-data.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    const REF_TOTAL = 26.5; // alíquota de referência total estimada CBS+IBS (%)
+    const D = window.REFORMA_DATA;
+    const el = id => document.getElementById(id);
+    const norm = s => (s||'').toString().normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase();
+    const esc = s => (s==null?'':String(s)).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+    const cstNome = c => (D.cstIbsCbs.find(x=>x.codigo===c)||{}).nome || '';
+    const cstDesc = c => (D.cstIbsCbs.find(x=>x.codigo===c)||{}).descricao || '';
+
+    // cor por grupo CST (borda esquerda do card)
+    const CST_COR = {'000':'#10b981','010':'#22d3ee','011':'#2dd4bf','200':'#f59e0b','220':'#a3a3a3','221':'#a3a3a3','222':'#a3a3a3','400':'#60a5fa','410':'#818cf8','510':'#f472b6','515':'#fb923c','550':'#38bdf8','620':'#fbbf24','800':'#34d399','810':'#34d399','811':'#94a3b8','820':'#c084fc','830':'#94a3b8'};
+
+    // interpreta a faixa de redução a partir das tags
+    function parseRed(tags){
+      if(!tags) return {cat:'sem', label:'Sem redução', pct:0};
+      if(/crédito presumido/i.test(tags)) return {cat:'cred', label:'Crédito presumido', pct:null};
+      if(/encerrado/i.test(tags)) return {cat:'enc', label:'Encerrado', pct:null};
+      const pcts=(tags.match(/(\d+)%/g)||[]).map(s=>parseInt(s));
+      if(/IBS/.test(tags)&&/CBS/.test(tags)) return {cat:'mista', label:tags, pct:Math.max(...pcts)};
+      const p=pcts[0]||0;
+      if(p===100) return {cat:'zero', label:'Alíquota zero (100%)', pct:100};
+      return {cat:'parc', label:'Redução '+p+'%', pct:p};
+    }
+    function redClass(cat){ return cat==='zero'?'xp-red--zero':cat==='cred'?'xp-red--cred':cat==='enc'?'xp-red--enc':'xp-red--parc'; }
+    function anexoDe(desc){ const m=desc.match(/Anexo\s+[IVXLC]+/i)||desc.match(/art\.?\s*\d+[^)]*/i); return m?m[0]:''; }
+
+    let view='cct', redFilter='todas';
+
+    function renderStats(){
+      const total=D.cclasstrib.length;
+      const zero=D.cclasstrib.filter(i=>parseRed(i.tags).cat==='zero').length;
+      const r60=D.cclasstrib.filter(i=>parseRed(i.tags).pct===60).length;
+      const comRed=D.cclasstrib.filter(i=>{const r=parseRed(i.tags);return r.pct>0;}).length;
+      el('xpStats').innerHTML = [
+        ['173','códigos cClassTrib'],['18','CST do IBS/CBS'],
+        [String(comRed),'com redução de alíquota'],[String(zero),'com alíquota zero'],[String(r60),'com redução de 60%']
+      ].map(([b,s])=>`<div class="xp-stat"><b>${b}</b><span>${s}</span></div>`).join('');
+    }
+
+    function initCstSelect(){
+      el('xpCstSel').innerHTML = '<option value="">Todos os CST</option>' +
+        D.cstIbsCbs.map(c=>`<option value="${c.codigo}">${c.codigo} — ${esc(c.nome)}</option>`).join('');
+    }
+
+    function setView(v){
+      view=v;
+      el('xpViewCct').classList.toggle('active', v==='cct');
+      el('xpViewCst').classList.toggle('active', v==='cst');
+      el('xpFilters').style.display = v==='cct' ? 'flex' : 'none';
+      el('xpSearch').placeholder = v==='cct'
+        ? 'Buscar por código, descrição, Anexo ou artigo...'
+        : 'Buscar por CST, nome ou descrição...';
+      render();
+    }
+
+    function matchRed(tags){
+      if(redFilter==='todas') return true;
+      const r=parseRed(tags);
+      if(redFilter==='zero') return r.cat==='zero';
+      if(redFilter==='60') return r.pct===60;
+      if(redFilter==='40') return r.pct===40;
+      if(redFilter==='30') return r.pct===30;
+      if(redFilter==='cred') return r.cat==='cred';
+      if(redFilter==='sem') return r.cat==='sem';
+      if(redFilter==='outras') return r.pct>0 && r.pct!==100 && ![60,40,30].includes(r.pct);
+      return true;
+    }
+
+    function render(){
+      const t = norm(el('xpSearch').value);
+      const cstSel = el('xpCstSel').value;
+      let out='';
+      if(view==='cst'){
+        const rows = D.cstIbsCbs.filter(c => !t || c.codigo.includes(t) || norm(c.nome).includes(t) || norm(c.descricao).includes(t));
+        el('xpCount').textContent = `${rows.length} CST`;
+        out = rows.map(c=>`<div class="xp-card" style="--cstc:${CST_COR[c.codigo]||'#10b981'}" onclick="openCst('${c.codigo}')">
+          <div class="xp-card__top"><span class="xp-code">${c.codigo}</span><span class="xp-cst">CST IBS/CBS</span></div>
+          <strong style="color:var(--text-primary)">${esc(c.nome)}</strong>
+          <p class="xp-card__desc" style="margin-top:.35rem">${esc(c.descricao)}</p></div>`).join('');
+      } else {
+        const rows = D.cclasstrib.filter(i =>
+          matchRed(i.tags) && (!cstSel || i.cst===cstSel) &&
+          (!t || i.codigo.includes(t) || i.cst.includes(t) || norm(i.descricao).includes(t) || norm(i.tags).includes(t)));
+        el('xpCount').textContent = `${rows.length} de 173 códigos`;
+        out = rows.map(i=>{
+          const r=parseRed(i.tags);
+          const badge = r.cat==='sem' ? '' : `<span class="xp-red ${redClass(r.cat)}">${esc(r.cat==='zero'?'alíq. zero':r.label.replace('Redução ',''))}</span>`;
+          return `<div class="xp-card" style="--cstc:${CST_COR[i.cst]||'#10b981'}" onclick="openCct('${i.codigo}')">
+            <div class="xp-card__top"><span class="xp-code">${i.codigo}</span><span class="xp-cst">CST ${i.cst}</span>${badge}</div>
+            <p class="xp-card__desc">${esc(i.descricao)}</p></div>`;
+        }).join('');
+      }
+      el('xpGrid').innerHTML = out || '<div class="xp-empty"><i class="ph ph-magnifying-glass" style="font-size:2rem"></i><p>Nenhum código encontrado com esses filtros.</p></div>';
+    }
+
+    function openCct(codigo){
+      const i = D.cclasstrib.find(x=>x.codigo===codigo); if(!i) return;
+      const r = parseRed(i.tags);
+      const anexo = anexoDe(i.descricao);
+      let efet='';
+      if(r.pct!=null){
+        const ef = REF_TOTAL*(1-r.pct/100);
+        efet = `<div class="xp-efetiva"><b>≈ ${ef.toLocaleString('pt-BR',{minimumFractionDigits:1,maximumFractionDigits:1})}%</b>
+          <span>alíquota efetiva estimada (sobre referência de ${REF_TOTAL.toString().replace('.',',')}% — ${r.pct===0?'sem redução':'redução de '+r.pct+'%'})</span></div>`;
+      }
+      el('xpDrawer').innerHTML = `
+        <button class="xp-drawer__close" onclick="closeDrawer()"><i class="ph ph-x"></i></button>
+        <h2>${i.codigo}</h2>
+        <div class="xp-dsub">cClassTrib · Classificação Tributária do IBS/CBS</div>
+        ${efet}
+        <div class="xp-field" style="margin-top:var(--space-lg)"><h4>Aplicação (LC 214/2025)</h4><p>${esc(i.descricao)}</p></div>
+        <div class="xp-field"><h4>CST vinculado</h4><p><span class="xp-legal">${i.cst}</span> — ${esc(cstNome(i.cst))}<br><span style="color:var(--text-secondary);font-size:.85rem">${esc(cstDesc(i.cst))}</span></p></div>
+        ${r.cat!=='sem'?`<div class="xp-field"><h4>Redução / regime</h4><p>${esc(r.label)}</p></div>`:''}
+        ${anexo?`<div class="xp-field"><h4>Base legal citada</h4><p class="xp-legal">${esc(anexo)}</p></div>`:''}
+      `;
+      openDrawer();
+    }
+    function openCst(codigo){
+      const c = D.cstIbsCbs.find(x=>x.codigo===codigo); if(!c) return;
+      const qtd = D.cclasstrib.filter(i=>i.cst===codigo).length;
+      el('xpDrawer').innerHTML = `
+        <button class="xp-drawer__close" onclick="closeDrawer()"><i class="ph ph-x"></i></button>
+        <h2>${c.codigo}</h2>
+        <div class="xp-dsub">CST do IBS/CBS</div>
+        <div class="xp-field"><h4>Nome</h4><p>${esc(c.nome)}</p></div>
+        <div class="xp-field"><h4>Descrição</h4><p>${esc(c.descricao)}</p></div>
+        <div class="xp-field"><h4>cClassTrib neste CST</h4><p>${qtd} código(s). <a href="#" onclick="verCct('${c.codigo}');return false;" style="color:var(--text-accent)">Ver na lista →</a></p></div>
+      `;
+      openDrawer();
+    }
+    function verCct(cst){ closeDrawer(); setView('cct'); el('xpCstSel').value=cst; el('xpSearch').value=''; render(); window.scrollTo({top:document.querySelector('.xp-toolbar').offsetTop-80,behavior:'smooth'}); }
+
+    function openDrawer(){ el('xpOverlay').classList.add('open'); el('xpDrawer').classList.add('open'); }
+    function closeDrawer(){ el('xpOverlay').classList.remove('open'); el('xpDrawer').classList.remove('open'); }
+    window.openCct=openCct; window.openCst=openCst; window.verCct=verCct; window.closeDrawer=closeDrawer; window.setView=setView;
+
+    // eventos
+    let deb;
+    el('xpSearch').addEventListener('input', ()=>{ clearTimeout(deb); deb=setTimeout(render,120); });
+    el('xpCstSel').addEventListener('change', render);
+    document.querySelectorAll('#xpFilters .xp-chip').forEach(ch => ch.addEventListener('click', ()=>{
+      document.querySelectorAll('#xpFilters .xp-chip').forEach(c=>c.classList.remove('active'));
+      ch.classList.add('active'); redFilter=ch.dataset.red; render();
+    }));
+    document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeDrawer(); });
+
+    renderStats(); initCstSelect(); render();
+  </script>
+  <!-- Cloudflare Web Analytics -->
+  <script type="module" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "f4fcc25a7cd64ae49b673976803f486b"}'></script>
+  <!-- End Cloudflare Web Analytics -->
+</body>
+</html>
