@@ -59,64 +59,46 @@ function renderFeaturedArticles() {
   `).join('');
 }
 
-// Render All Articles (Artigos Page)
-function renderArticles(categoria = null, termo = '') {
-  const container = document.getElementById('articlesGrid');
-  if (!container) return;
+// ── Artigos (listagem) ─────────────────────────────────────────
+let currentCategoria = null;
+let currentTermo = '';
+let currentTag = null;
+let currentSort = 'recentes';
 
-  let filtered = [...ARTIGOS];
-
-  if (categoria) {
-    filtered = filtered.filter(a => a.categoria === categoria);
+function artigosFiltrados() {
+  let f = [...ARTIGOS];
+  if (currentCategoria) f = f.filter(a => a.categoria === currentCategoria);
+  if (currentTag) f = f.filter(a => (a.tags || []).some(t => t.toLowerCase() === currentTag.toLowerCase()));
+  if (currentTermo) {
+    const q = currentTermo.toLowerCase();
+    f = f.filter(a =>
+      a.titulo.toLowerCase().includes(q) ||
+      (a.subtitulo || '').toLowerCase().includes(q) ||
+      a.resumo.toLowerCase().includes(q) ||
+      (a.tags || []).some(t => t.toLowerCase().includes(q)));
   }
+  if (currentSort === 'tempo') f.sort((a, b) => (a.tempoLeitura || 0) - (b.tempoLeitura || 0));
+  else if (currentSort === 'az') f.sort((a, b) => a.titulo.localeCompare(b.titulo, 'pt-BR'));
+  else f.sort((a, b) => (b.dataPublicacao || '').localeCompare(a.dataPublicacao || ''));
+  return f;
+}
 
-  if (termo) {
-    const termoLower = termo.toLowerCase();
-    filtered = filtered.filter(a =>
-      a.titulo.toLowerCase().includes(termoLower) ||
-      a.resumo.toLowerCase().includes(termoLower) ||
-      a.tags.some(t => t.toLowerCase().includes(termoLower))
-    );
-  }
-
-  document.getElementById('resultsCount').textContent = `${filtered.length} artigo(s) encontrado(s)`;
-
-  if (filtered.length === 0) {
-    container.innerHTML = `
-      <div class="empty-state">
-        <i class="ph ph-article"></i>
-        <h3>Nenhum artigo encontrado</h3>
-        <p>Tente ajustar os filtros ou termo de busca.</p>
-      </div>
-    `;
-    return;
-  }
-
-  container.innerHTML = filtered.map((artigo, i) => `
-    <article class="article-card animate-fade-in" style="animation-delay: ${i * 0.1}s">
+function cardArtigo(artigo, i) {
+  return `
+    <article class="article-card animate-fade-in" style="animation-delay:${i * 0.06}s">
       <div class="article-card__header">
-        <span class="badge badge--${artigo.categoria}">
-          ${getCategoriaLabel(artigo.categoria)}
-        </span>
+        <span class="badge badge--${artigo.categoria}">${getCategoriaLabel(artigo.categoria)}</span>
         <div class="article-card__meta">
-          <span class="article-card__time">
-            <i class="ph ph-clock"></i>
-            ${artigo.tempoLeitura} min
-          </span>
-          <span class="article-card__date">
-            <i class="ph ph-calendar"></i>
-            ${formatDate(artigo.dataPublicacao)}
-          </span>
+          ${artigo.destaque ? '<span class="article-card__star" title="Destaque"><i class="ph-fill ph-star"></i></span>' : ''}
+          <span class="article-card__time"><i class="ph ph-clock"></i>${artigo.tempoLeitura} min</span>
         </div>
       </div>
-      
       <h2 class="article-card__title">${artigo.titulo}</h2>
       ${artigo.subtitulo ? `<p class="article-card__subtitle">${artigo.subtitulo}</p>` : ''}
       <p class="article-card__excerpt">${artigo.resumo}</p>
-      
       <div class="article-card__footer">
         <div class="article-card__tags">
-          ${artigo.tags.slice(0, 4).map(tag => `<span class="article-card__tag">${tag}</span>`).join('')}
+          ${(artigo.tags || []).slice(0, 4).map(tag => `<button type="button" class="article-card__tag" onclick="filterByTag('${tag.replace(/'/g, "\\'")}')">${tag}</button>`).join('')}
         </div>
         <a href="artigos.html?slug=${artigo.slug}"
            onclick="if(typeof openArtigo==='function'){openArtigo('${artigo.slug}');return false;}"
@@ -124,31 +106,100 @@ function renderArticles(categoria = null, termo = '') {
           Ler artigo completo <i class="ph ph-arrow-right"></i>
         </a>
       </div>
-    </article>
-  `).join('');
+    </article>`;
 }
 
-// Filter Articles
-let currentCategoria = null;
-let currentTermo = '';
+function updateCategoriaCounts() {
+  document.querySelectorAll('.filter-tab').forEach(tab => {
+    const cat = tab.dataset.categoria;
+    const n = cat ? ARTIGOS.filter(a => a.categoria === cat).length : ARTIGOS.length;
+    let c = tab.querySelector('.filter-tab__count');
+    if (!c) { c = document.createElement('span'); c.className = 'filter-tab__count'; tab.appendChild(c); }
+    c.textContent = n;
+  });
+}
+
+function renderArtigosDestaque() {
+  const grid = document.getElementById('destaquesGrid');
+  if (!grid) return;
+  const featured = ARTIGOS.filter(a => a.destaque).slice(0, 3);
+  grid.innerHTML = featured.map(artigo => `
+    <a class="destaque-card" href="artigos.html?slug=${artigo.slug}"
+       onclick="if(typeof openArtigo==='function'){openArtigo('${artigo.slug}');return false;}">
+      <div class="destaque-card__top">
+        <span class="badge badge--${artigo.categoria}">${getCategoriaLabel(artigo.categoria)}</span>
+        <span class="destaque-card__time"><i class="ph ph-clock"></i>${artigo.tempoLeitura} min</span>
+      </div>
+      <h3>${artigo.titulo}</h3>
+      <p>${artigo.subtitulo || artigo.resumo}</p>
+      <span class="destaque-card__cta">Ler artigo <i class="ph ph-arrow-right"></i></span>
+    </a>`).join('');
+}
+
+// Render All Articles (Artigos Page)
+function renderArticles() {
+  const container = document.getElementById('articlesGrid');
+  if (!container) return;
+  updateCategoriaCounts();
+  const filtered = artigosFiltrados();
+
+  const countEl = document.getElementById('resultsCount');
+  if (countEl) countEl.textContent = `${filtered.length} de ${ARTIGOS.length} artigo(s)`;
+
+  const temFiltro = !!(currentCategoria || currentTermo || currentTag);
+  const dest = document.getElementById('destaquesSection');
+  if (dest) dest.style.display = temFiltro ? 'none' : '';
+
+  const fb = document.getElementById('activeFilterBar');
+  if (fb) {
+    if (temFiltro) {
+      const partes = [];
+      if (currentCategoria) partes.push(`categoria <strong>${getCategoriaLabel(currentCategoria)}</strong>`);
+      if (currentTag) partes.push(`tag <strong>#${currentTag}</strong>`);
+      if (currentTermo) partes.push(`busca <strong>"${currentTermo}"</strong>`);
+      fb.innerHTML = `<span><i class="ph ph-funnel"></i> Filtrando por ${partes.join(' · ')}</span><button type="button" onclick="clearFilters()"><i class="ph ph-x"></i> Limpar filtros</button>`;
+      fb.style.display = 'flex';
+    } else { fb.style.display = 'none'; }
+  }
+
+  if (filtered.length === 0) {
+    container.innerHTML = `
+      <div class="empty-state">
+        <i class="ph ph-magnifying-glass"></i>
+        <h3>Nenhum artigo encontrado</h3>
+        <p>Tente outro termo ou limpe os filtros.</p>
+        <button class="btn btn--outline" onclick="clearFilters()"><i class="ph ph-arrow-counter-clockwise"></i> Limpar filtros</button>
+      </div>`;
+    return;
+  }
+  container.innerHTML = filtered.map(cardArtigo).join('');
+}
 
 function filterByCategoria(categoria) {
-  currentCategoria = categoria;
-  
-  // Update active tab
+  currentCategoria = categoria || null;
+  currentTag = null;
   document.querySelectorAll('.filter-tab').forEach(tab => {
-    tab.classList.remove('active');
-    if (tab.dataset.categoria === (categoria || '')) {
-      tab.classList.add('active');
-    }
+    tab.classList.toggle('active', tab.dataset.categoria === (categoria || ''));
   });
-  
-  renderArticles(currentCategoria, currentTermo);
+  renderArticles();
 }
 
-function filterByTermo(termo) {
-  currentTermo = termo;
-  renderArticles(currentCategoria, currentTermo);
+function filterByTermo(termo) { currentTermo = termo; renderArticles(); }
+
+function filterByTag(tag) {
+  currentTag = tag;
+  renderArticles();
+  const anchor = document.querySelector('.filters');
+  if (anchor) window.scrollTo({ top: anchor.offsetTop - 80, behavior: 'smooth' });
+}
+
+function setArtigoSort(v) { currentSort = v; renderArticles(); }
+
+function clearFilters() {
+  currentCategoria = null; currentTermo = ''; currentTag = null;
+  const s = document.getElementById('searchInput'); if (s) s.value = '';
+  document.querySelectorAll('.filter-tab').forEach(t => t.classList.toggle('active', t.dataset.categoria === ''));
+  renderArticles();
 }
 
 // Render Table
