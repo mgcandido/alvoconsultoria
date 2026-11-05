@@ -1,4 +1,4 @@
-# Portal Reforma Tributária 2026 — site (`docs/`)
+# Portal Reforma Tributária — site (`docs/`)
 
 Site estático publicado no **GitHub Pages**: https://mgcandido.github.io/alvoconsultoria/
 

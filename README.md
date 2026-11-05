@@ -1,4 +1,4 @@
-# Reforma Tributária 2026 — Portal e Ferramentas
+# Reforma Tributária — Portal e Ferramentas
 
 Portal especializado na **Reforma Tributária Brasileira de 2026** (CBS e IBS), com conteúdo técnico e **ferramentas interativas de consulta fiscal**. É um site estático, sem backend, publicado via **GitHub Pages**.
 
