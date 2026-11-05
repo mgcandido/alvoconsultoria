@@ -888,6 +888,58 @@ const ARTIGOS = [
       <h2>6. Conclusão</h2>
       <p>Para o pequeno negócio, a Reforma não é só uma questão de carga, mas de posicionamento: quem vende para outras empresas precisará avaliar se a geração de crédito justifica migrar para o regime regular. É uma decisão de competitividade — e deve ser simulada caso a caso.</p>
     `
+  },
+  {
+    id: '10',
+    slug: 'resolucao-cgibs-14-2026-aliquota-referencia',
+    titulo: 'Resolução CGIBS nº 14/2026: 27,91% e o que isso significa',
+    subtitulo: 'A projeção metodológica do Comitê Gestor para 2027 e o teto de 26,5%',
+    resumo: 'O CGIBS publicou a projeção de 27,91% (CBS 9,21% + IBS 18,70%) para 2027 — acima do teto de 26,5% da LC 214/2025. Entenda o que o número significa, o que ele NÃO é e o rito que vai definir a alíquota de referência oficial.',
+    categoria: 'federal',
+    tags: ['CGIBS', 'Alíquota de Referência', 'Senado', 'TCU', 'Teto 26,5%'],
+    autor: 'Consultoria Tributária',
+    dataPublicacao: '2026-11-05',
+    tempoLeitura: 8,
+    destaque: true,
+    conteudo: `
+      <h2>1. O anúncio que balançou o mercado</h2>
+      <p>Em 31 de julho de 2026, o Comitê Gestor do IBS publicou a <strong>Resolução CGIBS nº 14/2026</strong>, trazendo uma estimativa de <strong>27,91%</strong> para a alíquota combinada de IBS e CBS em 2027 — resultado da soma entre <strong>CBS de 9,21%</strong> e <strong>IBS de 18,70%</strong>. O número ficou <strong>acima do teto de 26,5%</strong> fixado pela LC 214/2025 e provocou debate no setor.</p>
+
+      <h2>2. O que o 27,91% realmente é</h2>
+      <p>É uma <strong>projeção metodológica</strong>, feita pelo CGIBS apenas para calcular quanto o IBS deve arrecadar em 2027 e, assim, dimensionar seu financiamento e o rateio entre entes federativos. Os 18,7% do IBS <strong>não autorizam o uso desse percentual em documentos fiscais</strong> nem aumentam, por si só, a carga das empresas.</p>
+      <div class="table-wrapper">
+        <table>
+          <thead><tr><th>Componente</th><th>Projeção CGIBS (res. 14/2026)</th><th>Teto da LC 214/2025</th></tr></thead>
+          <tbody>
+            <tr><td>CBS (parcela federal)</td><td>9,21%</td><td>8,80%</td></tr>
+            <tr><td>IBS (parcela estadual + municipal)</td><td>18,70%</td><td>17,70%</td></tr>
+            <tr><td><strong>Total</strong></td><td><strong>27,91%</strong></td><td><strong>26,50%</strong></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2>3. Quem de fato fixa a alíquota de referência</h2>
+      <p>O rito está desenhado em três etapas:</p>
+      <ol>
+        <li><strong>TCU</strong> — regulamentado pela Resolução TCU nº 388/2026, calcula as alíquotas de referência com regime de urgência.</li>
+        <li><strong>CGIBS</strong> — envia a proposta técnica (foi o que a Res. 14/2026 fez).</li>
+        <li><strong>Senado Federal</strong> — fixa, por Resolução, a alíquota de referência para o ano seguinte.</li>
+      </ol>
+      <p>A alíquota efetiva só começa a valer com a vigência plena do novo sistema. Em <strong>2026 e 2027 vigoram as alíquotas de teste</strong>: CBS de 0,9% em 2026 (0,1% em 2027), com IBS de 0,1% — sem impacto adicional de carga.</p>
+
+      <h2>4. E o teto de 26,5%?</h2>
+      <p>A LC 214/2025 prevê que, se a soma projetada das alíquotas de referência <strong>ultrapassar 26,5%</strong>, o Executivo deve <strong>enviar ao Congresso projeto de lei complementar</strong> para ajustá-las. Ou seja, o teto é um gatilho político e orçamentário — não um limite automático que impeça o CGIBS de projetar números maiores.</p>
+
+      <h2>5. O que muda na prática para a sua empresa</h2>
+      <ul>
+        <li><strong>Hoje (2026):</strong> emitir com os códigos CST IBS/CBS e cClassTrib e usar as alíquotas de teste (CBS 0,9% + IBS 0,1%), com compensação em PIS/COFINS.</li>
+        <li><strong>Em 2027:</strong> a CBS começa a ser cobrada integralmente. A alíquota de referência oficial deve ser publicada em Resolução do Senado antes do início do exercício.</li>
+        <li><strong>Precificação:</strong> faça cenários com dois pontos — o teto conservador de 26,5% e a projeção atual de 27,91%. Em serviços e indústrias com muitos créditos, a diferença de carga efetiva tende a ser menor do que a nominal sugere.</li>
+      </ul>
+
+      <h2>6. Conclusão</h2>
+      <p>A Resolução CGIBS nº 14/2026 <strong>não aumenta impostos</strong>, mas sinaliza que a alíquota de referência está mais alta do que a LC 214/2025 previa. A palavra final é do <strong>TCU + Senado</strong>, e o planejamento tributário prudente trabalha com uma faixa — não com um valor único — até a publicação da resolução oficial.</p>
+    `
   }
 ];
 
