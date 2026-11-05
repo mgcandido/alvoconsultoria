@@ -1148,14 +1148,14 @@ const TIPOS_TABELA = [
 
 // Cronograma CBS
 const FASES_CBS = [
-  { ano: 2026, pisCofins: 100, cbs: 0, descricao: 'Período de preparação e teste da CBS', marcos: ['Publicação de regulamentações', 'Adequação de sistemas', 'Homologação'] },
-  { ano: 2027, pisCofins: 0, cbs: 100, descricao: 'Extinção do PIS/COFINS, vigência plena da CBS', marcos: ['CBS em vigor (ref. 8,8%)', 'PIS/COFINS extintos', 'EFD-CBS obrigatória'] }
+  { ano: 2026, pisCofins: 100, cbs: 0, descricao: 'Período de teste da CBS (0,9%), compensável com PIS/COFINS. Publicação do Regulamento (Decreto nº 12.955/2026) e da LC 227/2026 (2ª etapa).', marcos: ['LC 227/2026 (jan)', 'Decreto nº 12.955/2026 (abr)', 'Resolução CGIBS nº 14/2026 (jul) — projeção de 27,91% para 2027', 'EFD-CBS em homologação'] },
+  { ano: 2027, pisCofins: 0, cbs: 100, descricao: 'Extinção do PIS/COFINS, vigência plena da CBS. Alíquota de referência oficial a ser fixada por Resolução do Senado (com base no cálculo do TCU).', marcos: ['CBS em vigor (ref. 8,8% / proj. CGIBS 9,21%)', 'PIS/COFINS extintos', 'EFD-CBS obrigatória', 'Imposto Seletivo inicia'] }
 ];
 
 // Cronograma IBS
 const FASES_IBS = [
-  { ano: 2026, icms: 100, ibs: 0, descricao: 'Período de preparação para o IBS', marcos: ['Criação do Comitê Gestor', 'Definição de alíquotas', 'Sistemas em desenvolvimento'] },
-  { ano: 2027, icms: 100, ibs: 0, descricao: 'CBS plena substitui PIS/COFINS; ICMS/ISS integrais; IBS em fase de teste', marcos: ['CBS em vigor', 'IBS em teste (0,1%)', 'Imposto Seletivo inicia'] },
+  { ano: 2026, icms: 100, ibs: 0, descricao: 'Preparação para o IBS: regulamentação (LC 227/2026) e definição do Comitê Gestor. IBS informativo a 0,1% na NF-e.', marcos: ['LC 227/2026 cria o CG-IBS (jan)', 'Resolução CGIBS nº 6/2026 regulamenta o IBS (abr)', 'Res. CGIBS nº 14/2026 projeta IBS a 18,70% (jul)'] },
+  { ano: 2027, icms: 100, ibs: 0, descricao: 'CBS plena substitui PIS/COFINS; ICMS/ISS integrais; IBS em fase de teste (0,1%)', marcos: ['CBS em vigor', 'IBS em teste (0,1%)', 'Imposto Seletivo inicia'] },
   { ano: 2028, icms: 100, ibs: 0, descricao: 'ICMS/ISS integrais; IBS ainda em fase de teste', marcos: ['ICMS/ISS em 100%', 'IBS em teste (0,1%)'] },
   { ano: 2029, icms: 90, ibs: 10, descricao: 'Início da redução do ICMS/ISS e aumento do IBS', marcos: ['IBS em 10%', 'ICMS/ISS em 90%'] },
   { ano: 2030, icms: 80, ibs: 20, descricao: 'Coexistência de regimes', marcos: ['IBS em 20%', 'ICMS/ISS em 80%'] },
