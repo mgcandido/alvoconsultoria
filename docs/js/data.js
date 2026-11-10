@@ -1170,8 +1170,8 @@ const TIPOS_TABELA = [
 
 // Cronograma CBS
 const FASES_CBS = [
-  { ano: 2026, pisCofins: 100, cbs: 0, descricao: 'Período de teste da CBS (0,9%), compensável com PIS/COFINS. Publicação do Regulamento (Decreto nº 12.955/2026) e da LC 227/2026 (2ª etapa).', marcos: ['LC 227/2026 (jan)', 'Decreto nº 12.955/2026 (abr)', 'Resolução CGIBS nº 14/2026 (jul) — projeção de 27,91% para 2027', 'EFD-CBS em homologação'] },
-  { ano: 2027, pisCofins: 0, cbs: 100, descricao: 'Extinção do PIS/COFINS, vigência plena da CBS. Alíquota de referência oficial a ser fixada por Resolução do Senado (com base no cálculo do TCU).', marcos: ['CBS em vigor (ref. 8,8% / proj. CGIBS 9,21%)', 'PIS/COFINS extintos', 'EFD-CBS obrigatória', 'Imposto Seletivo inicia'] }
+  { ano: 2026, pisCofins: 100, cbs: 0, descricao: 'Período de teste da CBS (0,9%), compensável com PIS/COFINS. Publicação do Regulamento (Decreto nº 12.955/2026), da LC 227/2026 e cálculo oficial da alíquota pelo TCU.', marcos: ['LC 227/2026 (jan)', 'Decreto nº 12.955/2026 (abr)', 'Resolução CGIBS nº 14/2026 (jul) — projeção de 27,91%', 'TCU calcula CBS em 11,3% (28/out)', 'Prazo do Senado para fixar alíquota: 15/dez', 'EFD-CBS em homologação'] },
+  { ano: 2027, pisCofins: 0, cbs: 100, descricao: 'Extinção do PIS/COFINS, vigência plena da CBS. Alíquota de referência oficial fixada por Resolução do Senado (ou prevalece o cálculo do TCU, 11,3%).', marcos: ['CBS em vigor (TCU: 11,3% / efetiva com redutor: ~11,2%)', 'PIS/COFINS extintos', 'EFD-CBS obrigatória', 'Imposto Seletivo inicia'] }
 ];
 
 // Cronograma IBS
