@@ -155,63 +155,219 @@
   </aside>
 
   <main class="main-content">
-    <div class="container" style="max-width: 1000px;">
+    <div class="container" style="max-width: 1180px;">
       <header class="page-header">
-        <h1>Cronograma da Transição</h1>
-        <p>Acompanhe as fases de implementação da CBS e do IBS até a extinção completa do PIS/COFINS e ICMS/ISS em 2032.</p>
+        <h1>Cronograma da Reforma Tributária</h1>
+        <p>Da fase de teste ao sistema pleno: 8 anos de transição (2026–2033) com marcos regulatórios, alíquotas, obrigações acessórias e próximas entregas, consolidados a partir de fontes oficiais (TCU, Senado, Receita Federal e CGIBS).</p>
       </header>
 
-      <!-- Timeline CBS -->
+      <!-- Onde estamos agora -->
+      <section class="cron-now">
+        <div class="cron-now__header">
+          <span class="cron-now__badge"><i class="ph-fill ph-circle"></i> Onde estamos agora</span>
+          <span class="cron-now__phase" id="cronPhaseName">Fase de teste · 2026</span>
+        </div>
+        <div class="cron-now__grid">
+          <div class="cron-now__card">
+            <span class="cron-now__card-label">Ano atual</span>
+            <strong id="cronYear">2026</strong>
+            <span class="cron-now__card-sub">Alíquotas de teste CBS 0,9% + IBS 0,1%</span>
+          </div>
+          <div class="cron-now__card">
+            <span class="cron-now__card-label">Próximo marco</span>
+            <strong>15/dez/2026</strong>
+            <span class="cron-now__card-sub">Senado deve fixar alíquota de referência da CBS</span>
+          </div>
+          <div class="cron-now__card">
+            <span class="cron-now__card-label">CBS começa a ser cobrada</span>
+            <strong id="cronDaysToCbs">—</strong>
+            <span class="cron-now__card-sub">dias até 01/jan/2027</span>
+          </div>
+          <div class="cron-now__card">
+            <span class="cron-now__card-label">Sistema pleno</span>
+            <strong>2033</strong>
+            <span class="cron-now__card-sub">IBS pleno · ICMS/ISS extintos</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Faixa visual de fases -->
+      <section class="cron-phases">
+        <h2 class="section-title"><i class="ph ph-timer"></i> Linha do tempo: 4 fases</h2>
+        <div class="cron-phases__track">
+          <div class="cron-phase cron-phase--test" title="2026 — Fase de teste">
+            <span class="cron-phase__year">2026</span>
+            <span class="cron-phase__name">Teste</span>
+            <span class="cron-phase__meta">CBS 0,9% · IBS 0,1%</span>
+          </div>
+          <div class="cron-phase cron-phase--cbs" title="2027–2028 — CBS plena">
+            <span class="cron-phase__year">2027–2028</span>
+            <span class="cron-phase__name">CBS plena</span>
+            <span class="cron-phase__meta">PIS/COFINS extintos · ICMS/ISS integrais</span>
+          </div>
+          <div class="cron-phase cron-phase--reduc" title="2029–2032 — Redução ICMS/ISS">
+            <span class="cron-phase__year">2029–2032</span>
+            <span class="cron-phase__name">Redução ICMS/ISS</span>
+            <span class="cron-phase__meta">IBS sobe 10→40% · ICMS/ISS caem 90→60%</span>
+          </div>
+          <div class="cron-phase cron-phase--full" title="2033 — Sistema pleno">
+            <span class="cron-phase__year">2033</span>
+            <span class="cron-phase__name">Sistema pleno</span>
+            <span class="cron-phase__meta">IBS 100% · ICMS/ISS extintos</span>
+          </div>
+        </div>
+        <p class="cron-phases__legend"><i class="ph ph-info"></i> Clique em qualquer ano abaixo para ver detalhes, marcos regulatórios e ações sugeridas.</p>
+      </section>
+
+      <!-- Seletor de ano e detalhes -->
+      <section class="cron-year-section">
+        <div class="cron-year-nav" id="cronYearNav" role="tablist" aria-label="Selecione um ano"></div>
+        <div class="cron-year-detail" id="cronYearDetail"></div>
+      </section>
+
+      <!-- Duas timelines verticais (CBS / IBS) — mantidas para quem quer visão linear -->
       <section class="timeline-section">
         <h2 class="section-title">
           <span class="badge badge--cbs">CBS</span>
-          Transição PIS/COFINS → CBS
+          Trilha federal · PIS/COFINS → CBS
         </h2>
         <div class="timeline" id="timelineCBS"></div>
       </section>
 
-      <!-- Timeline IBS -->
       <section class="timeline-section">
         <h2 class="section-title">
           <span class="badge badge--ibs">IBS</span>
-          Transição ICMS/ISS → IBS
+          Trilha estadual/municipal · ICMS/ISS → IBS
         </h2>
         <div class="timeline" id="timelineIBS"></div>
       </section>
 
-      <!-- Summary -->
-      <section class="summary-section">
-        <h2 class="section-title"><i class="ph ph-info"></i>Resumo da Transição</h2>
-        
-        <div class="summary-grid">
-          <div class="summary-card">
-            <div class="summary-card__icon summary-card__icon--federal"><i class="ph ph-bank"></i></div>
-            <h3>Tributos Federais</h3>
-            <p>PIS + COFINS serão substituídos pela CBS com alíquota de referência de <strong>8,8%</strong></p>
-            <span class="summary-card__timeline">2026 → 2027</span>
+      <!-- Ações para empresas -->
+      <section class="cron-actions">
+        <h2 class="section-title"><i class="ph ph-list-checks"></i> O que a sua empresa deve fazer</h2>
+        <div class="cron-actions__grid">
+          <div class="cron-action">
+            <div class="cron-action__when">Até dez/2026</div>
+            <h3>Preparação técnica</h3>
+            <ul>
+              <li>Atualizar o ERP para emitir NF-e com <strong>CST IBS/CBS</strong> e <strong>cClassTrib</strong></li>
+              <li>Mapear o NCM/CNAE de cada produto/serviço para o cClassTrib correto</li>
+              <li>Revisar contratos com cláusula de reajuste tributário</li>
+              <li>Acompanhar a Resolução do Senado (prazo: 15/12/2026)</li>
+            </ul>
           </div>
-
-          <div class="summary-card">
-            <div class="summary-card__icon summary-card__icon--estadual"><i class="ph ph-map-pin"></i></div>
-            <h3>Tributos Estaduais</h3>
-            <p>ICMS será integrado ao IBS, na <strong>parcela estadual</strong> do novo imposto</p>
-            <span class="summary-card__timeline">2029 → 2033</span>
+          <div class="cron-action">
+            <div class="cron-action__when">2027</div>
+            <h3>Entrada em vigor da CBS</h3>
+            <ul>
+              <li>Começar a apurar a CBS em substituição ao PIS/COFINS</li>
+              <li>Implementar a EFD-CBS</li>
+              <li>Simular o impacto no fluxo de caixa com <strong>split payment</strong></li>
+              <li>Simples Nacional: decidir entre DAS ou regime regular</li>
+            </ul>
           </div>
-
-          <div class="summary-card">
-            <div class="summary-card__icon summary-card__icon--municipal"><i class="ph ph-buildings"></i></div>
-            <h3>Tributos Municipais</h3>
-            <p>ISS será integrado ao IBS, na <strong>parcela municipal</strong> do novo imposto</p>
-            <span class="summary-card__timeline">2029 → 2033</span>
+          <div class="cron-action">
+            <div class="cron-action__when">2029–2032</div>
+            <h3>Transição gradual</h3>
+            <ul>
+              <li>Acompanhar o recuo gradual do ICMS/ISS (10% ao ano)</li>
+              <li>Mapear cadeia de créditos para maximizar o IBS creditável</li>
+              <li>Revisar precificação e política de fornecedores a cada ano</li>
+              <li>Avaliar fim de benefícios fiscais regionais e sua substituição</li>
+            </ul>
           </div>
-
-          <div class="summary-card">
-            <div class="summary-card__icon summary-card__icon--total"><i class="ph ph-equals"></i></div>
-            <h3>Carga Total</h3>
-            <p>CBS (8,8%) + IBS (17,7%) = <strong>26,5%</strong> de alíquota de referência</p>
-            <span class="summary-card__timeline">A partir de 2033</span>
+          <div class="cron-action">
+            <div class="cron-action__when">A partir de 2033</div>
+            <h3>Operação em regime pleno</h3>
+            <ul>
+              <li>ICMS e ISS deixam de existir</li>
+              <li>IBS + CBS em alíquota plena com não-cumulatividade ampla</li>
+              <li>Revisão completa do planejamento tributário</li>
+              <li>Monitoramento do Imposto Seletivo em produtos específicos</li>
+            </ul>
           </div>
         </div>
+      </section>
+
+      <!-- Fundamentos legais -->
+      <section class="cron-legal">
+        <h2 class="section-title"><i class="ph ph-scales"></i> Fundamentos legais e regulatórios</h2>
+        <div class="cron-legal__grid">
+          <div class="cron-legal__item">
+            <span class="cron-legal__tag">Constituição</span>
+            <strong>EC nº 132/2023</strong>
+            <p>Reforma constitucional que criou o IBS, a CBS e o Imposto Seletivo.</p>
+          </div>
+          <div class="cron-legal__item">
+            <span class="cron-legal__tag">Lei Complementar</span>
+            <strong>LC 214/2025</strong>
+            <p>Regulamenta o novo sistema de tributação sobre o consumo; estabelece o cronograma de transição 2026–2033.</p>
+          </div>
+          <div class="cron-legal__item">
+            <span class="cron-legal__tag">Lei Complementar</span>
+            <strong>LC 227/2026</strong>
+            <p>Segunda etapa da regulamentação: processo administrativo, transição de saldos credores e ajustes na LC 214.</p>
+          </div>
+          <div class="cron-legal__item">
+            <span class="cron-legal__tag">Regulamento</span>
+            <strong>Decreto nº 12.955/2026</strong>
+            <p>Regulamenta a CBS (+600 artigos); alterado pelo Decreto nº 13.075/2026.</p>
+          </div>
+          <div class="cron-legal__item">
+            <span class="cron-legal__tag">CGIBS</span>
+            <strong>Resolução nº 6/2026</strong>
+            <p>Regulamenta o IBS no âmbito do Comitê Gestor.</p>
+          </div>
+          <div class="cron-legal__item">
+            <span class="cron-legal__tag">CGIBS</span>
+            <strong>Resolução nº 14/2026</strong>
+            <p>Projeção metodológica de 27,91% (CBS 9,21% + IBS 18,70%) para 2027.</p>
+          </div>
+          <div class="cron-legal__item">
+            <span class="cron-legal__tag">TCU</span>
+            <strong>Cálculo oficial 28/10/2026</strong>
+            <p>CBS de referência fixada em 11,3% (11,3468%) com redutor de 44,2% em compras públicas.</p>
+          </div>
+          <div class="cron-legal__item">
+            <span class="cron-legal__tag">Técnico</span>
+            <strong>IT 2025.002 (v.1.71)</strong>
+            <p>Tabela de classificação tributária (cClassTrib) com 173 códigos e tabela CST IBS/CBS (18 códigos).</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- FAQ -->
+      <section class="cron-faq">
+        <h2 class="section-title"><i class="ph ph-question"></i> Perguntas frequentes</h2>
+        <details class="cron-faq__item">
+          <summary>Já estou pagando CBS e IBS em 2026?</summary>
+          <p>Não. 2026 é fase de teste: CBS a 0,9% e IBS a 0,1% são destacados nos documentos fiscais, mas compensáveis com PIS/COFINS, com impacto adicional líquido próximo de zero. A cobrança efetiva da CBS começa em 01/jan/2027.</p>
+        </details>
+        <details class="cron-faq__item">
+          <summary>Qual será a alíquota definitiva da CBS em 2027?</summary>
+          <p>Em 28/10/2026 o TCU calculou 11,3% (11,3468%) de referência. O Senado tem até 15/12/2026 para fixar o percentual por Resolução; se não deliberar, prevalece o cálculo do TCU. Na transição 2027–2028, há redutor de 0,1 ponto — a alíquota efetiva fica em ~11,2%.</p>
+        </details>
+        <details class="cron-faq__item">
+          <summary>Quando o ICMS e o ISS serão extintos?</summary>
+          <p>Em <strong>01/jan/2033</strong>. Entre 2029 e 2032, suas alíquotas caem 10 pontos ao ano (90→60%) enquanto o IBS sobe na mesma proporção (10→40%). Em 2033, passam a 0% e o IBS vai a 100% do valor de referência.</p>
+        </details>
+        <details class="cron-faq__item">
+          <summary>E o Simples Nacional, como fica?</summary>
+          <p>Mantido. A partir de 2027, o optante pode continuar no DAS unificado (opção padrão, mais simples) ou aderir ao regime regular, apurando CBS/IBS por fora para gerar crédito integral aos adquirentes — útil para quem vende B2B.</p>
+        </details>
+        <details class="cron-faq__item">
+          <summary>Quando o split payment começa?</summary>
+          <p>Em 2027 (adesão facultativa, restrita a B2B). Os arranjos cobertos inicialmente são PIX, TED, boleto e TEF. Ampliação para o B2C vem em fase posterior.</p>
+        </details>
+        <details class="cron-faq__item">
+          <summary>E o Imposto Seletivo?</summary>
+          <p>Começa em 2027, de forma monofásica (uma única etapa da cadeia). Incide sobre bens e serviços prejudiciais à saúde ou ao meio ambiente: fumígenos, bebidas alcoólicas e açucaradas, veículos, embarcações, aeronaves, bens minerais e apostas.</p>
+        </details>
+      </section>
+
+      <!-- Fontes -->
+      <section class="cron-sources">
+        <p><strong>Fontes:</strong> Portal TCU, Senado Federal, Portal Nacional da NF-e (IT 2025.002), CGIBS, Receita Federal, LC 214/2025, LC 227/2026, Decreto 12.955/2026. Consulte sempre a legislação vigente antes de decisões operacionais.</p>
       </section>
     </div>
   </main>
@@ -225,11 +381,177 @@
     </div>
   </footer>
 
+  <style>
+    /* ===== Cronograma — reestruturação ===== */
+    .cron-now { background: linear-gradient(135deg, rgba(5,150,105,.12), rgba(16,185,129,.05)); border: 1px solid rgba(5,150,105,.35); border-radius: var(--radius-lg); padding: var(--space-xl); margin: var(--space-xl) 0; }
+    .cron-now__header { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: var(--space-md); margin-bottom: var(--space-lg); }
+    .cron-now__badge { display: inline-flex; align-items: center; gap: .4rem; background: rgba(5,150,105,.25); color: var(--text-accent); padding: .35rem .8rem; border-radius: 999px; font-weight: 600; font-size: .8rem; letter-spacing: .02em; text-transform: uppercase; }
+    .cron-now__badge i { font-size: .6rem; animation: cronpulse 2s ease-in-out infinite; }
+    @keyframes cronpulse { 0%,100%{opacity:1;} 50%{opacity:.35;} }
+    .cron-now__phase { font-size: 1rem; color: var(--text-secondary); font-weight: 600; }
+    .cron-now__grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: var(--space-md); }
+    .cron-now__card { background: var(--bg-card); border: 1px solid var(--border-color); border-left: 3px solid var(--color-primary); border-radius: var(--radius-md); padding: var(--space-md) var(--space-lg); }
+    .cron-now__card-label { display: block; color: var(--text-muted); font-size: .75rem; text-transform: uppercase; letter-spacing: .05em; margin-bottom: .3rem; }
+    .cron-now__card strong { display: block; font-family: var(--font-mono); font-size: 1.6rem; color: var(--text-accent); line-height: 1.1; }
+    .cron-now__card-sub { display: block; color: var(--text-muted); font-size: .78rem; margin-top: .3rem; }
+
+    /* Faixa de 4 fases */
+    .cron-phases { margin: var(--space-2xl) 0 var(--space-xl); }
+    .cron-phases__track { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-xs); position: relative; margin-top: var(--space-lg); }
+    .cron-phase { position: relative; padding: var(--space-md) var(--space-sm); border-radius: var(--radius-md); background: var(--bg-card); border: 1px solid var(--border-color); border-top: 3px solid; display: flex; flex-direction: column; gap: .3rem; transition: transform .15s; }
+    .cron-phase:hover { transform: translateY(-2px); }
+    .cron-phase--test { border-top-color: #eab308; }
+    .cron-phase--cbs { border-top-color: #22d3ee; }
+    .cron-phase--reduc { border-top-color: #f59e0b; }
+    .cron-phase--full { border-top-color: #22c55e; }
+    .cron-phase__year { font-family: var(--font-mono); font-size: .85rem; color: var(--text-accent); font-weight: 700; }
+    .cron-phase__name { font-size: 1rem; color: var(--text-primary); font-weight: 600; }
+    .cron-phase__meta { font-size: .78rem; color: var(--text-muted); line-height: 1.4; }
+    .cron-phases__legend { margin-top: var(--space-md); color: var(--text-muted); font-size: .85rem; display: flex; align-items: center; gap: .4rem; }
+    @media (max-width: 700px) { .cron-phases__track { grid-template-columns: 1fr; } }
+
+    /* Seletor de ano e detalhe */
+    .cron-year-section { margin: var(--space-xl) 0 var(--space-2xl); }
+    .cron-year-nav { display: flex; gap: .4rem; flex-wrap: wrap; margin-bottom: var(--space-lg); }
+    .cron-year-btn { background: var(--bg-card); color: var(--text-secondary); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: .55rem 1rem; cursor: pointer; font-family: var(--font-mono); font-weight: 700; font-size: .9rem; min-width: 70px; transition: all .15s; }
+    .cron-year-btn:hover { border-color: var(--color-primary); color: var(--text-accent); }
+    .cron-year-btn.active { background: var(--color-primary); color: #fff; border-color: var(--color-primary); }
+    .cron-year-detail { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: var(--space-xl); min-height: 220px; }
+    .cron-year-detail__head { display: flex; align-items: baseline; gap: var(--space-md); flex-wrap: wrap; margin-bottom: var(--space-md); }
+    .cron-year-detail__year { font-family: var(--font-mono); font-size: 2.2rem; color: var(--text-accent); font-weight: 700; line-height: 1; }
+    .cron-year-detail__phase { background: var(--bg-tertiary); color: var(--text-primary); padding: .25rem .7rem; border-radius: 999px; font-size: .8rem; font-weight: 600; }
+    .cron-year-detail__desc { color: var(--text-secondary); font-size: 1rem; margin-bottom: var(--space-lg); }
+    .cron-year-detail__cols { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-lg); }
+    @media (max-width: 700px) { .cron-year-detail__cols { grid-template-columns: 1fr; } }
+    .cron-year-detail h4 { font-size: .78rem; text-transform: uppercase; letter-spacing: .05em; color: var(--text-muted); margin-bottom: .6rem; display: flex; align-items: center; gap: .4rem; }
+    .cron-year-detail ul { margin: 0; padding-left: 1.1rem; color: var(--text-secondary); font-size: .9rem; line-height: 1.6; }
+    .cron-year-detail ul li { margin: .25rem 0; }
+    .cron-year-detail__rates { display: flex; gap: var(--space-md); flex-wrap: wrap; margin-top: var(--space-lg); padding-top: var(--space-lg); border-top: 1px dashed var(--border-color); }
+    .cron-rate { background: var(--bg-tertiary); border-radius: var(--radius-md); padding: .5rem 1rem; }
+    .cron-rate b { display: block; color: var(--text-accent); font-family: var(--font-mono); font-size: 1rem; }
+    .cron-rate span { display: block; color: var(--text-muted); font-size: .72rem; text-transform: uppercase; letter-spacing: .04em; }
+
+    /* Ações por empresa */
+    .cron-actions { margin: var(--space-2xl) 0; }
+    .cron-actions__grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: var(--space-lg); }
+    .cron-action { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: var(--space-lg); }
+    .cron-action__when { display: inline-block; background: rgba(5,150,105,.15); color: var(--text-accent); padding: .3rem .7rem; border-radius: 999px; font-size: .75rem; font-weight: 700; letter-spacing: .03em; text-transform: uppercase; }
+    .cron-action h3 { color: var(--text-primary); font-size: 1.05rem; margin: .6rem 0 .5rem; }
+    .cron-action ul { margin: 0; padding-left: 1.1rem; color: var(--text-secondary); font-size: .88rem; line-height: 1.55; }
+    .cron-action ul li { margin: .3rem 0; }
+
+    /* Fundamentos legais */
+    .cron-legal { margin: var(--space-2xl) 0; }
+    .cron-legal__grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: var(--space-md); }
+    .cron-legal__item { background: var(--bg-card); border: 1px solid var(--border-color); border-left: 3px solid var(--color-primary-light); border-radius: var(--radius-md); padding: var(--space-md) var(--space-lg); }
+    .cron-legal__tag { display: inline-block; background: var(--bg-tertiary); color: var(--text-muted); padding: .18rem .55rem; border-radius: 4px; font-size: .68rem; text-transform: uppercase; letter-spacing: .05em; font-weight: 700; margin-bottom: .5rem; }
+    .cron-legal__item strong { display: block; color: var(--text-primary); font-size: .95rem; font-family: var(--font-mono); margin-bottom: .35rem; }
+    .cron-legal__item p { color: var(--text-secondary); font-size: .85rem; line-height: 1.5; margin: 0; }
+
+    /* FAQ */
+    .cron-faq { margin: var(--space-2xl) 0; }
+    .cron-faq__item { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: var(--space-md) var(--space-lg); margin-bottom: var(--space-sm); }
+    .cron-faq__item summary { cursor: pointer; font-weight: 600; color: var(--text-primary); font-size: .95rem; list-style: none; display: flex; align-items: center; justify-content: space-between; }
+    .cron-faq__item summary::after { content: '+'; color: var(--text-accent); font-size: 1.4rem; font-family: var(--font-mono); line-height: 1; }
+    .cron-faq__item[open] summary::after { content: '−'; }
+    .cron-faq__item p { margin: var(--space-md) 0 0; color: var(--text-secondary); line-height: 1.6; font-size: .9rem; }
+
+    .cron-sources { margin-top: var(--space-xl); padding: var(--space-md) var(--space-lg); background: var(--bg-card); border-radius: var(--radius-md); border-left: 3px solid var(--text-muted); color: var(--text-muted); font-size: .82rem; line-height: 1.55; }
+  </style>
+
   <script src="js/data.js"></script>
   <script src="js/app.js"></script>
   <script>
+    // Dados por ano do cronograma reestruturado
+    const CRON_ANOS = {
+      2026: { fase:'Fase de teste', cls:'test',
+        desc:'Período de homologação do novo sistema. Já é obrigatório emitir a NF-e com os campos de IBS e CBS, mas as alíquotas de teste são compensadas com PIS/COFINS — impacto adicional líquido próximo de zero.',
+        rates:[['CBS','0,9% (teste)'],['IBS','0,1% (teste)'],['ICMS/ISS','100%'],['PIS/COFINS','ativos']],
+        marcos:['LC 227/2026 publicada (jan)','Decreto nº 12.955/2026 regulamenta a CBS (abr)','Resolução CGIBS nº 6/2026 regulamenta o IBS (abr)','Resolução CGIBS nº 14/2026 projeta 27,91% para 2027 (jul)','TCU calcula CBS em 11,3% (28/out)','Prazo do Senado para fixar alíquota: 15/dez'],
+        acoes:['Adequar ERP aos novos campos (CST IBS/CBS, cClassTrib)','Mapear NCM/CNAE → cClassTrib','Treinar equipe fiscal','Simular impacto com CBS 8,8% e 11,3%'] },
+      2027: { fase:'CBS plena', cls:'cbs',
+        desc:'A CBS passa a ser cobrada integralmente e PIS/COFINS são extintos. ICMS e ISS continuam 100%. O IBS segue em teste (0,1%). Começam também o Imposto Seletivo e a adesão facultativa ao split payment (B2B).',
+        rates:[['CBS','11,3% (TCU) · ~11,2% efetiva'],['IBS','0,1% (teste)'],['ICMS/ISS','100%'],['PIS/COFINS','extintos']],
+        marcos:['CBS em vigor conforme Resolução do Senado (ou cálculo do TCU)','PIS/COFINS extintos','EFD-CBS obrigatória','Imposto Seletivo passa a incidir','Split payment facultativo em operações B2B'],
+        acoes:['Iniciar a apuração da CBS','Decidir, no Simples Nacional, entre DAS ou regime regular','Revisar precificação e contratos','Ajustar fluxo de caixa para o split payment'] },
+      2028: { fase:'CBS plena', cls:'cbs',
+        desc:'Ano de consolidação do novo regime federal. A CBS está em alíquota cheia, o ICMS/ISS permanecem integrais e o IBS continua em teste, preparando a redução dos tributos estaduais e municipais que começará em 2029.',
+        rates:[['CBS','ref. 2028 (a definir)'],['IBS','0,1% (teste)'],['ICMS/ISS','100%']],
+        marcos:['Fim do período de teste do IBS (a confirmar)','Divulgação prevista das alíquotas definitivas de 2029','Cálculo do TCU para IBS'],
+        acoes:['Monitorar a publicação das alíquotas do IBS','Revisar enquadramento fiscal dos produtos','Planejar a migração de saldos credores de ICMS'] },
+      2029: { fase:'Redução ICMS/ISS', cls:'reduc',
+        desc:'Começa a cobrança efetiva do IBS e o recuo do ICMS/ISS. O IBS assume 10% do valor de referência e o ICMS/ISS caem para 90%. É o início da transição estadual/municipal.',
+        rates:[['IBS','10% da ref.'],['ICMS/ISS','90%'],['CBS','alíq. plena']],
+        marcos:['Início da cobrança efetiva do IBS','Redução de 10% do ICMS e do ISS','Mapeamento final de créditos acumulados de ICMS'],
+        acoes:['Começar a creditar IBS','Reajustar preços conforme nova carga','Acompanhar devolução de saldos credores de ICMS'] },
+      2030: { fase:'Redução ICMS/ISS', cls:'reduc',
+        desc:'Transição em ritmo médio: IBS sobe para 20% da referência; ICMS/ISS caem para 80%.',
+        rates:[['IBS','20% da ref.'],['ICMS/ISS','80%']],
+        marcos:['IBS em 20% da alíquota de referência','ICMS/ISS reduzidos para 80%'],
+        acoes:['Revisar custos e margens','Reavaliar política de fornecedores (créditos)'] },
+      2031: { fase:'Redução ICMS/ISS', cls:'reduc',
+        desc:'IBS em 30% da referência; ICMS/ISS em 70%. A nova sistemática começa a predominar no custo tributário.',
+        rates:[['IBS','30% da ref.'],['ICMS/ISS','70%']],
+        marcos:['IBS em 30%','ICMS/ISS em 70%'],
+        acoes:['Simulação completa de impacto na cadeia','Migração gradual de sistemas e processos'] },
+      2032: { fase:'Redução ICMS/ISS', cls:'reduc',
+        desc:'Último ano de convivência dos dois sistemas: IBS em 40% e ICMS/ISS em 60%. Prepare-se para a extinção total em 2033.',
+        rates:[['IBS','40% da ref.'],['ICMS/ISS','60%']],
+        marcos:['IBS em 40%','ICMS/ISS em 60%','Preparação para a extinção'],
+        acoes:['Encerrar ICMS/ISS nos sistemas','Validar todos os créditos remanescentes','Treinamento final das equipes'] },
+      2033: { fase:'Sistema pleno', cls:'full',
+        desc:'ICMS e ISS extintos. O IBS passa a 100% do valor de referência e, somado à CBS, constitui o sistema definitivo de tributação sobre o consumo no Brasil.',
+        rates:[['IBS','17,7% (ref.)'],['CBS','8,8% (ref.)'],['Total','26,5% (ref.)'],['ICMS/ISS','extintos']],
+        marcos:['ICMS e ISS extintos','IBS em vigência plena','Sistema definitivo IBS + CBS + IS'],
+        acoes:['Operar apenas sob CBS + IBS','Rever todo o planejamento tributário','Monitorar atualizações da carga efetiva por setor'] }
+    };
+
+    function renderYearDetail(ano) {
+      const d = CRON_ANOS[ano]; if (!d) return;
+      const detail = document.getElementById('cronYearDetail');
+      const rates = d.rates.map(([k,v]) => `<div class="cron-rate"><b>${v}</b><span>${k}</span></div>`).join('');
+      detail.innerHTML = `
+        <div class="cron-year-detail__head">
+          <span class="cron-year-detail__year">${ano}</span>
+          <span class="cron-year-detail__phase">${d.fase}</span>
+        </div>
+        <p class="cron-year-detail__desc">${d.desc}</p>
+        <div class="cron-year-detail__cols">
+          <div>
+            <h4><i class="ph ph-flag-pennant"></i> Marcos do ano</h4>
+            <ul>${d.marcos.map(m => `<li>${m}</li>`).join('')}</ul>
+          </div>
+          <div>
+            <h4><i class="ph ph-list-checks"></i> Ações sugeridas</h4>
+            <ul>${d.acoes.map(a => `<li>${a}</li>`).join('')}</ul>
+          </div>
+        </div>
+        <div class="cron-year-detail__rates">${rates}</div>`;
+      document.querySelectorAll('.cron-year-btn').forEach(b => b.classList.toggle('active', +b.dataset.ano === ano));
+    }
+
+    function initYearNav() {
+      const nav = document.getElementById('cronYearNav');
+      nav.innerHTML = Object.keys(CRON_ANOS).map(a => `<button class="cron-year-btn" data-ano="${a}" role="tab" type="button">${a}</button>`).join('');
+      nav.querySelectorAll('.cron-year-btn').forEach(b => b.addEventListener('click', () => renderYearDetail(+b.dataset.ano)));
+    }
+
+    function daysUntil(dateStr) {
+      const target = new Date(dateStr), now = new Date();
+      const d = Math.ceil((target - now) / 86400000);
+      return d > 0 ? d.toLocaleString('pt-BR') : '0';
+    }
+
     document.addEventListener('DOMContentLoaded', () => {
-      renderCronograma();
+      const anoAtual = new Date().getFullYear();
+      const anoPivot = anoAtual >= 2026 && anoAtual <= 2033 ? anoAtual : 2026;
+      document.getElementById('cronYear').textContent = anoAtual;
+      const fase = CRON_ANOS[anoPivot]?.fase || 'Preparação';
+      document.getElementById('cronPhaseName').textContent = `${fase} · ${anoAtual}`;
+      document.getElementById('cronDaysToCbs').textContent = daysUntil('2027-01-01');
+      initYearNav();
+      renderYearDetail(anoPivot);
+      if (typeof renderCronograma === 'function') renderCronograma();
     });
   </script>
   <!-- WhatsApp Float Button -->
