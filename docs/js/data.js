@@ -892,14 +892,14 @@ const ARTIGOS = [
   {
     id: '10',
     slug: 'resolucao-cgibs-14-2026-aliquota-referencia',
-    titulo: 'Resolução CGIBS nº 14/2026: 27,91% e o que isso significa',
-    subtitulo: 'A projeção metodológica do Comitê Gestor para 2027 e o teto de 26,5%',
-    resumo: 'O CGIBS publicou a projeção de 27,91% (CBS 9,21% + IBS 18,70%) para 2027 — acima do teto de 26,5% da LC 214/2025. Entenda o que o número significa, o que ele NÃO é e o rito que vai definir a alíquota de referência oficial.',
+    titulo: 'Alíquota da CBS para 2027: o TCU calculou 11,3% — e agora?',
+    subtitulo: 'Da projeção do CGIBS (27,91% total) ao cálculo oficial do TCU, e o prazo do Senado até 15/12/2026',
+    resumo: 'Em 28/10/2026 o TCU calculou a alíquota de referência da CBS em 11,3%, acima dos 9,21% que o CGIBS havia projetado. Agora o Senado tem até 15/12/2026 para fixar o percentual oficial para 2027. Entenda o rito, o impacto da transição e por que o número não equivale a aumento direto de imposto.',
     categoria: 'federal',
-    tags: ['CGIBS', 'Alíquota de Referência', 'Senado', 'TCU', 'Teto 26,5%'],
+    tags: ['TCU', 'CBS 11,3%', 'Alíquota de Referência', 'Senado', 'CGIBS'],
     autor: 'Consultoria Tributária',
-    dataPublicacao: '2026-11-05',
-    tempoLeitura: 8,
+    dataPublicacao: '2026-11-10',
+    tempoLeitura: 10,
     destaque: true,
     conteudo: `
       <h2>1. O anúncio que balançou o mercado</h2>
@@ -927,18 +927,40 @@ const ARTIGOS = [
       </ol>
       <p>A alíquota efetiva só começa a valer com a vigência plena do novo sistema. Em <strong>2026 e 2027 vigoram as alíquotas de teste</strong>: CBS de 0,9% em 2026 (0,1% em 2027), com IBS de 0,1% — sem impacto adicional de carga.</p>
 
-      <h2>4. E o teto de 26,5%?</h2>
+      <h2>4. ATUALIZAÇÃO (out/2026): o TCU já calculou 11,3% para a CBS</h2>
+      <p>Em <strong>28 de outubro de 2026</strong>, o Plenário do <strong>TCU</strong> aprovou, por unanimidade, a alíquota de referência da <strong>CBS em 11,3468%</strong> (arredondada para <strong>11,3%</strong>), com base em proposta da Receita Federal apresentada em setembro. O cálculo considera a arrecadação estimada do PIS/COFINS, as desonerações (cesta básica, saúde, educação, transporte coletivo) e o impacto do crédito presumido.</p>
+      <div class="table-wrapper">
+        <table>
+          <thead><tr><th>Fonte</th><th>CBS projetada/calculada</th><th>Data</th></tr></thead>
+          <tbody>
+            <tr><td>Teto conservador da LC 214/2025</td><td>8,80%</td><td>jan/2025</td></tr>
+            <tr><td>Projeção metodológica do CGIBS (Res. 14/2026)</td><td>9,21%</td><td>jul/2026</td></tr>
+            <tr><td><strong>Cálculo oficial do TCU</strong></td><td><strong>11,3% (11,3468%)</strong></td><td><strong>out/2026</strong></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>O TCU também calculou o <strong>redutor de 44,2%</strong> aplicável aos fornecimentos para a administração pública direta, autarquias e fundações. O estudo foi encaminhado ao Senado em 10/11/2026. O <strong>IBS ainda não foi calculado</strong> pelo TCU — o processo para o imposto estadual/municipal segue em preparação.</p>
+
+      <h3>O que acontece agora</h3>
+      <ul>
+        <li><strong>Até 15/12/2026</strong>: o Senado deve fixar, por Resolução, a alíquota de referência da CBS para 2027. O relator, senador Eduardo Braga, já sinalizou que vai questionar os critérios do TCU.</li>
+        <li><strong>Se o Senado não deliberar</strong>: prevalece automaticamente o cálculo do TCU (11,3%).</li>
+        <li><strong>Transição 2027–2028</strong>: a LC 214/2025 prevê um redutor transitório de 0,1 ponto — a alíquota efetiva fica em ~11,2%.</li>
+        <li><strong>Importante</strong>: a CBS substitui o PIS e a COFINS; não é um acréscimo de 11,3% sobre os preços. A comparação correta é com a carga atual de PIS/COFINS (9,25% no Lucro Real não-cumulativo).</li>
+      </ul>
+
+      <h2>5. E o teto de 26,5%?</h2>
       <p>A LC 214/2025 prevê que, se a soma projetada das alíquotas de referência <strong>ultrapassar 26,5%</strong>, o Executivo deve <strong>enviar ao Congresso projeto de lei complementar</strong> para ajustá-las. Ou seja, o teto é um gatilho político e orçamentário — não um limite automático que impeça o CGIBS de projetar números maiores.</p>
 
-      <h2>5. O que muda na prática para a sua empresa</h2>
+      <h2>6. O que muda na prática para a sua empresa</h2>
       <ul>
         <li><strong>Hoje (2026):</strong> emitir com os códigos CST IBS/CBS e cClassTrib e usar as alíquotas de teste (CBS 0,9% + IBS 0,1%), com compensação em PIS/COFINS.</li>
         <li><strong>Em 2027:</strong> a CBS começa a ser cobrada integralmente. A alíquota de referência oficial deve ser publicada em Resolução do Senado antes do início do exercício.</li>
         <li><strong>Precificação:</strong> faça cenários com dois pontos — o teto conservador de 26,5% e a projeção atual de 27,91%. Em serviços e indústrias com muitos créditos, a diferença de carga efetiva tende a ser menor do que a nominal sugere.</li>
       </ul>
 
-      <h2>6. Conclusão</h2>
-      <p>A Resolução CGIBS nº 14/2026 <strong>não aumenta impostos</strong>, mas sinaliza que a alíquota de referência está mais alta do que a LC 214/2025 previa. A palavra final é do <strong>TCU + Senado</strong>, e o planejamento tributário prudente trabalha com uma faixa — não com um valor único — até a publicação da resolução oficial.</p>
+      <h2>7. Conclusão</h2>
+      <p>O cenário evoluiu em três etapas: a LC 214/2025 fixou um <strong>teto conservador de 8,8%</strong> para a CBS, o CGIBS projetou <strong>9,21%</strong> em julho e o TCU calculou <strong>11,3%</strong> em outubro. A palavra final cabe ao <strong>Senado, até 15/12/2026</strong>. Isso <strong>não significa aumento direto</strong> de imposto, já que a CBS substitui PIS/COFINS, mas é um sinal claro de que o planejamento tributário prudente deve trabalhar com uma faixa, não com um valor único, até a publicação da Resolução do Senado.</p>
     `
   }
 ];
