@@ -664,15 +664,30 @@ curl -X POST 'https://api.receitafederal.gov.br/apuracao-cbs/v2/debitos/<span cl
       html += `<p style="color:var(--text-muted); font-size:.85rem;">${todos.length} débito(s) em ${paList.length} período(s) · NI <code>${esc(data.ni||'—')}</code> · gerado em ${fmtDate(data.geradoEm)}</p>`;
       html += `<div style="overflow-x:auto; border:1px solid var(--border-color); border-radius:var(--radius-md); margin-top:var(--space-md);">
         <table style="width:100%; border-collapse:collapse; font-size:.85rem;">
-          <thead><tr style="background:var(--bg-tertiary)"><th style="padding:.6rem .8rem; text-align:left;">PA</th><th style="padding:.6rem .8rem; text-align:left;">Doc.</th><th style="padding:.6rem .8rem; text-align:left;">Origem</th><th style="padding:.6rem .8rem; text-align:left;">Chave</th><th style="padding:.6rem .8rem; text-align:right;">Apurado</th><th style="padding:.6rem .8rem; text-align:right;">Saldo devedor</th></tr></thead>
-          <tbody>${todos.map(d => `<tr style="border-top:1px solid var(--border-color)">
-            <td style="padding:.5rem .8rem; color:var(--text-accent); font-family:var(--font-mono)">${fmtPA(d.pa)}</td>
-            <td style="padding:.5rem .8rem;">${esc(fmtDoc(d.documento))}</td>
-            <td style="padding:.5rem .8rem;">${esc(fmtOrigem(d.origem))}</td>
-            <td style="padding:.5rem .8rem; font-family:var(--font-mono); font-size:.75rem; color:var(--text-muted); max-width:220px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;" title="${esc(d.chave||'')}">${esc((d.chave||'').slice(0,20))}${(d.chave||'').length>20?'…':''}</td>
-            <td style="padding:.5rem .8rem; text-align:right; font-family:var(--font-mono)">${BRL(d.cbs?.apurado)}</td>
-            <td style="padding:.5rem .8rem; text-align:right; font-family:var(--font-mono); color:#fca5a5;">${BRL(d.cbs?.saldoDevedor)}</td>
-          </tr>`).join('')}</tbody>
+          <thead><tr style="background:var(--bg-tertiary)"><th style="padding:.6rem .8rem; text-align:left;">PA</th><th style="padding:.6rem .8rem; text-align:left;">Doc.</th><th style="padding:.6rem .8rem; text-align:left;">Origem</th><th style="padding:.6rem .8rem; text-align:left;">Chave / cClassTrib</th><th style="padding:.6rem .8rem; text-align:left;">Partes</th><th style="padding:.6rem .8rem; text-align:right;">Apurado</th><th style="padding:.6rem .8rem; text-align:right;">Saldo devedor</th></tr></thead>
+          <tbody>${todos.map(d => {
+            const chaveFull = esc(d.chave||'');
+            const chaveCurta = esc((d.chave||'').slice(0,20));
+            const cct = d.cClassTrib || d.cbs?.cClassTrib;
+            const fin = d.finalidade || d.cbs?.finalidade;
+            const emit = d.emitente?.ni || d.emitente;
+            const dest = d.destinatario?.ni || d.destinatario;
+            const refPerdcomp = d.referencia?.perdcomp || d.perdcomp;
+            const partes = [emit?`<span title="Emitente">E: ${esc(emit)}</span>`:'', dest?`<span title="Destinatário">D: ${esc(dest)}</span>`:''].filter(Boolean).join('<br>') || '<span style="color:var(--text-muted)">—</span>';
+            return `<tr style="border-top:1px solid var(--border-color)">
+              <td style="padding:.5rem .8rem; color:var(--text-accent); font-family:var(--font-mono)">${fmtPA(d.pa)}</td>
+              <td style="padding:.5rem .8rem;">${esc(fmtDoc(d.documento))}${fin?`<br><span style="font-size:.7rem;color:var(--text-muted)">${esc(fin)}</span>`:''}</td>
+              <td style="padding:.5rem .8rem;">${esc(fmtOrigem(d.origem))}</td>
+              <td style="padding:.5rem .8rem; font-family:var(--font-mono); font-size:.75rem; color:var(--text-muted); max-width:220px;" title="${chaveFull}">
+                ${chaveCurta}${(d.chave||'').length>20?'…':''}
+                ${cct?`<br><span style="color:var(--text-accent)" title="cClassTrib">${esc(cct)}</span>`:''}
+                ${refPerdcomp?`<br><span style="color:#93c5fd" title="PERDCOMP">pcomp: ${esc(refPerdcomp)}</span>`:''}
+              </td>
+              <td style="padding:.5rem .8rem; font-family:var(--font-mono); font-size:.72rem;">${partes}</td>
+              <td style="padding:.5rem .8rem; text-align:right; font-family:var(--font-mono)">${BRL(d.cbs?.apurado)}</td>
+              <td style="padding:.5rem .8rem; text-align:right; font-family:var(--font-mono); color:#fca5a5;">${BRL(d.cbs?.saldoDevedor)}</td>
+            </tr>`;
+          }).join('')}</tbody>
         </table></div>`;
       return html;
     }
@@ -723,6 +738,10 @@ curl -X POST 'https://api.receitafederal.gov.br/apuracao-cbs/v2/debitos/<span cl
         multa: sumByField(comps, 'multa'),
         juros: sumByField(comps, 'juros'),
         total: sumByField(comps, 'total'),
+        utilizado: sumByField(todos, 'utilizacao.utilizado') + sumByField(comps, 'utilizacao.utilizado'),
+        transferido: sumByField(todos, 'utilizacao.transferencia') + sumByField(comps, 'utilizacao.transferencia'),
+        restituido: sumByField(todos, 'utilizacao.restituicao') + sumByField(comps, 'utilizacao.restituicao'),
+        saldoDisp: sumByField(todos, 'utilizacao.saldo') + sumByField(comps, 'utilizacao.saldo'),
         rad: comps.filter(c => c.tipo === 1).length,
         pcont: comps.filter(c => c.tipo === 2).length,
       };
@@ -732,6 +751,9 @@ curl -X POST 'https://api.receitafederal.gov.br/apuracao-cbs/v2/debitos/<span cl
         ${cardMetric('Juros', BRL(totais.juros), '#eab308')}
         ${cardMetric('Total pago', BRL(totais.total), '#22c55e')}
         ${cardMetric('RAD / PCONT', `${totais.rad} / ${totais.pcont}`)}
+        ${totais.transferido > 0 ? cardMetric('Transferido', BRL(totais.transferido), '#3b82f6') : ''}
+        ${totais.restituido > 0 ? cardMetric('Restituído', BRL(totais.restituido), '#8b5cf6') : ''}
+        ${totais.saldoDisp > 0 ? cardMetric('Saldo disponível', BRL(totais.saldoDisp)) : ''}
       </div>`;
       html += `<p style="color:var(--text-muted); font-size:.85rem;">${todos.length} DARF(s), ${comps.length} composição(ões)</p>`;
       html += `<div style="overflow-x:auto; border:1px solid var(--border-color); border-radius:var(--radius-md); margin-top:var(--space-md);">
@@ -784,9 +806,9 @@ curl -X POST 'https://api.receitafederal.gov.br/apuracao-cbs/v2/debitos/<span cl
           apuracao: [{
             pa: "11/2026",
             debitos: [
-              { origem:0, documento:55, chave:"35261112345678000195550010000012341123456787", emissao:"2026-11-05", registro:"2026-11-05T10:00:00Z", atualizacao:"2026-11-05T10:00:00Z", cbs:{ apurado:1130.00, saldoDevedor:1130.00 } },
-              { origem:0, documento:55, chave:"35261112345678000195550010000012421123456788", emissao:"2026-11-10", registro:"2026-11-10T09:30:00Z", atualizacao:"2026-11-10T09:30:00Z", cbs:{ apurado:565.00, saldoDevedor:0, extinto:565.00 } },
-              { origem:22, documento:55, chave:"35261112345678000195550010000012551123456789", emissao:"2026-11-18", registro:"2026-11-18T14:00:00Z", atualizacao:"2026-11-18T14:00:00Z", cbs:{ apurado:200.00, suspenso:200.00, saldoDevedor:0 } }
+              { origem:0, documento:55, chave:"35261112345678000195550010000012341123456787", emissao:"2026-11-05", registro:"2026-11-05T10:00:00Z", atualizacao:"2026-11-05T10:00:00Z", cClassTrib:"000001", finalidade:"Normal", emitente:{ni:"12345678000195"}, destinatario:{ni:"98765432000166"}, cbs:{ apurado:1130.00, saldoDevedor:1130.00 } },
+              { origem:0, documento:55, chave:"35261112345678000195550010000012421123456788", emissao:"2026-11-10", registro:"2026-11-10T09:30:00Z", atualizacao:"2026-11-10T09:30:00Z", cClassTrib:"200034", finalidade:"Normal", emitente:{ni:"12345678000195"}, destinatario:{ni:"11222333000181"}, cbs:{ apurado:565.00, saldoDevedor:0, extinto:565.00 } },
+              { origem:22, documento:55, chave:"35261112345678000195550010000012551123456789", emissao:"2026-11-18", registro:"2026-11-18T14:00:00Z", atualizacao:"2026-11-18T14:00:00Z", cClassTrib:"410003", finalidade:"Devolução", emitente:{ni:"12345678000195"}, cbs:{ apurado:200.00, suspenso:200.00, saldoDevedor:0 } }
             ]
           }]
         }, null, 2);
