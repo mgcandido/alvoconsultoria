@@ -131,6 +131,44 @@
     .sim-notes summary{cursor:pointer;font-weight:600;color:var(--text-primary);}
     .sim-notes ul{margin:.75rem 0 0;padding-left:1.1rem;color:var(--text-secondary);font-size:.85rem;line-height:1.6;}
     .sim-notes h4{margin:var(--space-md) 0 .35rem;color:var(--text-primary);font-size:.9rem;}
+    /* === Simulador por cClassTrib (inspirado no Tributos.io) === */
+    .ctsim { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: var(--space-xl); margin-top: var(--space-xl); }
+    .ctsim__header { display: flex; align-items: center; justify-content: space-between; gap: var(--space-md); margin-bottom: var(--space-md); flex-wrap: wrap; }
+    .ctsim__tag { display: inline-flex; align-items: center; gap: .3rem; background: rgba(5,150,105,.2); color: var(--text-accent); padding: .25rem .65rem; border-radius: 999px; font-size: .72rem; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; }
+    .ctsim__grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: var(--space-md); margin-bottom: var(--space-lg); }
+    .ctsim__field label { display: block; color: var(--text-muted); font-size: .75rem; text-transform: uppercase; letter-spacing: .04em; margin-bottom: .3rem; font-weight: 600; }
+    .ctsim__field input, .ctsim__field select { width: 100%; padding: .6rem .8rem; background: var(--bg-secondary); color: var(--text-primary); border: 1px solid var(--border-color); border-radius: var(--radius-md); font-family: var(--font-sans); font-size: .95rem; }
+    .ctsim__field input:focus, .ctsim__field select:focus { outline: none; border-color: var(--color-primary); }
+    .ctsim__hint { color: var(--text-muted); font-size: .75rem; margin-top: .3rem; }
+    .ctsim__cct-info { background: var(--bg-tertiary); border-left: 3px solid var(--color-primary-light); border-radius: var(--radius-md); padding: var(--space-md) var(--space-lg); margin-bottom: var(--space-lg); }
+    .ctsim__cct-info strong { display: block; color: var(--text-accent); font-family: var(--font-mono); font-size: .9rem; margin-bottom: .2rem; }
+    .ctsim__cct-info p { color: var(--text-secondary); font-size: .88rem; line-height: 1.5; margin: 0; }
+    .ctsim__cct-info .ctsim__red { display: inline-block; margin-top: .4rem; padding: .18rem .55rem; border-radius: 999px; font-size: .72rem; font-weight: 700; }
+    .ctsim__red--zero { background: rgba(34,197,94,.18); color: #4ade80; }
+    .ctsim__red--parc { background: rgba(234,179,8,.16); color: #fde047; }
+    .ctsim__red--sem { background: rgba(148,163,184,.16); color: #cbd5e1; }
+    .ctsim__results { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-md); }
+    @media (max-width: 720px) { .ctsim__results { grid-template-columns: 1fr; } }
+    .ctsim__panel { background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: var(--space-lg); }
+    .ctsim__panel--new { border-color: var(--color-primary); border-top: 3px solid var(--color-primary); }
+    .ctsim__panel--old { border-top: 3px solid #94a3b8; }
+    .ctsim__panel h3 { color: var(--text-primary); font-size: 1rem; margin: 0 0 var(--space-md); display: flex; align-items: center; gap: .4rem; }
+    .ctsim__line { display: flex; justify-content: space-between; padding: .4rem 0; border-bottom: 1px dashed var(--border-color); font-size: .88rem; }
+    .ctsim__line:last-child { border-bottom: 0; }
+    .ctsim__line b { font-family: var(--font-mono); color: var(--text-primary); }
+    .ctsim__line span:first-child { color: var(--text-secondary); }
+    .ctsim__total { display: flex; justify-content: space-between; margin-top: var(--space-md); padding-top: var(--space-md); border-top: 2px solid var(--color-primary); font-weight: 700; font-size: 1.1rem; color: var(--text-accent); font-family: var(--font-mono); }
+    .ctsim__delta { background: var(--bg-tertiary); border-radius: var(--radius-md); padding: var(--space-md) var(--space-lg); margin-top: var(--space-lg); text-align: center; }
+    .ctsim__delta b { display: block; font-family: var(--font-mono); font-size: 1.4rem; margin-top: .3rem; }
+    .ctsim__delta.up b { color: #fca5a5; }
+    .ctsim__delta.down b { color: #86efac; }
+    .ctsim__delta span { color: var(--text-muted); font-size: .8rem; }
+    .ctsim__search-result { max-height: 220px; overflow-y: auto; background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: var(--radius-md); margin-top: .4rem; display: none; }
+    .ctsim__search-result.open { display: block; }
+    .ctsim__opt { padding: .55rem .8rem; cursor: pointer; border-bottom: 1px solid var(--border-color); font-size: .85rem; }
+    .ctsim__opt:hover, .ctsim__opt.focus { background: var(--bg-card-hover); }
+    .ctsim__opt b { color: var(--text-accent); font-family: var(--font-mono); display: block; }
+    .ctsim__opt span { color: var(--text-secondary); font-size: .78rem; }
   </style>
 </head>
 <body>
@@ -385,6 +423,90 @@
           <ul id="simAvisos"></ul>
         </details>
       </section>
+
+      <!-- Simulador por cClassTrib (inspirado na suite do Tributos.io) -->
+      <section class="ctsim" id="ctsim">
+        <div class="ctsim__header">
+          <div>
+            <h2 style="margin:0; color:var(--text-primary); font-size:1.3rem;"><i class="ph ph-calculator" style="color:var(--color-primary-light)"></i> Simulador IBS/CBS por cClassTrib</h2>
+            <p style="margin:.3rem 0 0; color:var(--text-secondary); font-size:.9rem;">Calcule a carga tributária exata pela <strong>classificação tributária</strong> da LC 214/2025. Usa a tabela oficial do <strong>IT 2025.002</strong> embarcada no site (173 códigos, 18 CST).</p>
+          </div>
+          <span class="ctsim__tag"><i class="ph ph-sparkle"></i> Novo</span>
+        </div>
+
+        <div class="ctsim__grid">
+          <div class="ctsim__field">
+            <label for="ctsimValor">Valor da operação (R$)</label>
+            <input type="text" inputmode="decimal" data-money id="ctsimValor" value="1000" autocomplete="off">
+          </div>
+          <div class="ctsim__field" style="position:relative">
+            <label for="ctsimBusca">cClassTrib (código ou descrição)</label>
+            <input type="text" id="ctsimBusca" placeholder="Ex.: 000001, alimentos, educação, Anexo I…" autocomplete="off">
+            <div class="ctsim__search-result" id="ctsimOpts" role="listbox"></div>
+            <p class="ctsim__hint">Comece a digitar para buscar entre os 173 códigos do IT 2025.002.</p>
+          </div>
+          <div class="ctsim__field">
+            <label for="ctsimUf">UF de destino</label>
+            <select id="ctsimUf"></select>
+          </div>
+          <div class="ctsim__field">
+            <label for="ctsimRefCbs">Alíquota de referência CBS (%)</label>
+            <select id="ctsimRefCbs">
+              <option value="8.8">8,80% — teto conservador LC 214/2025</option>
+              <option value="9.21">9,21% — projeção CGIBS (Res. 14/2026)</option>
+              <option value="11.3" selected>11,30% — cálculo oficial TCU (out/2026)</option>
+            </select>
+          </div>
+          <div class="ctsim__field">
+            <label for="ctsimRefIbs">Alíquota de referência IBS (%)</label>
+            <select id="ctsimRefIbs">
+              <option value="17.7" selected>17,70% — teto conservador LC 214/2025</option>
+              <option value="18.7">18,70% — projeção CGIBS (Res. 14/2026)</option>
+            </select>
+          </div>
+          <div class="ctsim__field">
+            <label for="ctsimPisCofins">Regime antigo (PIS/COFINS)</label>
+            <select id="ctsimPisCofins">
+              <option value="9.25">Não-cumulativo (9,25%)</option>
+              <option value="3.65" selected>Cumulativo (3,65%)</option>
+            </select>
+          </div>
+          <div class="ctsim__field">
+            <label for="ctsimOperacao">Operação antiga (comparar)</label>
+            <select id="ctsimOperacao">
+              <option value="mercadoria">Mercadoria — ICMS</option>
+              <option value="servico">Serviço — ISS</option>
+            </select>
+          </div>
+          <div class="ctsim__field" id="ctsimIcmsWrap">
+            <label for="ctsimIcms">Alíquota ICMS (%)</label>
+            <input type="number" id="ctsimIcms" value="18" min="0" max="35" step="0.1">
+          </div>
+          <div class="ctsim__field" id="ctsimIssWrap" style="display:none">
+            <label for="ctsimIss">Alíquota ISS (%)</label>
+            <input type="number" id="ctsimIss" value="5" min="0" max="10" step="0.1">
+          </div>
+        </div>
+
+        <div class="ctsim__cct-info" id="ctsimCctInfo" style="display:none"></div>
+
+        <div class="ctsim__results">
+          <div class="ctsim__panel ctsim__panel--old">
+            <h3><i class="ph ph-clock-counter-clockwise"></i> Regime atual</h3>
+            <div id="ctsimOldBody"></div>
+          </div>
+          <div class="ctsim__panel ctsim__panel--new">
+            <h3><i class="ph ph-rocket"></i> CBS + IBS (Reforma)</h3>
+            <div id="ctsimNewBody"></div>
+          </div>
+        </div>
+
+        <div class="ctsim__delta" id="ctsimDelta"></div>
+
+        <p style="color:var(--text-muted); font-size:.75rem; margin-top:var(--space-md); line-height:1.5;">
+          <i class="ph ph-info"></i> Simulação educativa. A alíquota de referência oficial será fixada por Resolução do Senado (prazo 15/12/2026). Não substitui parecer profissional.
+        </p>
+      </section>
     </div>
   </main>
 
@@ -398,6 +520,7 @@
   </footer>
 
   <script src="js/data.js"></script>
+  <script src="js/reforma-data.js"></script>
   <script src="js/app.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', () => {
@@ -515,6 +638,141 @@
       };
 
       simular();
+    })();
+
+    /* === Simulador IBS/CBS por cClassTrib (Tributos.io-inspired, dados oficiais IT 2025.002) === */
+    (function(){
+      const D = window.REFORMA_DATA;
+      if (!D) return;
+      const $ = id => document.getElementById(id);
+      const brl = v => (Number(v)||0).toLocaleString('pt-BR', {style:'currency', currency:'BRL'});
+      const pct = v => (Number(v)||0).toLocaleString('pt-BR', {minimumFractionDigits:2, maximumFractionDigits:2}) + '%';
+      const esc = s => (s==null?'':String(s)).replace(/[&<>]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+      const norm = s => (s||'').toString().normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase();
+
+      const UFS = ['AC','AL','AP','AM','BA','CE','DF','ES','GO','MA','MT','MS','MG','PA','PB','PR','PE','PI','RJ','RN','RS','RO','RR','SC','SP','SE','TO'];
+
+      function parseRed(tags) {
+        if(!tags) return {pct:0, label:'Sem redução', cls:'sem'};
+        if(/crédito presumido/i.test(tags)) return {pct:0, label:'Crédito presumido', cls:'sem'};
+        if(/encerrado/i.test(tags)) return {pct:0, label:'Encerrado', cls:'sem'};
+        const m = (tags.match(/(\d+)%/g)||[]).map(x=>parseInt(x));
+        if(!m.length) return {pct:0, label:tags, cls:'sem'};
+        const max = Math.max(...m);
+        return { pct: max, label: max===100?'Alíquota zero (100%)':`Redução de ${max}%`, cls: max===100?'zero':'parc' };
+      }
+
+      let selecionado = null;
+
+      function fillUfs() {
+        const sel = $('ctsimUf'); if(!sel) return;
+        sel.innerHTML = UFS.map(u => `<option value="${u}"${u==='SP'?' selected':''}>${u}</option>`).join('');
+      }
+
+      function openOpts(items) {
+        const box = $('ctsimOpts');
+        if (!items.length) { box.classList.remove('open'); return; }
+        box.innerHTML = items.slice(0,15).map((i,idx) => `<div class="ctsim__opt" data-cct="${i.codigo}" data-idx="${idx}">
+          <b>${i.codigo}</b> <span>CST ${i.cst} · ${esc(i.descricao.slice(0,90))}${i.descricao.length>90?'…':''}</span>
+        </div>`).join('');
+        box.classList.add('open');
+        box.querySelectorAll('.ctsim__opt').forEach(el => el.addEventListener('mousedown', ev => {
+          ev.preventDefault();
+          selecionar(el.dataset.cct);
+        }));
+      }
+
+      function closeOpts() { setTimeout(()=>$('ctsimOpts').classList.remove('open'), 150); }
+
+      function selecionar(codigo) {
+        const item = D.cclasstrib.find(x => x.codigo === codigo);
+        if (!item) return;
+        selecionado = item;
+        const red = parseRed(item.tags);
+        $('ctsimBusca').value = `${item.codigo} — ${item.descricao.slice(0,55)}${item.descricao.length>55?'…':''}`;
+        $('ctsimOpts').classList.remove('open');
+        const info = $('ctsimCctInfo');
+        info.innerHTML = `<strong>cClassTrib ${item.codigo} · CST ${item.cst}</strong>
+          <p>${esc(item.descricao)}</p>
+          <span class="ctsim__red ctsim__red--${red.cls}">${esc(red.label)}</span>`;
+        info.style.display = 'block';
+        calcular();
+      }
+
+      function buscar() {
+        const q = norm($('ctsimBusca').value);
+        if (!q || q.length < 2) { $('ctsimOpts').classList.remove('open'); return; }
+        const matches = D.cclasstrib.filter(i =>
+          i.codigo.includes(q) || norm(i.descricao).includes(q) || i.cst.includes(q) || norm(i.tags).includes(q)
+        );
+        openOpts(matches);
+      }
+
+      function toggleOperacao() {
+        const op = $('ctsimOperacao').value;
+        $('ctsimIcmsWrap').style.display = op === 'mercadoria' ? '' : 'none';
+        $('ctsimIssWrap').style.display  = op === 'servico' ? '' : 'none';
+      }
+
+      function calcular() {
+        const valor = (window.parseBR ? parseBR($('ctsimValor').value) : parseFloat($('ctsimValor').value)) || 0;
+        const op = $('ctsimOperacao').value;
+        const pisCof = parseFloat($('ctsimPisCofins').value) || 0;
+        const icms = parseFloat($('ctsimIcms').value) || 0;
+        const iss = parseFloat($('ctsimIss').value) || 0;
+        const refCbs = parseFloat($('ctsimRefCbs').value);
+        const refIbs = parseFloat($('ctsimRefIbs').value);
+
+        // Regime antigo
+        const vPis = valor * pisCof/100 * 0.1784; // PIS = 1,65% de 9,25% ou 0,65% de 3,65%
+        const vCof = valor * pisCof/100 * 0.8216;
+        const vEst = op === 'mercadoria' ? valor * icms/100 : valor * iss/100;
+        const totalOld = vPis + vCof + vEst;
+
+        // Regime novo (CBS + IBS) com redução da cClassTrib
+        const red = selecionado ? parseRed(selecionado.tags) : {pct:0};
+        const fator = 1 - (red.pct/100);
+        const cbsEf = refCbs * fator;
+        const ibsEf = refIbs * fator;
+        const vCbs = valor * cbsEf/100;
+        const vIbs = valor * ibsEf/100;
+        const totalNew = vCbs + vIbs;
+
+        // Painéis
+        $('ctsimOldBody').innerHTML = `
+          <div class="ctsim__line"><span>PIS</span><b>${brl(vPis)}</b></div>
+          <div class="ctsim__line"><span>COFINS</span><b>${brl(vCof)}</b></div>
+          <div class="ctsim__line"><span>${op==='mercadoria'?'ICMS':'ISS'} (${pct(op==='mercadoria'?icms:iss)})</span><b>${brl(vEst)}</b></div>
+          <div class="ctsim__line"><span>Carga nominal</span><b>${pct(pisCof + (op==='mercadoria'?icms:iss))}</b></div>
+          <div class="ctsim__total"><span>Total</span><span>${brl(totalOld)}</span></div>`;
+
+        $('ctsimNewBody').innerHTML = `
+          <div class="ctsim__line"><span>CBS efetiva (${pct(cbsEf)})</span><b>${brl(vCbs)}</b></div>
+          <div class="ctsim__line"><span>IBS efetivo (${pct(ibsEf)})</span><b>${brl(vIbs)}</b></div>
+          <div class="ctsim__line"><span>Carga nominal</span><b>${pct(cbsEf + ibsEf)}</b></div>
+          <div class="ctsim__line"><span>Redução aplicada</span><b>${red.pct===0?'nenhuma':pct(red.pct)+' da ref.'}</b></div>
+          <div class="ctsim__total"><span>Total</span><span>${brl(totalNew)}</span></div>`;
+
+        const delta = totalNew - totalOld;
+        const deltaPct = totalOld > 0 ? (delta / totalOld) * 100 : 0;
+        const el = $('ctsimDelta');
+        el.className = 'ctsim__delta ' + (delta > 0 ? 'up' : (delta < 0 ? 'down' : ''));
+        el.innerHTML = `<span>${delta > 0 ? 'Aumento' : delta < 0 ? 'Economia' : 'Sem variação'} vs. regime atual</span>
+          <b>${delta > 0 ? '+' : ''}${brl(delta)} <small style="font-size:.65em;">(${delta > 0 ? '+' : ''}${deltaPct.toFixed(1)}%)</small></b>`;
+      }
+
+      // Boot
+      document.addEventListener('DOMContentLoaded', () => {
+        fillUfs();
+        toggleOperacao();
+        $('ctsimOperacao').addEventListener('change', () => { toggleOperacao(); calcular(); });
+        ['ctsimValor','ctsimIcms','ctsimIss','ctsimRefCbs','ctsimRefIbs','ctsimPisCofins','ctsimUf'].forEach(id => $(id).addEventListener('input', calcular));
+        let debT; $('ctsimBusca').addEventListener('input', () => { clearTimeout(debT); debT = setTimeout(buscar, 120); });
+        $('ctsimBusca').addEventListener('focus', buscar);
+        $('ctsimBusca').addEventListener('blur', closeOpts);
+        // Seleciona o 000001 como padrão
+        selecionar('000001');
+      });
     })();
   </script>
   <!-- WhatsApp Float Button -->
