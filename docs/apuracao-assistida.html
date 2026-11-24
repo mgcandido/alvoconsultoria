@@ -195,6 +195,44 @@
         <strong>Por que consultar aqui?</strong> O site é estático e <strong>não faz chamadas autenticadas</strong> à API da Receita Federal — essa integração exige certificado digital, OAuth2 e webhook público. Esta página foi desenhada como <strong>referência técnica</strong> para desenvolvedores e contadores que estão integrando seus ERPs com a Apuração Assistida, e inclui ferramentas client-side para interpretar o JSON retornado pela sua integração.
       </div>
 
+      <!-- Para quem é -->
+      <section class="apur-section">
+        <h2 class="apur-section__title"><i class="ph ph-users-three"></i> Para quem é a Apuração Assistida</h2>
+        <p style="color:var(--text-muted); font-size:.85rem; margin-bottom:var(--space-md);">A RFB desenhou a solução para alcançar <strong>milhões de transações por dia</strong>. Os perfis atendidos pelas APIs e pelo portal da Apuração Assistida:</p>
+        <div class="apur-flow" style="grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));">
+          <div class="apur-step" style="border-top-color:#22c55e"><h3><i class="ph ph-briefcase"></i> Contribuintes</h3><p>Empresas de todos os portes e segmentos — para apurar a CBS devida e consultar créditos.</p></div>
+          <div class="apur-step" style="border-top-color:#f59e0b"><h3><i class="ph ph-shopping-bag"></i> Marketplaces</h3><p>Plataformas digitais de comércio — consulta e conciliação em grande volume.</p></div>
+          <div class="apur-step" style="border-top-color:#3b82f6"><h3><i class="ph ph-bank"></i> Financeiras</h3><p>Bancos e instituições de pagamentos — integração com split payment e recolhimento.</p></div>
+          <div class="apur-step" style="border-top-color:#8b5cf6"><h3><i class="ph ph-calculator"></i> Contadores / ERP</h3><p>Escritórios contábeis e sistemas de gestão — automação da apuração dos clientes.</p></div>
+          <div class="apur-step" style="border-top-color:#ec4899"><h3><i class="ph ph-code"></i> Software House</h3><p>Desenvolvedores de soluções de terceiros que embutem a Apuração Assistida em seus produtos.</p></div>
+          <div class="apur-step" style="border-top-color:#eab308"><h3><i class="ph ph-shield-check"></i> Adm. Tributárias</h3><p>Fiscos estaduais e municipais — governança sobre arrecadação do IBS/CBS.</p></div>
+        </div>
+      </section>
+
+      <!-- O que cada API responde (visão didática) -->
+      <section class="apur-section">
+        <h2 class="apur-section__title"><i class="ph ph-chat-centered-text"></i> O que cada API responde</h2>
+        <p style="color:var(--text-muted); font-size:.85rem; margin-bottom:var(--space-md);">As APIs foram organizadas pela RFB em torno de <strong>quatro perguntas de negócio</strong>:</p>
+        <div class="apur-flow">
+          <div class="apur-step" style="border-top-color:#ef4444">
+            <h3>Débitos<br><span style="font-weight:400; color:var(--text-muted); font-size:.85rem;">"O que eu devo? Por quê?"</span></h3>
+            <p>Quais notas geraram CBS a pagar neste PA, com extinção, suspensão e saldo devedor por documento.</p>
+          </div>
+          <div class="apur-step" style="border-top-color:#22c55e">
+            <h3>Créditos<br><span style="font-weight:400; color:var(--text-muted); font-size:.85rem;">"O que foi usado? Por quê?"</span></h3>
+            <p>Quais aquisições geraram crédito, quanto foi apropriado, utilizado e qual o saldo credor remanescente.</p>
+          </div>
+          <div class="apur-step" style="border-top-color:#3b82f6">
+            <h3>Pagamentos<br><span style="font-weight:400; color:var(--text-muted); font-size:.85rem;">"O que foi pago? Por quem?"</span></h3>
+            <p>DARFs PCONT recolhidos por você (contribuinte) e RAD recolhidos pelo adquirente que extinguiram seus débitos.</p>
+          </div>
+          <div class="apur-step" style="border-top-color:#eab308">
+            <h3>Recolhimentos<br><span style="font-weight:400; color:var(--text-muted); font-size:.85rem;">"O que foi pago? Para quem?"</span></h3>
+            <p>DARFs RAD pagos por você <em>para os seus fornecedores</em>, com desmembramento por nota fiscal e composição principal/multa/juros.</p>
+          </div>
+        </div>
+      </section>
+
       <!-- Fluxo em 4 etapas -->
       <section class="apur-section">
         <h2 class="apur-section__title"><i class="ph ph-flow-arrow"></i> Fluxo em 4 etapas</h2>
@@ -304,7 +342,17 @@
 
       <!-- Exemplo de chamada -->
       <section class="apur-section">
-        <h2 class="apur-section__title"><i class="ph ph-terminal"></i> Exemplo de abertura</h2>
+        <h2 class="apur-section__title"><i class="ph ph-terminal"></i> Exemplos de chamada</h2>
+
+        <div class="apur-code" style="margin-bottom:var(--space-md);">
+          <span class="apur-code__tag">cURL · obter token OAuth2 (Client Credentials)</span>
+<pre>curl -X POST 'https://api.receitafederal.gov.br/token' \
+  --user <span class="apur-code-str">"&lt;clientID&gt;:&lt;clientSecret&gt;"</span> \
+  -d <span class="apur-code-str">'grant_type=client_credentials'</span>
+
+<span class="apur-code-cmt"># retorna: { "access_token": "X9XnF1L55...", "token_type": "Bearer", "expires_in": 3600 }</span></pre>
+        </div>
+
         <div class="apur-code">
           <span class="apur-code__tag">cURL · abrir consulta de débitos</span>
 <pre><span class="apur-code-cmt"># header Content-Type: application/json; Authorization: Bearer $TOKEN</span>
