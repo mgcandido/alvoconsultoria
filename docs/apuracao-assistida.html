@@ -452,6 +452,42 @@ curl -X POST 'https://api.receitafederal.gov.br/apuracao-cbs/v2/debitos/<span cl
         </div>
       </section>
 
+      <!-- Roadmap -->
+      <section class="apur-section">
+        <h2 class="apur-section__title"><i class="ph ph-roadmap"></i> Roadmap: APIs anunciadas pela RFB</h2>
+        <p style="color:var(--text-muted); font-size:.85rem; margin-bottom:var(--space-md);">Além das APIs já disponíveis, a Receita Federal anunciou (curso RFB · CFC, Módulo 6, jun/2026) as próximas entregas:</p>
+        <div class="apur-versions">
+          <div class="apur-ver" style="border-left-color:#f59e0b">
+            <h4>Recolhimento como Adquirente (RAD)</h4>
+            <ul>
+              <li>Geração de DARF para o <strong>adquirente</strong> quitar a CBS do fornecedor</li>
+              <li>Endpoint síncrono análogo ao de PCONT</li>
+              <li>Permite automação do split payment em cenários B2B</li>
+            </ul>
+          </div>
+          <div class="apur-ver" style="border-left-color:#ef4444">
+            <h4>Apuração do Imposto Seletivo (IS)</h4>
+            <ul>
+              <li>Mesmo modelo assíncrono: solicitação + webhook + urlAssinada</li>
+              <li>Débitos, créditos e pagamentos específicos do IS</li>
+              <li>Começa a vigorar em 2027 junto com o IS</li>
+            </ul>
+          </div>
+          <div class="apur-ver" style="border-left-color:#3b82f6">
+            <h4>Entrega do PGDAS-A</h4>
+            <ul>
+              <li>API para integração direta com o <strong>Simples Nacional</strong></li>
+              <li>Vai permitir que optantes submetam o PGDAS-A via sistema</li>
+              <li>Útil para contadores e ERP integrando múltiplos clientes</li>
+            </ul>
+          </div>
+        </div>
+        <div class="apur-callout apur-callout--info" style="margin-top:var(--space-md);">
+          <i class="ph-fill ph-arrows-clockwise"></i>
+          <strong>Evolução das APIs:</strong> o curso oficial da RFB (jun/2026) apresentou a primeira versão da API sob o caminho <code>/rtc/apuracao-cbs/v1/</code>. A versão em produção hoje (nov/2026) passou para <code>/apuracao-cbs/v2/</code>, incorporou o retorno em webhook com <code>urlAssinada</code> e detalhou o schema dos objetos de crédito (apropriação/utilização/não utilizado). Sempre consulte a documentação atual.
+        </div>
+      </section>
+
       <!-- Prazos e regras -->
       <section class="apur-section">
         <h2 class="apur-section__title"><i class="ph ph-timer"></i> Prazos e regras importantes</h2>
