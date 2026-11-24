@@ -418,6 +418,21 @@ curl -X POST 'https://api.receitafederal.gov.br/apuracao-cbs/v2/debitos/<span cl
         </div>
       </section>
 
+      <!-- Visualizador de JSON -->
+      <section class="apur-section" id="visualizador">
+        <h2 class="apur-section__title"><i class="ph ph-file-magnifying-glass"></i> Visualizador do JSON (débitos / créditos / pagamentos)</h2>
+        <p style="color:var(--text-muted); font-size:.85rem; margin-bottom:var(--space-md);">
+          Cole abaixo o JSON que você obteve da sua integração (o arquivo baixado da <code>urlAssinada</code> ou o próprio payload). Nada sai do seu navegador — processamento 100% local.
+        </p>
+        <textarea id="apurJson" placeholder='Cole aqui o JSON de retorno (débitos, créditos ou pagamentos)…' style="width:100%; min-height:160px; background:#0b1220; color:var(--text-primary); border:1px solid var(--border-color); border-radius:var(--radius-md); padding:var(--space-md); font-family:var(--font-mono); font-size:.85rem; resize:vertical;"></textarea>
+        <div style="display:flex; gap:var(--space-sm); flex-wrap:wrap; margin-top:var(--space-md);">
+          <button id="apurParse" class="btn btn--primary" type="button"><i class="ph ph-magic-wand"></i> Interpretar</button>
+          <button id="apurSample" class="btn btn--outline" type="button"><i class="ph ph-sparkle"></i> Carregar exemplo</button>
+          <button id="apurClear" class="btn btn--outline" type="button"><i class="ph ph-trash"></i> Limpar</button>
+        </div>
+        <div id="apurOut" style="margin-top:var(--space-lg);"></div>
+      </section>
+
       <!-- Recursos oficiais -->
       <section class="apur-section">
         <h2 class="apur-section__title"><i class="ph ph-bookmarks"></i> Recursos oficiais</h2>
@@ -513,7 +528,186 @@ curl -X POST 'https://api.receitafederal.gov.br/apuracao-cbs/v2/debitos/<span cl
       renderDict('dictDocumento', DOCUMENTO);
       renderDict('dictRetorno', CDRETORNO, k => k);
       renderDict('dictErro', CODIGO_ERRO, k => k);
+      initVisualizador();
     });
+
+    // ===== Visualizador do JSON da Apuração Assistida =====
+    const BRL = v => (Number(v)||0).toLocaleString('pt-BR', {style:'currency', currency:'BRL'});
+    const fmtPA = pa => pa || '—';
+    const fmtDoc = n => DOCUMENTO[n] ? `${DOCUMENTO[n]} (${n})` : (n ?? '—');
+    const fmtOrigem = n => ORIGEM[n] ? `${ORIGEM[n]} (${n})` : (n ?? '—');
+    const fmtDate = s => { if (!s) return '—'; const d = new Date(s); return isNaN(d) ? s : d.toLocaleString('pt-BR'); };
+    const esc = s => (s == null ? '—' : String(s)).replace(/[&<>]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+
+    function detectTipo(data) {
+      if (!data || !data.apuracao || !data.apuracao.length) return null;
+      const amostra = data.apuracao[0];
+      if (amostra.debitos) return 'debitos';
+      if (amostra.creditos) return 'creditos';
+      if (amostra.pagamentos) return 'pagamentos';
+      return null;
+    }
+
+    function sumByField(arr, path) {
+      return arr.reduce((acc, it) => {
+        const parts = path.split('.');
+        let v = it; for (const p of parts) v = v?.[p];
+        return acc + (Number(v) || 0);
+      }, 0);
+    }
+
+    function cardMetric(label, value, accent) {
+      return `<div class="apur-ver" style="border-left-color:${accent||'var(--color-primary)'}"><h4 style="font-family:var(--font-sans); font-size:.75rem; text-transform:uppercase; letter-spacing:.05em; color:var(--text-muted); font-weight:600;">${label}</h4><div style="font-family:var(--font-mono); font-size:1.3rem; color:var(--text-accent); font-weight:700;">${value}</div></div>`;
+    }
+
+    function renderDebitos(data) {
+      const paList = data.apuracao;
+      const todos = paList.flatMap(p => (p.debitos||[]).map(d => ({...d, pa: p.pa})));
+      const totais = {
+        apurado: sumByField(todos, 'cbs.apurado'),
+        saldo: sumByField(todos, 'cbs.saldoDevedor'),
+        inexigivel: sumByField(todos, 'cbs.inexigivel'),
+        suspenso: sumByField(todos, 'cbs.suspenso'),
+        extinto: sumByField(todos, 'cbs.extinto'),
+      };
+      let html = `<div class="apur-versions" style="margin-bottom:var(--space-lg)">
+        ${cardMetric('CBS apurado', BRL(totais.apurado))}
+        ${cardMetric('Saldo devedor', BRL(totais.saldo), '#ef4444')}
+        ${cardMetric('Suspenso', BRL(totais.suspenso), '#eab308')}
+        ${cardMetric('Inexigível', BRL(totais.inexigivel))}
+        ${cardMetric('Extinto', BRL(totais.extinto), '#22c55e')}
+      </div>`;
+      html += `<p style="color:var(--text-muted); font-size:.85rem;">${todos.length} débito(s) em ${paList.length} período(s) · NI <code>${esc(data.ni||'—')}</code> · gerado em ${fmtDate(data.geradoEm)}</p>`;
+      html += `<div style="overflow-x:auto; border:1px solid var(--border-color); border-radius:var(--radius-md); margin-top:var(--space-md);">
+        <table style="width:100%; border-collapse:collapse; font-size:.85rem;">
+          <thead><tr style="background:var(--bg-tertiary)"><th style="padding:.6rem .8rem; text-align:left;">PA</th><th style="padding:.6rem .8rem; text-align:left;">Doc.</th><th style="padding:.6rem .8rem; text-align:left;">Origem</th><th style="padding:.6rem .8rem; text-align:left;">Chave</th><th style="padding:.6rem .8rem; text-align:right;">Apurado</th><th style="padding:.6rem .8rem; text-align:right;">Saldo devedor</th></tr></thead>
+          <tbody>${todos.map(d => `<tr style="border-top:1px solid var(--border-color)">
+            <td style="padding:.5rem .8rem; color:var(--text-accent); font-family:var(--font-mono)">${fmtPA(d.pa)}</td>
+            <td style="padding:.5rem .8rem;">${esc(fmtDoc(d.documento))}</td>
+            <td style="padding:.5rem .8rem;">${esc(fmtOrigem(d.origem))}</td>
+            <td style="padding:.5rem .8rem; font-family:var(--font-mono); font-size:.75rem; color:var(--text-muted); max-width:220px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;" title="${esc(d.chave||'')}">${esc((d.chave||'').slice(0,20))}${(d.chave||'').length>20?'…':''}</td>
+            <td style="padding:.5rem .8rem; text-align:right; font-family:var(--font-mono)">${BRL(d.cbs?.apurado)}</td>
+            <td style="padding:.5rem .8rem; text-align:right; font-family:var(--font-mono); color:#fca5a5;">${BRL(d.cbs?.saldoDevedor)}</td>
+          </tr>`).join('')}</tbody>
+        </table></div>`;
+      return html;
+    }
+
+    function renderCreditos(data) {
+      const todos = data.apuracao.flatMap(p => (p.creditos||[]).map(c => ({...c, pa: p.pa})));
+      const totais = {
+        apurado: sumByField(todos, 'cbs.apurado'),
+        apropriado: sumByField(todos, 'cbs.apropriacao.apropriado'),
+        utilizado: sumByField(todos, 'cbs.apropriacao.utilizacao.utilizado'),
+        saldo: sumByField(todos, 'cbs.apropriacao.utilizacao.naoUtilizado.saldoCredor'),
+        ressarcimento: sumByField(todos, 'cbs.apropriacao.utilizacao.naoUtilizado.pedidoRessarcimento'),
+      };
+      let html = `<div class="apur-versions" style="margin-bottom:var(--space-lg)">
+        ${cardMetric('CBS apurado (crédito)', BRL(totais.apurado))}
+        ${cardMetric('Apropriado', BRL(totais.apropriado), '#22c55e')}
+        ${cardMetric('Utilizado', BRL(totais.utilizado))}
+        ${cardMetric('Saldo credor', BRL(totais.saldo), '#3b82f6')}
+        ${cardMetric('Pedido ressarcimento', BRL(totais.ressarcimento), '#eab308')}
+      </div>`;
+      html += `<p style="color:var(--text-muted); font-size:.85rem;">${todos.length} crédito(s) · NI <code>${esc(data.ni||'—')}</code> · gerado em ${fmtDate(data.geradoEm)}</p>`;
+      html += `<div style="overflow-x:auto; border:1px solid var(--border-color); border-radius:var(--radius-md); margin-top:var(--space-md);">
+        <table style="width:100%; border-collapse:collapse; font-size:.85rem;">
+          <thead><tr style="background:var(--bg-tertiary)"><th style="padding:.6rem .8rem; text-align:left;">PA</th><th style="padding:.6rem .8rem; text-align:left;">Doc.</th><th style="padding:.6rem .8rem; text-align:left;">Origem</th><th style="padding:.6rem .8rem; text-align:right;">Apurado</th><th style="padding:.6rem .8rem; text-align:right;">Apropriado</th><th style="padding:.6rem .8rem; text-align:right;">Utilizado</th><th style="padding:.6rem .8rem; text-align:right;">Saldo credor</th></tr></thead>
+          <tbody>${todos.map(c => {
+            const ap = c.cbs?.apropriacao || {};
+            const ut = ap.utilizacao || {};
+            const nu = ut.naoUtilizado || {};
+            return `<tr style="border-top:1px solid var(--border-color)">
+              <td style="padding:.5rem .8rem; color:var(--text-accent); font-family:var(--font-mono)">${fmtPA(c.pa)}</td>
+              <td style="padding:.5rem .8rem;">${esc(fmtDoc(c.documento))}</td>
+              <td style="padding:.5rem .8rem;">${esc(fmtOrigem(c.origem))}</td>
+              <td style="padding:.5rem .8rem; text-align:right; font-family:var(--font-mono)">${BRL(c.cbs?.apurado)}</td>
+              <td style="padding:.5rem .8rem; text-align:right; font-family:var(--font-mono); color:#86efac;">${BRL(ap.apropriado)}</td>
+              <td style="padding:.5rem .8rem; text-align:right; font-family:var(--font-mono)">${BRL(ut.utilizado)}</td>
+              <td style="padding:.5rem .8rem; text-align:right; font-family:var(--font-mono); color:#93c5fd;">${BRL(nu.saldoCredor)}</td>
+            </tr>`;
+          }).join('')}</tbody>
+        </table></div>`;
+      return html;
+    }
+
+    function renderPagamentos(data) {
+      const todos = data.apuracao.flatMap(p => (p.pagamentos||[]).map(pg => ({...pg, dataArrecadacao: p.dataArrecadacao})));
+      const comps = todos.flatMap(pg => (pg.composicao||[]).map(c => ({...c, numeroDARF: pg.numeroDARF, tipo: pg.tipo, dataArrecadacao: pg.dataArrecadacao})));
+      const totais = {
+        principal: sumByField(comps, 'principal'),
+        multa: sumByField(comps, 'multa'),
+        juros: sumByField(comps, 'juros'),
+        total: sumByField(comps, 'total'),
+        rad: comps.filter(c => c.tipo === 1).length,
+        pcont: comps.filter(c => c.tipo === 2).length,
+      };
+      let html = `<div class="apur-versions" style="margin-bottom:var(--space-lg)">
+        ${cardMetric('Principal', BRL(totais.principal))}
+        ${cardMetric('Multa', BRL(totais.multa), '#eab308')}
+        ${cardMetric('Juros', BRL(totais.juros), '#eab308')}
+        ${cardMetric('Total pago', BRL(totais.total), '#22c55e')}
+        ${cardMetric('RAD / PCONT', `${totais.rad} / ${totais.pcont}`)}
+      </div>`;
+      html += `<p style="color:var(--text-muted); font-size:.85rem;">${todos.length} DARF(s), ${comps.length} composição(ões)</p>`;
+      html += `<div style="overflow-x:auto; border:1px solid var(--border-color); border-radius:var(--radius-md); margin-top:var(--space-md);">
+        <table style="width:100%; border-collapse:collapse; font-size:.85rem;">
+          <thead><tr style="background:var(--bg-tertiary)"><th style="padding:.6rem .8rem; text-align:left;">DARF</th><th style="padding:.6rem .8rem; text-align:left;">Tipo</th><th style="padding:.6rem .8rem; text-align:left;">PA</th><th style="padding:.6rem .8rem; text-align:left;">Venc.</th><th style="padding:.6rem .8rem; text-align:right;">Principal</th><th style="padding:.6rem .8rem; text-align:right;">Multa</th><th style="padding:.6rem .8rem; text-align:right;">Juros</th><th style="padding:.6rem .8rem; text-align:right;">Total</th></tr></thead>
+          <tbody>${comps.map(c => `<tr style="border-top:1px solid var(--border-color)">
+            <td style="padding:.5rem .8rem; font-family:var(--font-mono); font-size:.75rem; color:var(--text-muted);">${esc(c.numeroDARF||'—')}</td>
+            <td style="padding:.5rem .8rem;"><span style="background:${c.tipo===1?'rgba(59,130,246,.2)':'rgba(5,150,105,.2)'}; color:${c.tipo===1?'#93c5fd':'#86efac'}; padding:.15rem .5rem; border-radius:999px; font-size:.72rem; font-weight:600;">${c.tipo===1?'RAD':'PCONT'}</span></td>
+            <td style="padding:.5rem .8rem; color:var(--text-accent); font-family:var(--font-mono)">${fmtPA(c.pa)}</td>
+            <td style="padding:.5rem .8rem; font-family:var(--font-mono); font-size:.8rem;">${esc(c.vencimento||'—')}</td>
+            <td style="padding:.5rem .8rem; text-align:right; font-family:var(--font-mono)">${BRL(c.principal)}</td>
+            <td style="padding:.5rem .8rem; text-align:right; font-family:var(--font-mono);">${BRL(c.multa)}</td>
+            <td style="padding:.5rem .8rem; text-align:right; font-family:var(--font-mono);">${BRL(c.juros)}</td>
+            <td style="padding:.5rem .8rem; text-align:right; font-family:var(--font-mono); color:var(--text-accent); font-weight:600;">${BRL(c.total)}</td>
+          </tr>`).join('')}</tbody>
+        </table></div>`;
+      return html;
+    }
+
+    function initVisualizador() {
+      const txt = document.getElementById('apurJson');
+      const out = document.getElementById('apurOut');
+      const btnParse = document.getElementById('apurParse');
+      const btnSample = document.getElementById('apurSample');
+      const btnClear = document.getElementById('apurClear');
+      if (!txt || !out) return;
+
+      function err(msg) { out.innerHTML = `<div class="apur-callout"><i class="ph-fill ph-warning-circle"></i> ${esc(msg)}</div>`; }
+
+      btnParse.addEventListener('click', () => {
+        const raw = txt.value.trim();
+        if (!raw) return err('Cole um JSON para interpretar.');
+        let data;
+        try { data = JSON.parse(raw); } catch (e) { return err('JSON inválido: ' + e.message); }
+        const tipo = detectTipo(data);
+        if (!tipo) return err('Não reconheci o formato. Esperado: objeto com { apuracao: [{ pa, debitos|creditos|pagamentos }] }.');
+        const titulo = {debitos:'Débitos de CBS', creditos:'Créditos de CBS', pagamentos:'Pagamentos'}[tipo];
+        const corpo = {debitos: renderDebitos, creditos: renderCreditos, pagamentos: renderPagamentos}[tipo](data);
+        out.innerHTML = `<div class="apur-dict"><h4><i class="ph ph-check-circle" style="color:var(--text-accent)"></i> ${titulo} · interpretado</h4>${corpo}</div>`;
+      });
+
+      btnClear.addEventListener('click', () => { txt.value = ''; out.innerHTML = ''; });
+
+      btnSample.addEventListener('click', () => {
+        txt.value = JSON.stringify({
+          tiqueteSolicitacao: "692b7b25-44cb-4415-8625-2b9522dd7933.B5E08D55",
+          ni: "12345678",
+          niConsumidor: "12345678000195",
+          geradoEm: "2026-11-24T14:30:00Z",
+          apuracao: [{
+            pa: "11/2026",
+            debitos: [
+              { origem:0, documento:55, chave:"35261112345678000195550010000012341123456787", emissao:"2026-11-05", registro:"2026-11-05T10:00:00Z", atualizacao:"2026-11-05T10:00:00Z", cbs:{ apurado:1130.00, saldoDevedor:1130.00 } },
+              { origem:0, documento:55, chave:"35261112345678000195550010000012421123456788", emissao:"2026-11-10", registro:"2026-11-10T09:30:00Z", atualizacao:"2026-11-10T09:30:00Z", cbs:{ apurado:565.00, saldoDevedor:0, extinto:565.00 } },
+              { origem:22, documento:55, chave:"35261112345678000195550010000012551123456789", emissao:"2026-11-18", registro:"2026-11-18T14:00:00Z", atualizacao:"2026-11-18T14:00:00Z", cbs:{ apurado:200.00, suspenso:200.00, saldoDevedor:0 } }
+            ]
+          }]
+        }, null, 2);
+      });
+    }
   </script>
 
   <!-- WhatsApp Float Button -->
