@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Apuração Assistida da CBS: Guia e Ferramentas | Reforma Tributária</title>
+  <meta name="description" content="Entenda o serviço de Apuração Assistida de CBS da Receita Federal: fluxo, autenticação, APIs assíncronas (débitos, créditos, pagamentos, RAD, DARF), códigos de retorno e um visualizador para interpretar o JSON extraído.">
+
+  <meta name="author" content="Reforma Tributária">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+  <link rel="canonical" href="https://mgcandido.github.io/alvoconsultoria/apuracao-assistida.html">
+  <meta name="theme-color" content="#0f172a">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Reforma Tributária">
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:title" content="Apuração Assistida da CBS: Guia e Ferramentas">
+  <meta property="og:description" content="Fluxo, APIs (débitos, créditos, pagamentos, RAD, DARF) e um visualizador para interpretar o JSON extraído da Apuração Assistida da CBS.">
+  <meta property="og:url" content="https://mgcandido.github.io/alvoconsultoria/apuracao-assistida.html">
+  <meta property="og:image" content="https://mgcandido.github.io/alvoconsultoria/og-image.png">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Apuração Assistida da CBS: Guia e Ferramentas">
+  <meta name="twitter:description" content="Fluxo, APIs e visualizador do JSON retornado pela Apuração Assistida de CBS da Receita Federal.">
+  <meta name="twitter:image" content="https://mgcandido.github.io/alvoconsultoria/og-image.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Source+Sans+3:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/pages.css">
+
+  <style>
+    /* ==== Apuração Assistida ==== */
+    .apur-hero { background: linear-gradient(135deg, rgba(5,150,105,.12), rgba(16,185,129,.03)); border: 1px solid rgba(5,150,105,.35); border-radius: var(--radius-lg); padding: var(--space-xl); margin: var(--space-xl) 0; }
+    .apur-hero h1 { margin: 0; }
+    .apur-hero__sub { color: var(--text-secondary); margin: var(--space-sm) 0 var(--space-lg); font-size: 1rem; line-height: 1.6; }
+    .apur-tags { display: flex; gap: .4rem; flex-wrap: wrap; }
+    .apur-tag { background: var(--bg-tertiary); color: var(--text-secondary); padding: .25rem .65rem; border-radius: 999px; font-size: .75rem; font-family: var(--font-mono); }
+    .apur-tag--official { background: rgba(5,150,105,.2); color: var(--text-accent); }
+
+    /* Seções */
+    .apur-section { margin: var(--space-2xl) 0; }
+    .apur-section__title { font-size: 1.35rem; color: var(--text-primary); margin-bottom: var(--space-lg); display: flex; align-items: center; gap: .6rem; }
+    .apur-section__title i { color: var(--color-primary-light); }
+
+    /* Fluxo em 4 etapas */
+    .apur-flow { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-md); position: relative; }
+    @media (max-width: 800px) { .apur-flow { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 500px) { .apur-flow { grid-template-columns: 1fr; } }
+    .apur-step { background: var(--bg-card); border: 1px solid var(--border-color); border-top: 3px solid var(--color-primary); border-radius: var(--radius-md); padding: var(--space-lg); position: relative; }
+    .apur-step__num { position: absolute; top: -14px; left: var(--space-lg); background: var(--color-primary); color: #fff; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; border-radius: 50%; font-family: var(--font-mono); font-weight: 700; font-size: .85rem; }
+    .apur-step h3 { color: var(--text-primary); font-size: 1rem; margin: var(--space-sm) 0 .5rem; }
+    .apur-step p { color: var(--text-secondary); font-size: .88rem; line-height: 1.5; margin: 0; }
+    .apur-step code { font-family: var(--font-mono); background: var(--bg-tertiary); color: var(--text-accent); padding: .1rem .4rem; border-radius: 4px; font-size: .78rem; }
+
+    /* Tabela de endpoints */
+    .apur-endpoints { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-md); overflow: hidden; }
+    .apur-ep { padding: var(--space-md) var(--space-lg); border-bottom: 1px solid var(--border-color); display: grid; grid-template-columns: 80px 1fr; gap: var(--space-md); align-items: center; }
+    .apur-ep:last-child { border-bottom: 0; }
+    .apur-ep__method { font-family: var(--font-mono); font-size: .72rem; font-weight: 700; color: #fff; background: #059669; padding: .2rem .5rem; border-radius: 4px; text-align: center; letter-spacing: .05em; }
+    .apur-ep__method--async { background: #0891b2; }
+    .apur-ep__path { font-family: var(--font-mono); color: var(--text-primary); font-size: .92rem; word-break: break-all; }
+    .apur-ep__desc { color: var(--text-muted); font-size: .82rem; margin-top: .3rem; }
+    .apur-ep__tag { display: inline-block; background: var(--bg-tertiary); color: var(--text-secondary); padding: .1rem .5rem; border-radius: 4px; font-size: .7rem; margin-left: .4rem; font-family: var(--font-mono); }
+
+    /* Blocos de código */
+    .apur-code { background: #0b1220; border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: var(--space-md); overflow-x: auto; }
+    .apur-code pre { margin: 0; color: var(--text-primary); font-family: var(--font-mono); font-size: .85rem; line-height: 1.55; white-space: pre; }
+    .apur-code__tag { display: block; color: var(--text-muted); font-size: .72rem; font-family: var(--font-mono); margin-bottom: .4rem; letter-spacing: .04em; text-transform: uppercase; }
+    .apur-code-key { color: #93c5fd; }
+    .apur-code-str { color: #86efac; }
+    .apur-code-num { color: #fcd34d; }
+    .apur-code-cmt { color: var(--text-muted); font-style: italic; }
+
+    /* Dicionários de códigos */
+    .apur-dict { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: var(--space-lg); }
+    .apur-dict h4 { color: var(--text-primary); font-size: .95rem; margin: 0 0 var(--space-sm); display: flex; align-items: center; gap: .5rem; }
+    .apur-dict__grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: .4rem .8rem; }
+    .apur-dict__row { display: grid; grid-template-columns: 50px 1fr; gap: .5rem; padding: .25rem 0; border-bottom: 1px dashed var(--border-color); font-size: .82rem; }
+    .apur-dict__row:last-child { border-bottom: 0; }
+    .apur-dict__row code { font-family: var(--font-mono); color: var(--text-accent); font-weight: 600; text-align: right; }
+    .apur-dict__row span { color: var(--text-secondary); }
+
+    /* Status de versões */
+    .apur-versions { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: var(--space-md); }
+    .apur-ver { background: var(--bg-card); border: 1px solid var(--border-color); border-left: 3px solid var(--color-primary-light); border-radius: var(--radius-md); padding: var(--space-md) var(--space-lg); }
+    .apur-ver h4 { color: var(--text-primary); font-size: .95rem; margin: 0 0 .4rem; font-family: var(--font-mono); }
+    .apur-ver ul { margin: 0; padding-left: 1rem; color: var(--text-secondary); font-size: .82rem; line-height: 1.55; }
+    .apur-ver li { margin: .2rem 0; }
+    .apur-ver b { color: var(--text-accent); font-family: var(--font-mono); }
+
+    /* Avisos e disclaimers */
+    .apur-callout { background: rgba(234,179,8,.08); border: 1px solid rgba(234,179,8,.4); border-left: 4px solid #eab308; color: var(--text-secondary); padding: var(--space-md) var(--space-lg); border-radius: var(--radius-md); margin: var(--space-lg) 0; font-size: .9rem; line-height: 1.55; }
+    .apur-callout--info { background: rgba(59,130,246,.08); border-color: rgba(59,130,246,.4); border-left-color: #3b82f6; }
+    .apur-callout strong { color: var(--text-primary); }
+    .apur-callout i { color: #fcd34d; margin-right: .4rem; }
+    .apur-callout--info i { color: #93c5fd; }
+
+    /* Links dos recursos oficiais */
+    .apur-resources { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: var(--space-md); }
+    .apur-resource { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: var(--space-md) var(--space-lg); text-decoration: none; display: block; transition: border-color .15s, transform .15s; }
+    .apur-resource:hover { border-color: var(--color-primary); transform: translateY(-2px); }
+    .apur-resource__tag { display: inline-block; background: var(--bg-tertiary); color: var(--text-muted); padding: .2rem .55rem; border-radius: 4px; font-size: .68rem; text-transform: uppercase; letter-spacing: .05em; font-weight: 700; margin-bottom: .5rem; }
+    .apur-resource strong { display: block; color: var(--text-accent); font-size: .95rem; margin-bottom: .3rem; }
+    .apur-resource span { color: var(--text-muted); font-size: .8rem; }
+  </style>
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    { "@type": "Organization", "@id": "https://mgcandido.github.io/alvoconsultoria/#organization", "name": "Reforma Tributária", "url": "https://mgcandido.github.io/alvoconsultoria/", "logo": "https://mgcandido.github.io/alvoconsultoria/favicon.svg" },
+    { "@type": "WebSite", "@id": "https://mgcandido.github.io/alvoconsultoria/#website", "name": "Reforma Tributária", "url": "https://mgcandido.github.io/alvoconsultoria/", "inLanguage": "pt-BR", "publisher": { "@id": "https://mgcandido.github.io/alvoconsultoria/#organization" } },
+    { "@type": "TechArticle", "@id": "https://mgcandido.github.io/alvoconsultoria/apuracao-assistida.html#webpage", "url": "https://mgcandido.github.io/alvoconsultoria/apuracao-assistida.html", "name": "Apuração Assistida da CBS: Guia e Ferramentas", "description": "Guia técnico da Apuração Assistida de CBS da Receita Federal: fluxo, endpoints, autenticação, códigos de retorno e visualizador do JSON.", "inLanguage": "pt-BR", "isPartOf": { "@id": "https://mgcandido.github.io/alvoconsultoria/#website" } }
+  ]
+}
+  </script>
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="header__container">
+      <a href="index.html" class="header__logo">
+        <div class="header__logo-icon"><i class="ph-fill ph-scales"></i></div>
+        <div class="header__logo-text">
+          <span class="header__logo-title">Reforma Tributária</span>
+          <span class="header__logo-subtitle">CBS · IBS · Transição</span>
+        </div>
+      </a>
+      <nav class="header__nav">
+        <a href="index.html" class="header__nav-link"><i class="ph ph-house"></i>Início</a>
+        <a href="artigos.html" class="header__nav-link"><i class="ph ph-article"></i>Artigos</a>
+        <a href="tabelas.html" class="header__nav-link"><i class="ph ph-table"></i>Tabelas</a>
+        <a href="consulta-ncm.html" class="header__nav-link"><i class="ph ph-barcode"></i>Consulta NCM</a>
+        <a href="consultas-fiscais.html" class="header__nav-link"><i class="ph ph-magnifying-glass"></i>Consultas Fiscais</a>
+        <a href="explorador-cclasstrib.html" class="header__nav-link"><i class="ph ph-compass"></i>Explorador cClassTrib</a>
+        <a href="leitor-nfe.html" class="header__nav-link"><i class="ph ph-file-text"></i>Leitor NF-e</a>
+        <a href="apuracao-assistida.html" class="header__nav-link active"><i class="ph ph-stack"></i>Apuração Assistida</a>
+        <a href="glossario.html" class="header__nav-link"><i class="ph ph-book-open"></i>Glossário</a>
+        <a href="cronograma.html" class="header__nav-link"><i class="ph ph-calendar"></i>Cronograma</a>
+        <a href="calculadora.html" class="header__nav-link header__nav-link--cta"><i class="ph ph-calculator"></i>Calculadora</a>
+      </nav>
+      <button class="header__menu-btn" onclick="toggleSidebar()"><i class="ph ph-list"></i></button>
+    </div>
+  </header>
+
+  <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar__header">
+      <span class="sidebar__title">Menu</span>
+      <button class="sidebar__close" onclick="toggleSidebar()"><i class="ph ph-x"></i></button>
+    </div>
+    <nav class="sidebar__nav">
+      <div class="sidebar__section">
+        <h3 class="sidebar__section-title">Navegação</h3>
+        <ul class="sidebar__list">
+          <li><a href="index.html" class="sidebar__link"><i class="ph ph-house"></i><span>Início</span></a></li>
+          <li><a href="artigos.html" class="sidebar__link"><i class="ph ph-article"></i><span>Artigos</span></a></li>
+          <li><a href="tabelas.html" class="sidebar__link"><i class="ph ph-table"></i><span>Tabelas</span></a></li>
+          <li><a href="consulta-ncm.html" class="sidebar__link"><i class="ph ph-barcode"></i><span>Consulta NCM</span></a></li>
+          <li><a href="consultas-fiscais.html" class="sidebar__link"><i class="ph ph-magnifying-glass"></i><span>Consultas Fiscais</span></a></li>
+          <li><a href="explorador-cclasstrib.html" class="sidebar__link"><i class="ph ph-compass"></i><span>Explorador cClassTrib</span></a></li>
+          <li><a href="leitor-nfe.html" class="sidebar__link"><i class="ph ph-file-text"></i><span>Leitor NF-e</span></a></li>
+          <li><a href="apuracao-assistida.html" class="sidebar__link active"><i class="ph ph-stack"></i><span>Apuração Assistida</span></a></li>
+          <li><a href="glossario.html" class="sidebar__link"><i class="ph ph-book-open"></i><span>Glossário</span></a></li>
+          <li><a href="cronograma.html" class="sidebar__link"><i class="ph ph-calendar"></i><span>Cronograma</span></a></li>
+          <li><a href="calculadora.html" class="sidebar__link"><i class="ph ph-calculator"></i><span>Calculadora</span></a></li>
+        </ul>
+      </div>
+    </nav>
+  </aside>
+
+  <main class="main-content">
+    <div class="container" style="max-width: 1180px;">
+
+      <!-- Hero -->
+      <section class="apur-hero">
+        <h1 style="font-family: var(--font-display); font-size: 2rem; color: var(--text-primary);">Apuração Assistida da CBS</h1>
+        <p class="apur-hero__sub">Serviço da Receita Federal que calcula e apresenta ao contribuinte a apuração da <strong>CBS</strong> a partir dos documentos fiscais eletrônicos. Esta página reúne o <strong>fluxo técnico</strong>, as <strong>APIs oficiais</strong>, os <strong>códigos de retorno</strong> e, em breve, um <strong>visualizador</strong> do JSON que você obtém da integração.</p>
+        <div class="apur-tags">
+          <span class="apur-tag apur-tag--official">Decreto nº 12.955/2026</span>
+          <span class="apur-tag">LC 214/2025</span>
+          <span class="apur-tag">LC 227/2026</span>
+          <span class="apur-tag">API v2.0 · nov/2026</span>
+          <span class="apur-tag">Produção restrita</span>
+        </div>
+      </section>
+
+      <!-- Callout informativo -->
+      <div class="apur-callout apur-callout--info">
+        <i class="ph-fill ph-info"></i>
+        <strong>Por que consultar aqui?</strong> O site é estático e <strong>não faz chamadas autenticadas</strong> à API da Receita Federal — essa integração exige certificado digital, OAuth2 e webhook público. Esta página foi desenhada como <strong>referência técnica</strong> para desenvolvedores e contadores que estão integrando seus ERPs com a Apuração Assistida, e inclui ferramentas client-side para interpretar o JSON retornado pela sua integração.
+      </div>
+
+      <!-- Fluxo em 4 etapas -->
+      <section class="apur-section">
+        <h2 class="apur-section__title"><i class="ph ph-flow-arrow"></i> Fluxo em 4 etapas</h2>
+        <div class="apur-flow">
+          <div class="apur-step">
+            <span class="apur-step__num">1</span>
+            <h3>Credencial</h3>
+            <p>O contribuinte ou procurador gera a chave de acesso no portal <code>Serviços da Receita Federal</code> e obtém um <code>access_token</code> OAuth2 (Client Credentials) para o CNPJ matriz.</p>
+          </div>
+          <div class="apur-step">
+            <span class="apur-step__num">2</span>
+            <h3>Abertura</h3>
+            <p>Seu ERP faz <code>POST</code> em <code>/debitos/{cnpj}</code>, <code>/creditos/{cnpj}</code> ou <code>/pagamentos/{cnpj}</code> opcionalmente passando uma <code>urlRetorno</code> (webhook HTTPS). A API responde <code>201</code> com <code>tiqueteSolicitacao</code>.</p>
+          </div>
+          <div class="apur-step">
+            <span class="apur-step__num">3</span>
+            <h3>Processamento</h3>
+            <p>A RFB processa de forma assíncrona (até <strong>240 min</strong>) e, ao concluir, envia ao webhook um aviso com <code>situacao: "CONCLUIDA"</code>, <code>tiqueteSolicitacao</code> e <code>urlAssinada</code> para download.</p>
+          </div>
+          <div class="apur-step">
+            <span class="apur-step__num">4</span>
+            <h3>Download</h3>
+            <p>Faça um <code>GET</code> direto na <code>urlAssinada</code> (válida por <strong>48 h</strong>, sem Bearer) para baixar o JSON com débitos, créditos ou pagamentos do período.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Autenticação -->
+      <section class="apur-section">
+        <h2 class="apur-section__title"><i class="ph ph-key"></i> Autenticação e credenciais</h2>
+        <div class="apur-dict">
+          <h4><i class="ph ph-lock-key"></i> Pré-requisitos</h4>
+          <ul style="margin:0; padding-left:1.1rem; color:var(--text-secondary); font-size:.9rem; line-height:1.7;">
+            <li>Credenciais válidas vinculadas ao <strong>estabelecimento matriz</strong></li>
+            <li>Token OAuth2 (Client Credentials) obtido pela API de autenticação da RFB</li>
+            <li>Header <code style="font-family:var(--font-mono); color:var(--text-accent)">Authorization: Bearer &lt;access_token&gt;</code> em todas as chamadas</li>
+            <li>URL de webhook HTTPS pública (opcional, mas recomendado) — a RFB faz uma chamada <code style="color:var(--text-accent)">HEAD</code> de validação na abertura</li>
+            <li><strong>Allowlist de IP</strong> recomendada: <code style="color:var(--text-accent)">189.9.61.23/32</code></li>
+            <li>Limite: <strong>4 chamadas</strong> de abertura por credencial por API</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Endpoints -->
+      <section class="apur-section">
+        <h2 class="apur-section__title"><i class="ph ph-plugs-connected"></i> Catálogo de endpoints</h2>
+        <p style="color:var(--text-muted); font-size:.85rem; margin-bottom:var(--space-md);">Base: <code style="font-family:var(--font-mono); color:var(--text-accent)">https://api.receitafederal.gov.br/apuracao-cbs/v2/</code></p>
+        <div class="apur-endpoints">
+          <div class="apur-ep">
+            <span class="apur-ep__method apur-ep__method--async">POST</span>
+            <div>
+              <div class="apur-ep__path">/debitos/{cnpj}<span class="apur-ep__tag">assíncrono</span></div>
+              <div class="apur-ep__desc">Abre consulta de débitos de CBS. CNPJ-base com 8 dígitos. Corpo opcional: <code>urlRetorno</code>. Retorna <code>tiqueteSolicitacao</code> e <code>tEASegundos</code>.</div>
+            </div>
+          </div>
+          <div class="apur-ep">
+            <span class="apur-ep__method apur-ep__method--async">POST</span>
+            <div>
+              <div class="apur-ep__path">/creditos/{cnpj}<span class="apur-ep__tag">assíncrono</span></div>
+              <div class="apur-ep__desc">Abre consulta de créditos de CBS. Estrutura idêntica à de débitos; traz os blocos <code>apropriacao</code>, <code>utilizacao</code> e <code>naoUtilizado</code>.</div>
+            </div>
+          </div>
+          <div class="apur-ep">
+            <span class="apur-ep__method apur-ep__method--async">POST</span>
+            <div>
+              <div class="apur-ep__path">/pagamentos/{cnpj}<span class="apur-ep__tag">assíncrono</span></div>
+              <div class="apur-ep__desc">Abre consulta de pagamentos que extinguem débitos, incluindo PCONT (pelo contribuinte) e RAD (pelo adquirente).</div>
+            </div>
+          </div>
+          <div class="apur-ep">
+            <span class="apur-ep__method apur-ep__method--async">POST</span>
+            <div>
+              <div class="apur-ep__path">/recolhimentos/{cnpj}<span class="apur-ep__tag">assíncrono</span></div>
+              <div class="apur-ep__desc">Abre consulta de recolhimentos pelo adquirente (RAD). Fluxo assíncrono via tíquete + webhook.</div>
+            </div>
+          </div>
+          <div class="apur-ep">
+            <span class="apur-ep__method">GET</span>
+            <div>
+              <div class="apur-ep__path">/solicitacao/{tiqueteSolicitacao}<span class="apur-ep__tag">status</span></div>
+              <div class="apur-ep__desc">Consulta a situação de uma solicitação aberta (alternativa ao webhook).</div>
+            </div>
+          </div>
+          <div class="apur-ep">
+            <span class="apur-ep__method">POST</span>
+            <div>
+              <div class="apur-ep__path">/pcont/{cnpj}<span class="apur-ep__tag">síncrono</span></div>
+              <div class="apur-ep__desc">Gera DARF para pagamento de CBS como <strong>contribuinte (PCONT)</strong>. CNPJ com 14 dígitos. Corpo: <code>pa</code>, <code>opcaoPagamento</code> (PAGAMENTO_PARCIAL/PAGAMENTO_TOTAL), <code>valorDarfParcial</code>.</div>
+            </div>
+          </div>
+          <div class="apur-ep">
+            <span class="apur-ep__method">POST</span>
+            <div>
+              <div class="apur-ep__path">/rad/{cnpj}<span class="apur-ep__tag">síncrono</span></div>
+              <div class="apur-ep__desc">Gera DARF para <strong>Recolhimento pelo Adquirente (RAD)</strong>.</div>
+            </div>
+          </div>
+          <div class="apur-ep">
+            <span class="apur-ep__method">GET</span>
+            <div>
+              <div class="apur-ep__path">{urlAssinada}<span class="apur-ep__tag">download</span></div>
+              <div class="apur-ep__desc">Baixa o arquivo JSON do retorno, <strong>sem Bearer</strong>. Válida por 48 h.</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Exemplo de chamada -->
+      <section class="apur-section">
+        <h2 class="apur-section__title"><i class="ph ph-terminal"></i> Exemplo de abertura</h2>
+        <div class="apur-code">
+          <span class="apur-code__tag">cURL · abrir consulta de débitos</span>
+<pre><span class="apur-code-cmt"># header Content-Type: application/json; Authorization: Bearer $TOKEN</span>
+curl -X POST 'https://api.receitafederal.gov.br/apuracao-cbs/v2/debitos/<span class="apur-code-str">12345678</span>' \
+  -H "Authorization: Bearer $TOKEN" \
+  -H 'Content-Type: application/json' \
+  -d '{
+    <span class="apur-code-key">"urlRetorno"</span>: <span class="apur-code-str">"https://cliente.exemplo.com/webhooks/apuracao-cbs"</span>
+  }'</pre>
+        </div>
+        <div class="apur-code" style="margin-top:var(--space-md);">
+          <span class="apur-code__tag">Resposta HTTP 201</span>
+<pre>{
+  <span class="apur-code-key">"tiqueteSolicitacao"</span>: <span class="apur-code-str">"692b7b25-44cb-4415-8625-2b9522dd7933.B5E08D55"</span>,
+  <span class="apur-code-key">"tEASegundos"</span>: <span class="apur-code-num">120</span>  <span class="apur-code-cmt">// tempo estimado; -1 = sem estimativa</span>
+}</pre>
+        </div>
+        <div class="apur-code" style="margin-top:var(--space-md);">
+          <span class="apur-code__tag">Notificação ao webhook (sucesso)</span>
+<pre>{
+  <span class="apur-code-key">"tiqueteSolicitacao"</span>: <span class="apur-code-str">"48d88a3c-eff9-4489-8e3a-cde8d878d3f7.1E0CE7A4"</span>,
+  <span class="apur-code-key">"situacao"</span>: <span class="apur-code-str">"CONCLUIDA"</span>,
+  <span class="apur-code-key">"urlAssinada"</span>: <span class="apur-code-str">"https://&hellip;.r2.cloudflarestorage.com/&hellip;?X-Amz-Signature=&hellip;"</span>,
+  <span class="apur-code-key">"urlAssinadaExpiraEm"</span>: <span class="apur-code-str">"2026-11-26T18:00:00Z"</span>
+}</pre>
+        </div>
+      </section>
+
+      <!-- Dicionários -->
+      <section class="apur-section">
+        <h2 class="apur-section__title"><i class="ph ph-list-numbers"></i> Dicionários de códigos</h2>
+        <div style="display:grid; grid-template-columns: 1fr 1fr; gap: var(--space-lg);" class="apur-dicts-grid">
+          <div class="apur-dict">
+            <h4><i class="ph ph-arrows-split"></i> origem (débitos / créditos)</h4>
+            <div class="apur-dict__grid" id="dictOrigem"></div>
+          </div>
+          <div class="apur-dict">
+            <h4><i class="ph ph-file-text"></i> documento (modelo fiscal)</h4>
+            <div class="apur-dict__grid" id="dictDocumento"></div>
+          </div>
+          <div class="apur-dict">
+            <h4><i class="ph ph-check-square"></i> cdRetorno (DARF PCONT)</h4>
+            <div class="apur-dict__grid" id="dictRetorno"></div>
+          </div>
+          <div class="apur-dict">
+            <h4><i class="ph ph-x-circle"></i> codigoErro (abertura)</h4>
+            <div class="apur-dict__grid" id="dictErro"></div>
+          </div>
+        </div>
+        <style>@media(max-width:720px){.apur-dicts-grid{grid-template-columns:1fr !important;}}</style>
+      </section>
+
+      <!-- Histórico de versões -->
+      <section class="apur-section">
+        <h2 class="apur-section__title"><i class="ph ph-clock-counter-clockwise"></i> Histórico de versões</h2>
+        <div class="apur-versions">
+          <div class="apur-ver">
+            <h4>Regras comuns (assíncrono)</h4>
+            <ul>
+              <li><b>1.0</b> · 03/09/2026 — versão inicial</li>
+              <li><b>1.1</b> · 14/10/2026 — payload do webhook e fluxo da urlAssinada</li>
+            </ul>
+          </div>
+          <div class="apur-ver">
+            <h4>Débitos</h4>
+            <ul>
+              <li><b>1.0</b> · 03/09/2026</li>
+              <li><b>1.1</b> · 17/09/2026 — exemplos</li>
+              <li><b>1.2</b> · 14/10/2026 — webhook</li>
+              <li><b>1.3</b> · 13/11/2026 — schema JSON</li>
+            </ul>
+          </div>
+          <div class="apur-ver">
+            <h4>Créditos</h4>
+            <ul>
+              <li><b>1.0</b> · 03/09/2026</li>
+              <li><b>1.1</b> · 17/09/2026</li>
+              <li><b>1.2</b> · 14/10/2026</li>
+              <li><b>1.3</b> · 13/11/2026</li>
+            </ul>
+          </div>
+          <div class="apur-ver">
+            <h4>Pagamentos</h4>
+            <ul>
+              <li><b>1.0</b> · 03/09/2026</li>
+              <li><b>1.1</b> · 17/09/2026</li>
+              <li><b>1.2</b> · 14/10/2026</li>
+              <li><b>1.3</b> · 13/11/2026</li>
+            </ul>
+          </div>
+          <div class="apur-ver">
+            <h4>DARF PCONT</h4>
+            <ul>
+              <li><b>1.0</b> · 13/11/2026 — versão inicial (síncrono)</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Prazos e regras -->
+      <section class="apur-section">
+        <h2 class="apur-section__title"><i class="ph ph-timer"></i> Prazos e regras importantes</h2>
+        <div class="apur-dict">
+          <ul style="margin:0; padding-left:1.1rem; color:var(--text-secondary); font-size:.9rem; line-height:1.7;">
+            <li><strong>Apresentação da apuração pela RFB:</strong> até o <strong>dia 15</strong> do mês seguinte (regra geral), ou <strong>dia 20</strong> para contribuintes obrigados à DeRE — art. 46 do Decreto nº 12.955/2026.</li>
+            <li><strong>Tempo máximo de processamento</strong> de uma solicitação assíncrona: <strong>240 minutos</strong>. Excedido o prazo, a solicitação vai para erro.</li>
+            <li><strong>Disponibilidade do arquivo</strong> na urlAssinada: <strong>48 horas</strong> após o aviso de pronto.</li>
+            <li><strong>Janela de consulta</strong> de débitos/créditos/pagamentos: se houve consulta concluída nos últimos 3 meses, retorna só inclusões/atualizações desde a última consulta (limitado aos últimos <strong>8 dias</strong>). Sem consulta concluída, começa no 1º dia do mês corrente.</li>
+            <li><strong>Prescrição do pedido de ressarcimento de crédito:</strong> conforme o art. 47 e seguintes da LC 214/2025 (verifique a contagem no seu caso).</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Recursos oficiais -->
+      <section class="apur-section">
+        <h2 class="apur-section__title"><i class="ph ph-bookmarks"></i> Recursos oficiais</h2>
+        <div class="apur-resources">
+          <a class="apur-resource" href="https://docs.receitafederal.gov.br/apuracao-cbs/" target="_blank" rel="noopener">
+            <span class="apur-resource__tag">RFB</span>
+            <strong>Documentação técnica das APIs</strong>
+            <span>docs.receitafederal.gov.br/apuracao-cbs</span>
+          </a>
+          <a class="apur-resource" href="https://www.gov.br/receitafederal/pt-br/assuntos/noticias/2026/maio/receita-lanca-nova-versao-do-portal-nacional-de-tributacao-sobre-o-consumo-da-reforma-tributaria-rtc" target="_blank" rel="noopener">
+            <span class="apur-resource__tag">Portal</span>
+            <strong>Portal Nacional da RTC</strong>
+            <span>Painel Nacional de Tributação sobre o Consumo</span>
+          </a>
+          <a class="apur-resource" href="https://www.gov.br/receitafederal/pt-br/acesso-a-informacao/acoes-e-programas/reforma-tributaria-do-consumo/curso/material-de-apoio/modulos-do-curso/curso-reforma-tributaria-rfb-e-cfc-modulo-6-2a-parte.pdf" target="_blank" rel="noopener">
+            <span class="apur-resource__tag">Curso RFB · CFC</span>
+            <strong>Módulo 6 (2ª parte) — PDF</strong>
+            <span>Material do curso oficial Reforma Tributária</span>
+          </a>
+          <a class="apur-resource" href="https://blog.tecnospeed.com.br/apuracao-assistida-na-reforma-tributaria/" target="_blank" rel="noopener">
+            <span class="apur-resource__tag">Referência</span>
+            <strong>Apuração Assistida (TecnoSpeed)</strong>
+            <span>Visão geral e implicações práticas</span>
+          </a>
+          <a class="apur-resource" href="https://conjur.com.br/2026-nov-15/apuracao-assistida-da-cbs/" target="_blank" rel="noopener">
+            <span class="apur-resource__tag">Análise</span>
+            <strong>Apuração Assistida: simplificação ou risco?</strong>
+            <span>Conjur · análise jurídica</span>
+          </a>
+          <a class="apur-resource" href="https://www.contabeis.com.br/noticias/80723/receita-libera-apis-para-consultar-debitos-e-creditos-da-cbs/" target="_blank" rel="noopener">
+            <span class="apur-resource__tag">Notícia</span>
+            <strong>Receita libera APIs v2.0</strong>
+            <span>Contábeis · 28/10/2026</span>
+          </a>
+        </div>
+      </section>
+
+      <div class="apur-callout">
+        <i class="ph-fill ph-warning"></i>
+        <strong>Importante:</strong> esta página é informativa. A integração efetiva com a API da Apuração Assistida exige que o seu ERP tenha certificado digital, credenciais da RFB e um endpoint público para receber o webhook. Sempre valide alíquotas, códigos e datas no portal oficial antes de homologar em produção.
+      </div>
+
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer__container">
+      <div class="footer__bottom">
+        <p class="footer__copyright">© 2026 Consultoria Tributária.</p>
+        <p class="footer__disclaimer"><i class="ph ph-warning"></i>Conteúdo informativo; valide sempre nas fontes oficiais.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/app.js"></script>
+  <script>
+    // Dicionários da documentação da RFB
+    const ORIGEM = {
+      0: 'NORMAL', 20: 'DEV. POR PCONT', 21: 'DEV. POR RAD', 22: 'DEV. POR CRÉDITO',
+      30: 'CANC. CRÉDITO', 31: 'CANC. RAD', 32: 'CANC. PCONT',
+      50: 'PERECIMENTO · TRANSP. FOB', 51: 'PERECIMENTO · TRANSP. CIF',
+      52: 'DEV. PEREC. CIF POR PCONT', 53: 'DEV. PEREC. CIF POR RAD', 54: 'DEV. PEREC. CIF POR CRÉDITO',
+      55: 'NOTA DE CRÉDITO · MULTA/JUROS'
+    };
+    const DOCUMENTO = {
+      55: 'NF-e', 57: 'CT-e', 62: 'NFCOM', 63: 'BP-e', 64: 'GTV-e', 65: 'NFC-e',
+      66: 'NF3-e', 67: 'CT-e OS', 91: 'NFS-e', 92: 'NFS-e Via', 93: 'BP-e TM',
+      94: 'DERE', 97: 'CT-e Simplificado'
+    };
+    const CDRETORNO = {
+      'DARF_GERADO': 'DARF gerado com sucesso',
+      'DFE_NAO_ENCONTRADO': 'Documento fiscal eletrônico não encontrado',
+      'VALOR_PARCIAL_SUPERIOR_DFE': 'Valor parcial maior que o DFE',
+      'CNPJ_NAO_ADQUIRENTE': 'CNPJ não figura como adquirente',
+      'DADOS_DE_ENTRADA_INVALIDOS': 'Dados de entrada inválidos'
+    };
+    const CODIGO_ERRO = {
+      'REQUISICAO_INVALIDA': 'HTTP 400 — corpo da requisição inválido',
+      'NAO_AUTORIZADO': 'HTTP 401 — consumidor não autorizado para o NI',
+      'ERRO_INTERNO': 'HTTP 500 — erro interno ao processar'
+    };
+
+    function renderDict(id, obj, codeFmt) {
+      const el = document.getElementById(id);
+      if (!el) return;
+      el.innerHTML = Object.entries(obj).map(([k, v]) =>
+        `<div class="apur-dict__row"><code>${codeFmt ? codeFmt(k) : k}</code><span>${v}</span></div>`
+      ).join('');
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      renderDict('dictOrigem', ORIGEM);
+      renderDict('dictDocumento', DOCUMENTO);
+      renderDict('dictRetorno', CDRETORNO, k => k);
+      renderDict('dictErro', CODIGO_ERRO, k => k);
+    });
+  </script>
+
+  <!-- WhatsApp Float Button -->
+  <a href="https://wa.me/5532988448292?text=Ol%C3%A1!%20Vim%20pelo%20site%20e%20gostaria%20de%20falar%20com%20um%20consultor%20sobre%20a%20Reforma%20Tribut%C3%A1ria." target="_blank" rel="noopener noreferrer" class="whatsapp-float" aria-label="Falar com um consultor no WhatsApp">
+    <span class="whatsapp-float__icon-wrap">
+      <svg class="whatsapp-float__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+      </svg>
+    </span>
+    <span class="whatsapp-float__label">Falar com um consultor</span>
+  </a>
+
+  <!-- Cloudflare Web Analytics -->
+  <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "f4fcc25a7cd64ae49b673976803f486b"}'></script>
+</body>
+</html>
