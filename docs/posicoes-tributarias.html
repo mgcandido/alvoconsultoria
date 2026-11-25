@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>4 Posições Tributárias da Reforma (CBS/IBS) | Reforma Tributária</title>
+  <meta name="description" content="Como adquirente e fornecedor se posicionam na Reforma Tributária: Super Fair, Cash Burn, Roleta Russa e 'Fornecedor paga o pato'. Matriz de risco, controle e impacto, com decisões contratuais recomendadas.">
+
+  <meta name="author" content="Reforma Tributária">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+  <link rel="canonical" href="https://mgcandido.github.io/alvoconsultoria/posicoes-tributarias.html">
+  <meta name="theme-color" content="#0f172a">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Reforma Tributária">
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:title" content="4 Posições Tributárias da Reforma (CBS/IBS)">
+  <meta property="og:description" content="Super Fair, Cash Burn, Roleta Russa e o 'Fornecedor paga o pato': entenda como adquirente e fornecedor se posicionam na LC 214/2025.">
+  <meta property="og:url" content="https://mgcandido.github.io/alvoconsultoria/posicoes-tributarias.html">
+  <meta property="og:image" content="https://mgcandido.github.io/alvoconsultoria/og-image.png">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="4 Posições Tributárias da Reforma (CBS/IBS)">
+  <meta name="twitter:description" content="Matriz de risco de adquirente e fornecedor sob a LC 214/2025.">
+  <meta name="twitter:image" content="https://mgcandido.github.io/alvoconsultoria/og-image.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Source+Sans+3:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/pages.css">
+
+  <style>
+    .pos-intro { background: linear-gradient(135deg, rgba(5,150,105,.12), rgba(16,185,129,.03)); border: 1px solid rgba(5,150,105,.35); border-radius: var(--radius-lg); padding: var(--space-xl); margin: var(--space-xl) 0; }
+    .pos-intro h1 { font-family: var(--font-display); font-size: 2rem; color: var(--text-primary); margin: 0; }
+    .pos-intro p { color: var(--text-secondary); font-size: 1rem; line-height: 1.6; margin: var(--space-sm) 0 0; }
+
+    .pos-section { margin: var(--space-2xl) 0; }
+    .pos-title { font-size: 1.35rem; color: var(--text-primary); margin-bottom: var(--space-lg); display: flex; align-items: center; gap: .6rem; }
+    .pos-title i { color: var(--color-primary-light); }
+
+    /* Matriz 2×2 */
+    .pos-matrix { position: relative; display: grid; grid-template-columns: 90px 1fr 1fr; grid-template-rows: 90px 1fr 1fr; gap: var(--space-sm); margin: var(--space-lg) 0; }
+    .pos-matrix__x, .pos-matrix__y { color: var(--text-muted); font-size: .8rem; font-weight: 600; text-transform: uppercase; letter-spacing: .04em; display: flex; align-items: center; justify-content: center; }
+    .pos-matrix__y { writing-mode: vertical-rl; transform: rotate(180deg); }
+    .pos-matrix__x { grid-column: 2 / span 2; grid-row: 1; }
+    .pos-matrix__y-left { grid-column: 1; grid-row: 2; }
+    .pos-matrix__y-left b, .pos-matrix__y-right b { color: var(--text-secondary); }
+    .pos-matrix__y-right { grid-column: 1; grid-row: 3; }
+    .pos-matrix__x-labels { grid-column: 2 / span 2; grid-row: 1; display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-sm); font-size: .75rem; color: var(--text-muted); text-align: center; align-items: end; padding-bottom: .4rem; }
+    .pos-card { background: var(--bg-card); border: 1px solid var(--border-color); border-top: 3px solid; border-radius: var(--radius-md); padding: var(--space-md) var(--space-lg); display: flex; flex-direction: column; min-height: 180px; }
+    .pos-card--superfair { border-top-color: #22c55e; }
+    .pos-card--cashburn { border-top-color: #eab308; }
+    .pos-card--roleta { border-top-color: #f97316; }
+    .pos-card--pato { border-top-color: #ef4444; }
+    .pos-card__head { display: flex; align-items: center; justify-content: space-between; gap: var(--space-sm); margin-bottom: .4rem; flex-wrap: wrap; }
+    .pos-card__name { color: var(--text-primary); font-size: 1rem; font-weight: 700; }
+    .pos-card__risk { font-family: var(--font-mono); font-size: .7rem; padding: .15rem .55rem; border-radius: 999px; font-weight: 700; }
+    .pos-card__risk--low { background: rgba(34,197,94,.18); color: #86efac; }
+    .pos-card__risk--med { background: rgba(234,179,8,.18); color: #fde047; }
+    .pos-card__risk--high { background: rgba(239,68,68,.2); color: #fca5a5; }
+    .pos-card__desc { color: var(--text-secondary); font-size: .85rem; line-height: 1.5; margin: .2rem 0 var(--space-sm); }
+    .pos-card__meta { display: flex; flex-direction: column; gap: .2rem; margin-top: auto; font-size: .75rem; color: var(--text-muted); }
+    .pos-card__meta b { color: var(--text-accent); font-family: var(--font-mono); margin-left: .3rem; }
+
+    @media (max-width: 720px) {
+      .pos-matrix { grid-template-columns: 1fr; grid-template-rows: auto; }
+      .pos-matrix__x, .pos-matrix__y, .pos-matrix__y-left, .pos-matrix__y-right, .pos-matrix__x-labels { display: none; }
+    }
+
+    /* Tabela comparativa */
+    .pos-cmp-wrap { overflow-x: auto; border: 1px solid var(--border-color); border-radius: var(--radius-md); }
+    .pos-cmp { width: 100%; border-collapse: collapse; font-size: .88rem; }
+    .pos-cmp th, .pos-cmp td { padding: .7rem .9rem; text-align: left; border-bottom: 1px solid var(--border-color); vertical-align: top; }
+    .pos-cmp thead th { background: var(--bg-tertiary); color: var(--text-primary); font-weight: 700; font-size: .78rem; text-transform: uppercase; letter-spacing: .04em; }
+    .pos-cmp td.name { font-weight: 700; color: var(--text-primary); }
+    .pos-cmp td.name small { display: block; font-weight: 400; color: var(--text-muted); font-size: .72rem; margin-top: .2rem; }
+    .pos-cmp td code { font-family: var(--font-mono); font-size: .78rem; color: var(--text-accent); }
+
+    .pos-rec { background: var(--bg-card); border: 1px solid var(--border-color); border-left: 4px solid var(--color-primary); border-radius: var(--radius-md); padding: var(--space-md) var(--space-lg); }
+    .pos-rec h3 { color: var(--text-primary); font-size: 1rem; margin: 0 0 .5rem; display: flex; align-items: center; gap: .4rem; }
+    .pos-rec ul { margin: 0; padding-left: 1.1rem; color: var(--text-secondary); font-size: .9rem; line-height: 1.6; }
+
+    .pos-cite { background: rgba(59,130,246,.08); border: 1px solid rgba(59,130,246,.35); border-left: 4px solid #3b82f6; border-radius: var(--radius-md); padding: var(--space-md) var(--space-lg); color: var(--text-secondary); font-size: .88rem; line-height: 1.55; margin: var(--space-lg) 0; }
+    .pos-cite strong { color: var(--text-primary); }
+    .pos-cite a { color: #93c5fd; text-decoration: none; border-bottom: 1px dotted #3b82f6; }
+    .pos-cite a:hover { color: var(--text-accent); }
+  </style>
+
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@graph":[
+    {"@type":"Organization","@id":"https://mgcandido.github.io/alvoconsultoria/#organization","name":"Reforma Tributária","url":"https://mgcandido.github.io/alvoconsultoria/","logo":"https://mgcandido.github.io/alvoconsultoria/favicon.svg"},
+    {"@type":"WebSite","@id":"https://mgcandido.github.io/alvoconsultoria/#website","name":"Reforma Tributária","url":"https://mgcandido.github.io/alvoconsultoria/","inLanguage":"pt-BR","publisher":{"@id":"https://mgcandido.github.io/alvoconsultoria/#organization"}},
+    {"@type":"TechArticle","@id":"https://mgcandido.github.io/alvoconsultoria/posicoes-tributarias.html#webpage","url":"https://mgcandido.github.io/alvoconsultoria/posicoes-tributarias.html","name":"4 Posições Tributárias da Reforma (CBS/IBS)","description":"Matriz de risco de adquirente e fornecedor sob a LC 214/2025.","inLanguage":"pt-BR","isPartOf":{"@id":"https://mgcandido.github.io/alvoconsultoria/#website"}}
+  ]}
+  </script>
+</head>
+<body>
+  <header class="header">
+    <div class="header__container">
+      <a href="index.html" class="header__logo">
+        <div class="header__logo-icon"><i class="ph-fill ph-scales"></i></div>
+        <div class="header__logo-text">
+          <span class="header__logo-title">Reforma Tributária</span>
+          <span class="header__logo-subtitle">CBS · IBS · Transição</span>
+        </div>
+      </a>
+      <nav class="header__nav">
+        <a href="index.html" class="header__nav-link"><i class="ph ph-house"></i>Início</a>
+        <a href="artigos.html" class="header__nav-link"><i class="ph ph-article"></i>Artigos</a>
+        <a href="tabelas.html" class="header__nav-link"><i class="ph ph-table"></i>Tabelas</a>
+        <a href="consulta-ncm.html" class="header__nav-link"><i class="ph ph-barcode"></i>Consulta NCM</a>
+        <a href="consultas-fiscais.html" class="header__nav-link"><i class="ph ph-magnifying-glass"></i>Consultas Fiscais</a>
+        <a href="explorador-cclasstrib.html" class="header__nav-link"><i class="ph ph-compass"></i>Explorador cClassTrib</a>
+        <a href="leitor-nfe.html" class="header__nav-link"><i class="ph ph-file-text"></i>Leitor NF-e</a>
+        <a href="apuracao-assistida.html" class="header__nav-link"><i class="ph ph-stack"></i>Apuração Assistida</a>
+        <a href="posicoes-tributarias.html" class="header__nav-link active"><i class="ph ph-strategy"></i>Posições Tributárias</a>
+        <a href="glossario.html" class="header__nav-link"><i class="ph ph-book-open"></i>Glossário</a>
+        <a href="cronograma.html" class="header__nav-link"><i class="ph ph-calendar"></i>Cronograma</a>
+        <a href="calculadora.html" class="header__nav-link header__nav-link--cta"><i class="ph ph-calculator"></i>Calculadora</a>
+      </nav>
+      <button class="header__menu-btn" onclick="toggleSidebar()"><i class="ph ph-list"></i></button>
+    </div>
+  </header>
+
+  <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar__header">
+      <span class="sidebar__title">Menu</span>
+      <button class="sidebar__close" onclick="toggleSidebar()"><i class="ph ph-x"></i></button>
+    </div>
+    <nav class="sidebar__nav">
+      <div class="sidebar__section">
+        <h3 class="sidebar__section-title">Navegação</h3>
+        <ul class="sidebar__list">
+          <li><a href="index.html" class="sidebar__link"><i class="ph ph-house"></i><span>Início</span></a></li>
+          <li><a href="artigos.html" class="sidebar__link"><i class="ph ph-article"></i><span>Artigos</span></a></li>
+          <li><a href="tabelas.html" class="sidebar__link"><i class="ph ph-table"></i><span>Tabelas</span></a></li>
+          <li><a href="consulta-ncm.html" class="sidebar__link"><i class="ph ph-barcode"></i><span>Consulta NCM</span></a></li>
+          <li><a href="consultas-fiscais.html" class="sidebar__link"><i class="ph ph-magnifying-glass"></i><span>Consultas Fiscais</span></a></li>
+          <li><a href="explorador-cclasstrib.html" class="sidebar__link"><i class="ph ph-compass"></i><span>Explorador cClassTrib</span></a></li>
+          <li><a href="leitor-nfe.html" class="sidebar__link"><i class="ph ph-file-text"></i><span>Leitor NF-e</span></a></li>
+          <li><a href="apuracao-assistida.html" class="sidebar__link"><i class="ph ph-stack"></i><span>Apuração Assistida</span></a></li>
+          <li><a href="posicoes-tributarias.html" class="sidebar__link active"><i class="ph ph-strategy"></i><span>Posições Tributárias</span></a></li>
+          <li><a href="glossario.html" class="sidebar__link"><i class="ph ph-book-open"></i><span>Glossário</span></a></li>
+          <li><a href="cronograma.html" class="sidebar__link"><i class="ph ph-calendar"></i><span>Cronograma</span></a></li>
+          <li><a href="calculadora.html" class="sidebar__link"><i class="ph ph-calculator"></i><span>Calculadora</span></a></li>
+        </ul>
+      </div>
+    </nav>
+  </aside>
+
+  <main class="main-content">
+    <div class="container" style="max-width: 1180px;">
+
+      <section class="pos-intro">
+        <h1>As 4 posições tributárias da Reforma</h1>
+        <p>Na Reforma Tributária, a forma como o <strong>adquirente paga</strong> o fornecedor e o momento em que a <strong>CBS/IBS é extinta</strong> definem quem assume o risco de a cadeia se romper. Este guia resume as quatro posições possíveis — com <strong>risco</strong>, <strong>controle</strong>, <strong>impacto</strong> e as decisões contratuais que cada uma exige.</p>
+      </section>
+
+      <div class="pos-cite">
+        <strong>Fonte do framework conceitual:</strong> as quatro posições (Super Fair, Cash Burn, Roleta Russa e "Fornecedor paga o pato") foram cunhadas pela <a href="https://www.roit.com.br/rai" target="_blank" rel="noopener">ROIT</a> ao apresentar o produto <em>RAI — Registro de Autoexecução Inteligente</em>. Este guia descreve o <strong>conceito educativo</strong> em palavras próprias, com base na LC 214/2025. O produto RAI é proprietário da ROIT e não é descrito aqui.
+      </div>
+
+      <!-- Matriz 2x2 -->
+      <section class="pos-section">
+        <h2 class="pos-title"><i class="ph ph-grid-four"></i> Matriz: quem paga e quando</h2>
+        <p style="color:var(--text-muted); font-size:.9rem; margin-bottom:var(--space-md);">Dois eixos definem a posição: quem é responsável pelo recolhimento da CBS/IBS (adquirente ou fornecedor) e se o tributo é extinto antes ou depois da competência / pagamento ao fornecedor.</p>
+        <div class="pos-matrix">
+          <div class="pos-matrix__x-labels">
+            <span>Fornecedor<br>recolhe</span>
+            <span>Adquirente<br>recolhe</span>
+          </div>
+          <div class="pos-matrix__y-left"><b>Tributo antes<br>do pagamento</b></div>
+          <div class="pos-matrix__y-right"><b>Tributo após o<br>pagamento líquido</b></div>
+
+          <article class="pos-card pos-card--cashburn" style="grid-column:2; grid-row:2;">
+            <div class="pos-card__head">
+              <span class="pos-card__name">Cash Burn</span>
+              <span class="pos-card__risk pos-card__risk--low">Risco baixo</span>
+            </div>
+            <p class="pos-card__desc">Preço e tributo são extintos no mesmo ato. O fornecedor recolhe no vencimento, mas o adquirente antecipa valor (RAD ou Split Payment) junto do líquido — alto impacto no capital de giro.</p>
+            <div class="pos-card__meta">
+              <span>Para: <b>Adquirente</b></span>
+              <span>Controle: <b>total</b></span>
+              <span>Impacto no caixa: <b>alto</b></span>
+            </div>
+          </article>
+
+          <article class="pos-card pos-card--superfair" style="grid-column:3; grid-row:2;">
+            <div class="pos-card__head">
+              <span class="pos-card__name">Super Fair</span>
+              <span class="pos-card__risk pos-card__risk--low">Risco baixo</span>
+            </div>
+            <p class="pos-card__desc">Tributos recolhidos no vencimento, antes de liberar o líquido ao fornecedor. Crédito do adquirente garantido, preço líquido separado da parte tributária. Exige acordo contratual e RAD ou Split.</p>
+            <div class="pos-card__meta">
+              <span>Para: <b>ambos</b></span>
+              <span>Controle: <b>total</b></span>
+              <span>Impacto: <b>controlado</b></span>
+            </div>
+          </article>
+
+          <article class="pos-card pos-card--pato" style="grid-column:2; grid-row:3;">
+            <div class="pos-card__head">
+              <span class="pos-card__name">"Fornecedor paga o pato"</span>
+              <span class="pos-card__risk pos-card__risk--high">Risco alto</span>
+            </div>
+            <p class="pos-card__desc">Padrão da LC 214/2025: o adquirente paga o preço cheio e o fornecedor fica responsável por quitar CBS e IBS no vencimento. Se o fornecedor não quitar, perde o crédito e sofre as consequências. Pior posição para quem vende.</p>
+            <div class="pos-card__meta">
+              <span>Para: <b>Fornecedor</b></span>
+              <span>Controle: <b>mínimo</b></span>
+              <span>Impacto: <b>grave</b></span>
+            </div>
+          </article>
+
+          <article class="pos-card pos-card--roleta" style="grid-column:3; grid-row:3;">
+            <div class="pos-card__head">
+              <span class="pos-card__name">Roleta Russa</span>
+              <span class="pos-card__risk pos-card__risk--med">Risco médio</span>
+            </div>
+            <p class="pos-card__desc">Adquirente pagou o preço cheio e precisa confiar que o fornecedor vai recolher CBS/IBS. Enquanto o Split Payment não for obrigatório, o adquirente fica exposto à inadimplência tributária alheia — risco invisível que compromete o crédito.</p>
+            <div class="pos-card__meta">
+              <span>Para: <b>Adquirente</b></span>
+              <span>Controle: <b>parcial</b></span>
+              <span>Impacto: <b>grave</b></span>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- Comparativo -->
+      <section class="pos-section">
+        <h2 class="pos-title"><i class="ph ph-list-checks"></i> Comparativo detalhado</h2>
+        <div class="pos-cmp-wrap">
+          <table class="pos-cmp">
+            <thead>
+              <tr>
+                <th>Posição</th>
+                <th>Como funciona</th>
+                <th>Risco</th>
+                <th>Controle</th>
+                <th>Impacto</th>
+                <th>Instrumento</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="name">Super Fair <small>Única posição neutra para os dois lados</small></td>
+                <td>Adquirente paga o líquido ao fornecedor somente após extinguir a CBS/IBS no vencimento.</td>
+                <td>Médio</td>
+                <td>Total</td>
+                <td>Controlado</td>
+                <td><code>RAD</code> ou <code>Split</code></td>
+              </tr>
+              <tr>
+                <td class="name">Cash Burn <small>Segura, mas pesada no caixa</small></td>
+                <td>O adquirente antecipa o pagamento do tributo junto com o líquido ao fornecedor.</td>
+                <td>Baixo</td>
+                <td>Total</td>
+                <td>Alto (capital de giro)</td>
+                <td><code>RAD</code> ou <code>Split</code></td>
+              </tr>
+              <tr>
+                <td class="name">Roleta Russa <small>Para o adquirente</small></td>
+                <td>Adquirente paga preço cheio; fornecedor recolhe depois. Enquanto o Split não for obrigatório, risco de crédito ao adquirente.</td>
+                <td>Médio</td>
+                <td>Parcial</td>
+                <td>Grave (perda de crédito)</td>
+                <td><code>Pagamento</code> comum</td>
+              </tr>
+              <tr>
+                <td class="name">"Fornecedor paga o pato" <small>Padrão da LC 214/2025</small></td>
+                <td>O fornecedor fica inteiramente responsável por CBS/IBS no vencimento, sem antecipação do adquirente.</td>
+                <td>Alto</td>
+                <td>Mínimo</td>
+                <td>Grave (inadimplência)</td>
+                <td><code>Pagamento</code> comum</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Como escolher -->
+      <section class="pos-section">
+        <h2 class="pos-title"><i class="ph ph-chess-knight"></i> Como escolher a posição</h2>
+        <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: var(--space-md);">
+          <div class="pos-rec">
+            <h3><i class="ph ph-handshake"></i> Renegociação contratual</h3>
+            <ul>
+              <li>Insira cláusula de <strong>regime de extinção</strong> (RAD, Split Payment ou pagamento comum).</li>
+              <li>Defina <strong>data de pagamento do líquido</strong> condicionada à extinção do IBS/CBS.</li>
+              <li>Preveja <strong>penalidades comerciais</strong> para o caso de inadimplência tributária do fornecedor.</li>
+              <li>Formalize a <strong>cClassTrib</strong> aplicável e o anexo da LC 214/2025 que embasa reduções.</li>
+            </ul>
+          </div>
+          <div class="pos-rec">
+            <h3><i class="ph ph-sliders"></i> Operacional</h3>
+            <ul>
+              <li>Priorize <strong>Split Payment</strong> em B2B sempre que possível — automatiza a quitação e protege o crédito.</li>
+              <li>Use <strong>RAD</strong> quando o Split não estiver disponível para aquele arranjo de pagamento.</li>
+              <li>Monitore em tempo real: DFe, apuração da RFB (CBS), apuração do CGIBS (IBS), ERP e banco.</li>
+              <li>Mapeie as <strong>posições por fornecedor</strong> e evite concentrar risco em um grupo pequeno.</li>
+            </ul>
+          </div>
+          <div class="pos-rec">
+            <h3><i class="ph ph-shield-check"></i> Governança</h3>
+            <ul>
+              <li>Registre a posição acordada no <strong>cadastro do fornecedor</strong> no ERP.</li>
+              <li>Faça <strong>due diligence tributária</strong> periódica de fornecedores-chave.</li>
+              <li>Defina <strong>limite de exposição</strong> a fornecedores em Roleta Russa.</li>
+              <li>Documente a trilha completa (DFe → apuração → pagamento → extinção) para auditoria.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Relacionados -->
+      <section class="pos-section">
+        <h2 class="pos-title"><i class="ph ph-link"></i> Páginas relacionadas</h2>
+        <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(240px,1fr)); gap: var(--space-md);">
+          <a class="pos-rec" href="artigos.html?slug=split-payment-recolhimento-liquidacao" style="text-decoration:none">
+            <h3 style="color:var(--text-accent)"><i class="ph ph-arrow-right"></i> Split Payment</h3>
+            <p style="margin:0; color:var(--text-secondary); font-size:.9rem;">Como a CBS/IBS é separada automaticamente na liquidação.</p>
+          </a>
+          <a class="pos-rec" href="apuracao-assistida.html" style="text-decoration:none">
+            <h3 style="color:var(--text-accent)"><i class="ph ph-arrow-right"></i> Apuração Assistida</h3>
+            <p style="margin:0; color:var(--text-secondary); font-size:.9rem;">APIs oficiais da RFB para débitos, créditos, pagamentos e RAD.</p>
+          </a>
+          <a class="pos-rec" href="artigos.html?slug=creditos-nao-cumulatividade-ibs-cbs" style="text-decoration:none">
+            <h3 style="color:var(--text-accent)"><i class="ph ph-arrow-right"></i> Créditos e não-cumulatividade</h3>
+            <p style="margin:0; color:var(--text-secondary); font-size:.9rem;">Por que o recolhimento efetivo na origem é condição do crédito.</p>
+          </a>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer__container">
+      <div class="footer__bottom">
+        <p class="footer__copyright">© 2026 Consultoria Tributária.</p>
+        <p class="footer__disclaimer"><i class="ph ph-warning"></i>Conteúdo informativo. Framework conceitual atribuído à ROIT.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/app.js"></script>
+
+  <a href="https://wa.me/5532988448292?text=Ol%C3%A1!%20Vim%20pelo%20site%20e%20gostaria%20de%20falar%20com%20um%20consultor%20sobre%20a%20Reforma%20Tribut%C3%A1ria." target="_blank" rel="noopener noreferrer" class="whatsapp-float" aria-label="Falar com um consultor no WhatsApp">
+    <span class="whatsapp-float__icon-wrap">
+      <svg class="whatsapp-float__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+      </svg>
+    </span>
+    <span class="whatsapp-float__label">Falar com um consultor</span>
+  </a>
+
+  <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "f4fcc25a7cd64ae49b673976803f486b"}'></script>
+</body>
+</html>
