@@ -731,7 +731,44 @@ const ARTIGOS = [
         <li>Créditos mais "limpos", já que o recolhimento na origem passa a ser a regra.</li>
       </ul>
 
-      <h2>5. O que preparar</h2>
+      <h2>5. O preço em 3 partes</h2>
+      <p>Com o split payment, o valor total da nota <strong>deixa de ir inteiro ao fornecedor</strong>. Cada pagamento se desmembra em três destinos distintos, de forma automática na liquidação:</p>
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr><th>Parte</th><th>Destino</th><th>Como vai</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><strong>Líquido</strong></td><td>Fornecedor</td><td>PIX, TED, boleto ou TEF</td></tr>
+            <tr><td><strong>CBS</strong></td><td>Receita Federal (RFB)</td><td>Split via banco (automático)</td></tr>
+            <tr><td><strong>IBS</strong></td><td>Comitê Gestor (CG-IBS)</td><td>Split via banco (automático)</td></tr>
+            <tr><td><strong>= Preço bruto</strong></td><td>Valor total da NF</td><td>—</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Na prática, o fornecedor recebe apenas o <strong>valor líquido</strong>; os tributos já saíram com destino carimbado para a RFB e o CG-IBS. Para o adquirente, isso dá crédito "limpo" — porque o recolhimento na origem passa a ser garantido.</p>
+
+      <h2>6. RAD vs. Split Payment</h2>
+      <p>Em 2027, o adquirente terá duas formas de quitar o IBS/CBS da sua operação:</p>
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr><th>Aspecto</th><th>RAD (Recolhimento pelo Adquirente)</th><th>Split Payment</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Quem executa</td><td>A própria empresa (manual ou via ERP integrado)</td><td>O banco/arranjo de pagamento</td></tr>
+            <tr><td>Documento</td><td>DARF emitido por nota fiscal</td><td>Sem DARF: separação automática no PIX/TED</td></tr>
+            <tr><td>Consulta à RFB/CGIBS</td><td>Obrigatória antes do pagamento</td><td>Dispensada: o banco concilia</td></tr>
+            <tr><td>Esforço operacional</td><td>Alto (por documento)</td><td>Mínimo</td></tr>
+            <tr><td>Risco de erro humano</td><td>Alto</td><td>Baixo</td></tr>
+            <tr><td>Garantia do crédito</td><td>Depende da correta emissão do DARF</td><td>Imediata — o banco segrega e recolhe</td></tr>
+            <tr><td>Disponibilidade</td><td>Desde 2027 em todas as operações</td><td>2027 facultativo B2B; ampliação gradual</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p><em>Regra de bolso:</em> use o <strong>Split Payment</strong> sempre que o arranjo bancário suportar. Use o <strong>RAD</strong> como fallback — garante o crédito do adquirente quando o split ainda não está disponível.</p>
+
+      <h2>7. O que preparar</h2>
       <ul>
         <li>Adaptar o ERP e os meios de pagamento aos novos campos (CBS, IBS, chave do documento);</li>
         <li>Conciliar automaticamente recebimentos líquidos com os tributos segregados;</li>
@@ -739,7 +776,7 @@ const ARTIGOS = [
         <li>Revisar contratos e condições comerciais (prazos e descontos).</li>
       </ul>
 
-      <h2>6. Conclusão</h2>
+      <h2>8. Conclusão</h2>
       <p>O split payment muda a lógica de arrecadação sobre o consumo: o imposto deixa de ser uma obrigação posterior e passa a ser liquidado junto com o pagamento. Quem ajustar sistemas e caixa com antecedência transforma uma mudança disruptiva em vantagem de compliance.</p>
     `
   },
