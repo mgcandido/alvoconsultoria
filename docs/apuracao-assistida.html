@@ -510,6 +510,46 @@ curl -X POST 'https://api.receitafederal.gov.br/apuracao-cbs/v2/debitos/<span cl
         </div>
       </section>
 
+      <!-- 5 fontes de verdade -->
+      <section class="apur-section">
+        <h2 class="apur-section__title"><i class="ph ph-funnel"></i> As 5 fontes de verdade a conciliar</h2>
+        <p style="color:var(--text-muted); font-size:.85rem; margin-bottom:var(--space-md);">
+          A Reforma dispersa a informação da CBS/IBS entre 5 sistemas que precisam contar <strong>a mesma história</strong>. O papel da área fiscal passa a ser monitorar e reconciliar essas fontes — é onde as autuações vão nascer quando divergirem.
+        </p>
+        <div class="apur-flow" style="grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));">
+          <div class="apur-step" style="border-top-color:#22c55e">
+            <span class="apur-step__num">1</span>
+            <h3>DFe</h3>
+            <p>O que o <strong>fornecedor emitiu</strong> para a sua empresa. NF-e, NFC-e, CT-e, NFS-e e correlatos, com o IBS/CBS destacado e a cClassTrib aplicada.</p>
+          </div>
+          <div class="apur-step" style="border-top-color:#3b82f6">
+            <span class="apur-step__num">2</span>
+            <h3>RFB (CBS)</h3>
+            <p>O que a <strong>Receita Federal reconheceu</strong> e apurou. Débitos, créditos, pagamentos e RAD, acessíveis pelas APIs da Apuração Assistida.</p>
+          </div>
+          <div class="apur-step" style="border-top-color:#8b5cf6">
+            <span class="apur-step__num">3</span>
+            <h3>CG-IBS (IBS)</h3>
+            <p>O que o <strong>Comitê Gestor reconheceu</strong> e apurou do IBS (parcelas estadual e municipal). APIs análogas às da RFB, em disponibilização.</p>
+          </div>
+          <div class="apur-step" style="border-top-color:#f59e0b">
+            <span class="apur-step__num">4</span>
+            <h3>ERP</h3>
+            <p>O que o <strong>seu sistema registrou</strong>: cClassTrib adotada, créditos a apropriar, pagamentos agendados e provisões de caixa.</p>
+          </div>
+          <div class="apur-step" style="border-top-color:#ef4444">
+            <span class="apur-step__num">5</span>
+            <h3>Banco</h3>
+            <p>O que o <strong>arranjo bancário executou</strong>: liquidações via PIX/TED/boleto/TEF e o vínculo DFe ↔ pagamento (crítico no split payment).</p>
+          </div>
+        </div>
+
+        <div class="apur-callout apur-callout--info" style="margin-top:var(--space-md);">
+          <i class="ph-fill ph-info"></i>
+          <strong>Dica prática:</strong> estruture um painel com essas 5 fontes <em>na mesma unidade</em> (por período de apuração e por chave de documento) e dispare alertas quando uma linha divergir — é o modelo que fornecedores de compliance tributário (como a <a href="https://www.roit.com.br/rai" target="_blank" rel="noopener" style="color:var(--text-accent)">ROIT</a>) usam para automatizar a conformidade em tempo real.
+        </div>
+      </section>
+
       <!-- Visualizador de JSON -->
       <section class="apur-section" id="visualizador">
         <h2 class="apur-section__title"><i class="ph ph-file-magnifying-glass"></i> Visualizador do JSON (débitos / créditos / pagamentos)</h2>
